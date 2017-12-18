@@ -1,0 +1,1553 @@
+[grpitch1motoropetationtime]
+IndexDsec=桨叶1电机工作时间
+ResultTable=healthy_state_index
+ResultDBField=grPitch1MotorOpetationTime
+HealthyLevel0=30000
+HealthyLevel100=0
+HealthyLevel0Desc=电机运行时间30000小时
+HealthyLevel100Desc=电机运行时间0小时
+DataResource=golden
+CalFunc=grPitch1MotorOpetationTime
+FuncPara=grpitch1motoropetationtime
+CalMethodDesc=健康度=(1-当前运行时间/30000)*100%%
+
+[grpitch1backuppowercapacity]
+IndexDsec=桨叶1后备电源容量,额定容量待定
+ResultTable=healthy_state_index
+ResultDBField=grPitch1BackupPowerCapacity
+HealthyLevel0=8000
+HealthyLevel100=10000
+HealthyLevel0Desc=额定容量的80%%
+HealthyLevel100Desc=额定容量
+DataResource=golden
+CalFunc=grPitch1BackupPowerCapacity
+FuncPara=grpitch1backuppowercapacity
+CalMethodDesc=健康度=(当前容量-健康指标0%%容量)/(健康指标100%%容量-健康指标0%%容量)*100%%
+
+[grpitch1followingdifference]
+IndexDsec=桨叶1跟随偏差
+ResultTable=healthy_state_index
+ResultDBField=grPitch1FollowingDifference
+HealthyLevel0=2
+HealthyLevel100=0.5
+HealthyLevel0Desc=快速顺桨过程偏差超过2°
+HealthyLevel100Desc=快速顺桨过程偏差不超过0.5°
+DataResource=golden
+CalFunc=grPitch1FollowingDifference
+FuncPara=grpitch1followingdifference
+CalMethodDesc=健康度=(当前偏差-健康指标0%%偏差)/(健康指标100%%偏差-健康指标0%%偏差)*100％
+
+[grpitch1healthylevel]
+IndexDsec=桨叶1总健康度
+ResultTable=healthy_state_index
+ResultDBField=grPitch1HealthyLevel
+DataResource=afterInitialCal
+CalFunc=grPitch1HealthyLevel
+FuncPara=grPitch1MotorOpetationTime,grPitch1BackupPowerCapacity,grPitch1FollowingDifference
+CalMethodDesc=桨叶1总健康度(%%)=(1/(1/桨叶1电机健康百分比+1/桨叶1后备电源健康百分比+1/桨叶1跟随偏差健康百分比))
+
+[grpitch2motoropetationtime]
+IndexDsec=桨叶2电机工作时间
+ResultTable=healthy_state_index
+ResultDBField=grPitch2MotorOpetationTime
+HealthyLevel0=30000
+HealthyLevel100=0
+HealthyLevel0Desc=电机运行时间30000小时
+HealthyLevel100Desc=电机运行时间0小时
+DataResource=golden
+CalFunc=grPitch2MotorOpetationTime
+FuncPara=grpitch2motoropetationtime
+CalMethodDesc=健康度=(1-当前运行时间/30000)*100%%
+
+[grpitch2backuppowercapacity]
+IndexDsec=桨叶2后备电源容量
+ResultTable=healthy_state_index
+ResultDBField=grPitch2BackupPowerCapacity
+HealthyLevel0=8000
+HealthyLevel100=10000
+HealthyLevel0Desc=额定容量的80%%
+HealthyLevel100Desc=额定容量
+DataResource=golden
+CalFunc=grPitch2BackupPowerCapacity
+FuncPara=grpitch2backuppowercapacity
+CalMethodDesc=健康度=(当前容量-健康指标0%%容量)/(健康指标100%%容量-健康指标0%%容量)*100%%
+
+[grpitch2followingdifference]
+IndexDsec=桨叶2跟随偏差
+ResultTable=healthy_state_index
+ResultDBField=grPitch2FollowingDifference
+HealthyLevel0=2
+HealthyLevel100=0.5
+HealthyLevel0Desc=快速顺桨过程偏差超过2°
+HealthyLevel100Desc=快速顺桨过程偏差不超过0.5°
+DataResource=golden
+CalFunc=grPitch2FollowingDifference
+FuncPara=grpitch2followingdifference
+CalMethodDesc=健康度=(当前偏差-健康指标0%%偏差)/(健康指标100%%偏差-健康指标0%%偏差)*100％
+
+[grpitch2healthylevel]
+IndexDsec=桨叶2总健康度
+ResultTable=healthy_state_index
+ResultDBField=grPitch2HealthyLevel
+DataResource=afterInitialCal
+CalFunc=grPitch2HealthyLevel
+FuncPara=grPitch2MotorOpetationTime,grPitch2BackupPowerCapacity,grPitch2FollowingDifference
+CalMethodDesc=桨叶2总健康度(%%)=(1/(1/桨叶2电机健康百分比+1/桨叶2后备电源健康百分比+1/桨叶2跟随偏差健康百分比))
+
+[grpitch3motoropetationtime]
+IndexDsec=桨叶3电机工作时间
+ResultTable=healthy_state_index
+ResultDBField=grPitch3MotorOpetationTime
+HealthyLevel0=30000
+HealthyLevel100=0
+HealthyLevel0Desc=电机运行时间30000小时
+HealthyLevel100Desc=电机运行时间0小时
+DataResource=golden
+CalFunc=grPitch3MotorOpetationTime
+FuncPara=grpitch3motoropetationtime
+CalMethodDesc=健康度=(1-当前运行时间/30000)*100%%
+
+[grpitch3backuppowercapacity]
+IndexDsec=桨叶3后备电源容量
+ResultTable=healthy_state_index
+ResultDBField=grPitch3BackupPowerCapacity
+HealthyLevel0=8000
+HealthyLevel100=10000
+HealthyLevel0Desc=额定容量的80%%
+HealthyLevel100Desc=额定容量
+DataResource=golden
+CalFunc=grPitch3BackupPowerCapacity
+FuncPara=grpitch3backuppowercapacity
+CalMethodDesc=健康度=(当前容量-健康指标0%%容量)/(健康指标100%%容量-健康指标0%%容量)*100%%
+
+[grpitch3followingdifference]
+IndexDsec=桨叶3跟随偏差
+ResultTable=healthy_state_index
+ResultDBField=grPitch3FollowingDifference
+HealthyLevel0=2
+HealthyLevel100=0.5
+HealthyLevel0Desc=快速顺桨过程偏差超过2°
+HealthyLevel100Desc=快速顺桨过程偏差不超过0.5°
+DataResource=golden
+CalFunc=grPitch3FollowingDifference
+FuncPara=grpitch3followingdifference
+CalMethodDesc=健康度=(当前偏差-健康指标0%%偏差)/(健康指标100%%偏差-健康指标0%%偏差)*100％
+
+[grpitch3healthylevel]
+IndexDsec=桨叶3总健康度
+ResultTable=healthy_state_index
+ResultDBField=grPitch3HealthyLevel
+DataResource=afterInitialCal
+CalFunc=grPitch3HealthyLevel
+FuncPara=grPitch3MotorOpetationTime,grPitch3BackupPowerCapacity,grPitch3FollowingDifference
+CalMethodDesc=桨叶3总健康度(%%)=(1/(1/桨叶3电机健康百分比+1/桨叶3后备电源健康百分比+1/桨叶3跟随偏差健康百分比))
+
+[grpitchhealthylevel]
+IndexDsec=变桨系统总健康度
+ResultTable=healthy_state_component
+ResultDBField=grPitch
+DataResource=afterInitialCal
+CalFunc=grPitch
+FuncPara=grPitch1HealthyLevel,grPitch2HealthyLevel,grPitch3HealthyLevel
+CalMethodDesc=变桨系统总健康度(%%)=min(桨叶1总健康度(%%),桨叶2总健康度(%%),桨叶3总健康度(%%))
+
+[grgearboxmainbearingtemperature]
+IndexDsec=齿轮箱主轴承温度
+ResultTable=healthy_state_index
+ResultDBField=grGearboxMainBearingTemperature
+x1_step1_xoffset=-29.000000,1.116800,0.000000,0.000000,0.000000,1.000000,0.000000,11.721640,1.775890,-12.433333
+x1_step1_gain = 0.028902,7.062147,0.027027,0.000642,0.000641,0.003339,0.001390,0.005396,0.101081,0.000641
+x1_step1_ymin = -1
+y1_step1_ymin = -1
+y1_step1_gain = 0.037037
+y1_step1_xoffset = 20
+layers=3
+W1=0.093662,0.055523,-0.792431,0.140501,-0.016963,0.001434,-0.028905,0.001950,-0.005652,0.011510;
+ -1.374102,-0.292819,4.288072,0.180336,-0.429624,0.068811,0.270952,0.567216,0.307087,-0.097446;
+ 0.106404,0.036120,-0.090498,0.556772,0.434900,-0.045243,0.036507,-0.191820,-0.025550,-2.788448;
+ 0.027402,0.022760,0.154627,-0.300593,0.126609,0.001781,-0.027399,-0.074823,0.018371,-0.107911;
+ -0.244762,-0.121159,1.326804,-0.099027,-0.047483,0.022215,0.051703,0.064406,0.030875,0.018242;
+ -0.022870,-0.012416,0.353664,-0.170460,0.055718,-0.001426,0.001504,-0.030854,0.007833,-0.044600
+W2 =-4.679145,-0.306739,-8.019902,3.248841,-2.844733,-1.533497;
+ -0.709346,-0.137108,0.193328,-2.469258,-2.069245,4.265076;
+ -4.347880,-0.093469,0.197027,3.074775,-0.725385,-7.202790;
+ -0.892989,-3.652127,-1.695201,-6.666528,13.320080,0.057167;
+ -1.874682,-0.007250,0.326877,4.552822,0.499523,-7.511882;
+ -1.420487,-0.169709,-0.008098,-0.668725,-0.156355,1.864760
+W3 =0.481350,-3.220629,15.261339,-0.053131,-5.762263,-5.211938
+b1=0.141157,-1.507910,-2.858432,0.050771,-0.010683,-0.029376
+b2 =-6.233377,0.577602,-0.065080,-6.906011,0.149810,-0.407905
+b3 =3.359812
+HealthyLevel0=10
+HealthyLevel100=5
+HealthyLevel0Desc=期望温度1min平均值与实际温度1min平均值偏差超过10℃
+HealthyLevel100Desc=期望温度1min平均值与实际温度1min平均值偏差不超过5℃
+DataResource=golden
+CalFunc=grGearboxMainBearingTemperature
+CalMethodDesc=健康度=(当前温度偏差－健康指标0%%指标)/(健康指标100%%指标-健康指标0%%指标)*100%%
+
+[grgearboxhubsidebearingtemperature]
+IndexDsec=齿轮箱轮毂侧轴承温度
+ResultTable=healthy_state_index
+ResultDBField=grGearboxDETemperature
+HealthyLevel0=10
+HealthyLevel100=5
+HealthyLevel0Desc=期望温度1min平均值与实际温度1min平均值偏差超过10℃
+HealthyLevel100Desc=期望温度1min平均值与实际温度1min平均值偏差不超过5℃
+x1_step1_xoffset=30.2,-0.3,0.3472,-29,1.1168,0,0,1,0,11.72164,1.77589,19.38115
+x1_step1_gain = 0.051813,0.830013,0.353807,0.028902,7.062147,0.000642,0.000641,0.003339,0.001390,0.005396,0.101081,0.035942
+x1_step1_ymin = -1
+y1_step1_ymin = -1
+y1_step1_gain = 0.049140
+y1_step1_xoffset = 35
+layers=4
+W1=1.231547,3.699044,3.105180,0.233904,0.590541,0.341427,0.090024,0.032513,-0.009542,-0.116440,-0.019121,0.476281;
+ -0.761951,0.569730,-0.459629,0.022864,0.104348,0.051101,0.040861,0.011145,-0.001639,0.000024,-0.019823,0.371610;
+ 0.202356,-9.789350,4.083206,-0.120914,0.006522,-0.036678,-0.038791,-0.008487,0.057309,-0.022731,0.024924,-0.502606;
+ -1.201392,-23.621730,1.494539,-0.350819,0.029271,0.185748,0.167121,-0.046799,0.098722,-0.906670,0.197139,-5.034838;
+ 0.522542,-0.028035,0.060287,-0.008512,-0.008637,0.011349,-0.012852,-0.001770,-0.004732,0.003510,0.008712,-0.031781
+W2 =4.760744,-4.502993,-0.575585,0.220266,-5.113465;
+ -2.293567,-1.288604,-1.868229,0.160287,-2.617961;
+ 0.063313,1.054863,0.124735,0.030013,4.198042;
+ -9.524923,12.579088,7.937388,-2.953527,13.434868;
+ 0.119174,0.545245,0.111558,0.044390,-0.892387
+W3 =-0.031663,0.016134,-0.481730,-0.021122,0.428787;
+ -0.003399,2.615621,5.476641,0.420409,12.074141;
+ 1.382508,-1.160460,-3.350655,0.330418,-9.088286;
+ -9.540067,6.729429,9.915270,-5.833807,19.840506;
+ -0.043670,0.056047,-1.932919,0.020346,0.414596
+W4 =-2.367687,-0.403566,-0.722286,0.030591,-4.671777
+b1=-0.034906,-0.209064,-4.182257,-9.270324,0.325947
+b2 =4.714950,-3.173358,-1.242915,-5.436217,0.614031
+b3 =0.990162,5.535936,-5.018492,4.758248,-3.323746
+b4 = -3.035898
+DataResource=golden
+CalFunc=grGearboxDETemperature
+FuncPara=待定
+CalMethodDesc=健康度=(当前温度偏差－健康指标0%%指标)/(健康指标100%%指标-健康指标0%%指标)*100%%
+
+[grgearboxgeneratorsidebearingtemperature]
+IndexDsec=齿轮箱发电机侧轴承温度
+ResultTable=healthy_state_index
+ResultDBField=grGearboxNDETemperature
+HealthyLevel0=10
+HealthyLevel100=5
+HealthyLevel0Desc=期望温度1min平均值与实际温度1min平均值偏差超过10℃
+HealthyLevel100Desc=期望温度1min平均值与实际温度1min平均值偏差不超过5℃
+x1_step1_xoffset=27.1,-0.3,0.3472,0.5908,0.2871,-29,1.1168,0,0,1,0,11.72164,1.77589
+x1_step1_gain = 0.047962,0.830013,0.353807,0.525044,0.362785,0.028902,7.062147,0.000642,0.000641,0.003339,0.001390,0.005396,0.101081
+x1_step1_ymin = -1
+y1_step1_ymin = -1
+y1_step1_gain = 0.051282
+y1_step1_xoffset = 35
+layers=4
+W1=-3.126033,-2.959088,-3.956288,-2.471597,3.936916,0.349963,0.899449,0.352644,-0.215830,0.038047,-0.091288,0.503500,0.155394;
+ 2.970906,-3.289803,-3.103926,7.024096,2.268069,0.277485,-0.126327,-0.104551,-0.147835,0.035492,0.051739,0.359471,0.083365;
+ -0.928727,-0.142825,-0.237464,0.278728,0.143200,-0.008969,0.017500,-0.016428,0.036134,0.000777,0.013416,-0.047500,0.001864;
+ -1.656004,0.278643,1.675722,-1.841591,-1.441917,0.067749,-0.070194,0.251845,0.001301,-0.000834,-0.101990,-0.128109,-0.030073;
+ -1.646025,0.371944,0.823939,-1.892493,-1.186320,-0.073860,0.019681,0.036031,0.074276,-0.014062,-0.017819,-0.171318,-0.033516
+W2 =-0.651585,-3.033047,2.569212,-0.112991,-6.258810;
+ 0.007356,-0.303368,-1.946448,0.204453,-1.357149;
+ 0.111865,1.330129,-4.236325,-1.944180,5.794348;
+ -0.422532,0.346402,-2.951888,-1.235950,3.459009;
+ 0.023436,0.076046,-0.344036,-0.030208,0.072360
+W3 =1.537496,0.198768,2.283525,-0.847089,-1.904101;
+ 0.086645,0.772792,0.059134,0.535948,1.055740;
+ 0.074230,-3.133090,-0.315420,-0.701904,-1.701168;
+ 3.165369,0.981084,6.032388,-2.745441,-4.742657;
+ 0.060615,3.196454,-0.002791,-0.470987,0.861199
+W4 =-0.171722,1.558037,-2.390032,0.489246,1.742087
+b1=-1.907077,-0.175804,1.022806,0.791367,0.364539
+b2 =-2.340602,3.260374,1.700465,2.920282,-0.268876
+b3 =2.812859,-1.121377,0.520876,6.985141,-3.299117
+b4 = -0.292075
+DataResource=golden
+CalFunc=grGearboxNDETemperature
+FuncPara=待定
+CalMethodDesc=健康度=(当前温度偏差－健康指标0%%指标)/(健康指标100%%指标-健康指标0%%指标)*100%%
+
+[grgearboxhealthylevel]
+IndexDsec=齿轮箱健康度
+ResultTable=healthy_state_component
+ResultDBField=grGearbox
+DataResource=afterInitialCal
+CalFunc=grGearbox
+FuncPara=grGearboxMainBearingTemperature,grGearboxDETemperature,grGearboxNDETemperature
+CalMethodDesc=齿轮箱健康度(%%)=min(主轴承健康度,轮毂侧轴承健康度,发电机侧轴承健康度)
+
+[grgeneratorfloatingvoltage]
+IndexDsec=发电机空载电压
+ResultTable=healthy_state_index
+ResultDBField=grGeneratorFloatingVoltage
+HealthyLevel0=192
+HealthyLevel100=201
+HealthyLevel0Desc=100rpm时发电机电压小于0.9×设计电压(212V)
+HealthyLevel100Desc=100rpm时发电机电压大于0.95×设计电压(212V)
+DataResource=golden
+CalFunc=grGeneratorFloatingVoltage
+FuncPara=grgeneratorfloatingvoltage
+CalMethodDesc=健康度=(当前温空载电压－健康指标0%%％指标)/(健康指标100%%指标-健康指标0%%指标)*100%%
+
+[grgeneratorwindingtemperature1]
+IndexDsec=发电机绕组1温度
+ResultTable=healthy_state_index
+ResultDBField=grGeneratorWindingTemperature1
+x1_step1_xoffset=29.6,0,-28.9,1,-21.966667,-22.1,1,0,30.0069,-23.25
+x1_step1_gain = 0.051282,0.000630,0.028986,5,0.000638,0.000636,0.003339,0.001390,0.005677,0.000638
+x1_step1_ymin = -1
+y1_step1_ymin = -1
+y1_step1_gain = 0.023364
+y1_step1_xoffset = 35
+layers=3
+W1=-1.227662,0.171971,-0.483319,0.034822,-0.553109,-0.363131,-0.056349,0.087702,0.007927,1.240621;
+ 0.244108,0.022667,-0.024530,-0.023896,-0.292077,-0.073956,0.019738,-0.012645,-0.017057,0.714912;
+ -1.667701,0.187549,0.956641,0.107860,0.086612,-0.415402,0.012151,-0.085862,0.586647,1.055486;
+ 1.134856,-0.052688,0.173836,-0.003928,-0.272066,0.031998,0.055940,-0.023406,-0.212770,-0.431210;
+ 0.077374,-0.009770,-0.101626,-0.002224,0.160110,0.268041,0.003757,0.014414,-0.284858,0.054734
+W2 = 0.304086,-1.662477,-0.019862,0.154080,1.759872;
+ 0.576236,-1.419695,-0.026997,0.229229,-0.322994;
+ 0.773218,-0.628230,-0.078394,0.055923,-1.772535;
+ -0.386948,1.778947,0.141522,-0.015735,1.863545;
+ -6.487484,10.531408,-3.318467,-6.291082,4.828305
+W3 = 5.537974,-6.445523,2.938281,2.865588,0.147521
+b1 = 0.118421,0.425018,-0.811882,-1.038152,-1.925450
+b2 = 2.550213,0.222862,-1.539173,0.322939,-0.776906
+b3 = 0.267432
+HealthyLevel0=10
+HealthyLevel100=5
+HealthyLevel0Desc=期望温度1min平均值与实际温度1min平均值偏差超过10℃
+HealthyLevel100Desc=期望温度1min平均值与实际温度1min平均值偏差不超过5℃
+DataResource=golden
+CalFunc=grGeneratorWindingTemperature1
+FuncPara=待定
+CalMethodDesc=健康度=(当前温度偏差－健康指标0%%指标)/(健康指标100%%指标-健康指标0%%指标)*100%%
+
+[grgeneratorwindingtemperature2]
+IndexDsec=发电机绕组2温度
+ResultTable=healthy_state_index
+ResultDBField=grGeneratorWindingTemperature2
+x1_step1_xoffset=29.6,0,-28.9,1,-21.966667,-22.1,1,0,30.0069,-23.25
+x1_step1_gain = 0.051282,0.000630,0.028986,5,0.000638,0.000636,0.003339,0.001390,0.005677,0.000638
+x1_step1_ymin = -1
+y1_step1_ymin = -1
+y1_step1_gain = 0.023364
+y1_step1_xoffset = 35
+layers=3
+W1=-1.227662,0.171971,-0.483319,0.034822,-0.553109,-0.363131,-0.056349,0.087702,0.007927,1.240621;
+ 0.244108,0.022667,-0.024530,-0.023896,-0.292077,-0.073956,0.019738,-0.012645,-0.017057,0.714912;
+ -1.667701,0.187549,0.956641,0.107860,0.086612,-0.415402,0.012151,-0.085862,0.586647,1.055486;
+ 1.134856,-0.052688,0.173836,-0.003928,-0.272066,0.031998,0.055940,-0.023406,-0.212770,-0.431210;
+ 0.077374,-0.009770,-0.101626,-0.002224,0.160110,0.268041,0.003757,0.014414,-0.284858,0.054734
+W2 = 0.304086,-1.662477,-0.019862,0.154080,1.759872;
+ 0.576236,-1.419695,-0.026997,0.229229,-0.322994;
+ 0.773218,-0.628230,-0.078394,0.055923,-1.772535;
+ -0.386948,1.778947,0.141522,-0.015735,1.863545;
+ -6.487484,10.531408,-3.318467,-6.291082,4.828305
+W3 = 5.537974,-6.445523,2.938281,2.865588,0.147521
+b1 = 0.118421,0.425018,-0.811882,-1.038152,-1.925450
+b2 = 2.550213,0.222862,-1.539173,0.322939,-0.776906
+b3 = 0.267432
+HealthyLevel0=10
+HealthyLevel100=5
+HealthyLevel0Desc=期望温度1min平均值与实际温度1min平均值偏差超过10℃
+HealthyLevel100Desc=期望温度1min平均值与实际温度1min平均值偏差不超过5℃
+DataResource=golden
+CalFunc=grGeneratorWindingTemperature2
+FuncPara=待定
+CalMethodDesc=健康度=(当前温度偏差－健康指标0%%指标)/(健康指标100%%指标-健康指标0%%指标)*100%%
+
+[grgeneratorwindingtemperature3]
+IndexDsec=发电机绕组3温度
+ResultTable=healthy_state_index
+ResultDBField=grGeneratorWindingTemperature3
+x1_step1_xoffset=29.6,0,-28.9,1,-21.966667,-22.1,1,0,30.0069,-23.25
+x1_step1_gain = 0.051282,0.000630,0.028986,5,0.000638,0.000636,0.003339,0.001390,0.005677,0.000638
+x1_step1_ymin = -1
+y1_step1_ymin = -1
+y1_step1_gain = 0.023364
+y1_step1_xoffset = 35
+layers=3
+W1=-1.227662,0.171971,-0.483319,0.034822,-0.553109,-0.363131,-0.056349,0.087702,0.007927,1.240621;
+ 0.244108,0.022667,-0.024530,-0.023896,-0.292077,-0.073956,0.019738,-0.012645,-0.017057,0.714912;
+ -1.667701,0.187549,0.956641,0.107860,0.086612,-0.415402,0.012151,-0.085862,0.586647,1.055486;
+ 1.134856,-0.052688,0.173836,-0.003928,-0.272066,0.031998,0.055940,-0.023406,-0.212770,-0.431210;
+ 0.077374,-0.009770,-0.101626,-0.002224,0.160110,0.268041,0.003757,0.014414,-0.284858,0.054734
+W2 = 0.304086,-1.662477,-0.019862,0.154080,1.759872;
+ 0.576236,-1.419695,-0.026997,0.229229,-0.322994;
+ 0.773218,-0.628230,-0.078394,0.055923,-1.772535;
+ -0.386948,1.778947,0.141522,-0.015735,1.863545;
+ -6.487484,10.531408,-3.318467,-6.291082,4.828305
+W3 = 5.537974,-6.445523,2.938281,2.865588,0.147521
+b1 = 0.118421,0.425018,-0.811882,-1.038152,-1.925450
+b2 = 2.550213,0.222862,-1.539173,0.322939,-0.776906
+b3 = 0.267432
+HealthyLevel0=10
+HealthyLevel100=5
+HealthyLevel0Desc=期望温度1min平均值与实际温度1min平均值偏差超过10℃
+HealthyLevel100Desc=期望温度1min平均值与实际温度1min平均值偏差不超过5℃
+DataResource=golden
+CalFunc=grGeneratorWindingTemperature3
+FuncPara=待定
+CalMethodDesc=健康度=(当前温度偏差－健康指标0%%指标)/(健康指标100%%指标-健康指标0%%指标)*100%%
+
+[grgeneratorwindingtemperature4]
+IndexDsec=发电机绕组4温度
+ResultTable=healthy_state_index
+ResultDBField=grGeneratorWindingTemperature4
+x1_step1_xoffset=29.6,0,-28.9,1,-21.966667,-22.1,1,0,30.0069,-23.25
+x1_step1_gain = 0.051282,0.000630,0.028986,5,0.000638,0.000636,0.003339,0.001390,0.005677,0.000638
+x1_step1_ymin = -1
+y1_step1_ymin = -1
+y1_step1_gain = 0.023364
+y1_step1_xoffset = 35
+layers=3
+W1=-1.227662,0.171971,-0.483319,0.034822,-0.553109,-0.363131,-0.056349,0.087702,0.007927,1.240621;
+ 0.244108,0.022667,-0.024530,-0.023896,-0.292077,-0.073956,0.019738,-0.012645,-0.017057,0.714912;
+ -1.667701,0.187549,0.956641,0.107860,0.086612,-0.415402,0.012151,-0.085862,0.586647,1.055486;
+ 1.134856,-0.052688,0.173836,-0.003928,-0.272066,0.031998,0.055940,-0.023406,-0.212770,-0.431210;
+ 0.077374,-0.009770,-0.101626,-0.002224,0.160110,0.268041,0.003757,0.014414,-0.284858,0.054734
+W2 = 0.304086,-1.662477,-0.019862,0.154080,1.759872;
+ 0.576236,-1.419695,-0.026997,0.229229,-0.322994;
+ 0.773218,-0.628230,-0.078394,0.055923,-1.772535;
+ -0.386948,1.778947,0.141522,-0.015735,1.863545;
+ -6.487484,10.531408,-3.318467,-6.291082,4.828305
+W3 = 5.537974,-6.445523,2.938281,2.865588,0.147521
+b1 = 0.118421,0.425018,-0.811882,-1.038152,-1.925450
+b2 = 2.550213,0.222862,-1.539173,0.322939,-0.776906
+b3 = 0.267432
+HealthyLevel0=10
+HealthyLevel100=5
+HealthyLevel0Desc=期望温度1min平均值与实际温度1min平均值偏差超过10℃
+HealthyLevel100Desc=期望温度1min平均值与实际温度1min平均值偏差不超过5℃
+DataResource=golden
+CalFunc=grGeneratorWindingTemperature4
+FuncPara=待定
+CalMethodDesc=健康度=(当前温度偏差－健康指标0%%指标)/(健康指标100%%指标-健康指标0%%指标)*100%%
+
+[grgeneratorwindingtemperature5]
+IndexDsec=发电机绕组5温度
+ResultTable=healthy_state_index
+ResultDBField=grGeneratorWindingTemperature5
+x1_step1_xoffset=29.6,0,-28.9,1,-21.966667,-22.1,1,0,30.0069,-23.25
+x1_step1_gain = 0.051282,0.000630,0.028986,5,0.000638,0.000636,0.003339,0.001390,0.005677,0.000638
+x1_step1_ymin = -1
+y1_step1_ymin = -1
+y1_step1_gain = 0.023364
+y1_step1_xoffset = 35
+layers=3
+W1=-1.227662,0.171971,-0.483319,0.034822,-0.553109,-0.363131,-0.056349,0.087702,0.007927,1.240621;
+ 0.244108,0.022667,-0.024530,-0.023896,-0.292077,-0.073956,0.019738,-0.012645,-0.017057,0.714912;
+ -1.667701,0.187549,0.956641,0.107860,0.086612,-0.415402,0.012151,-0.085862,0.586647,1.055486;
+ 1.134856,-0.052688,0.173836,-0.003928,-0.272066,0.031998,0.055940,-0.023406,-0.212770,-0.431210;
+ 0.077374,-0.009770,-0.101626,-0.002224,0.160110,0.268041,0.003757,0.014414,-0.284858,0.054734
+W2 = 0.304086,-1.662477,-0.019862,0.154080,1.759872;
+ 0.576236,-1.419695,-0.026997,0.229229,-0.322994;
+ 0.773218,-0.628230,-0.078394,0.055923,-1.772535;
+ -0.386948,1.778947,0.141522,-0.015735,1.863545;
+ -6.487484,10.531408,-3.318467,-6.291082,4.828305
+W3 = 5.537974,-6.445523,2.938281,2.865588,0.147521
+b1 = 0.118421,0.425018,-0.811882,-1.038152,-1.925450
+b2 = 2.550213,0.222862,-1.539173,0.322939,-0.776906
+b3 = 0.267432
+HealthyLevel0=10
+HealthyLevel100=5
+HealthyLevel0Desc=期望温度1min平均值与实际温度1min平均值偏差超过10℃
+HealthyLevel100Desc=期望温度1min平均值与实际温度1min平均值偏差不超过5℃
+DataResource=golden
+CalFunc=grGeneratorWindingTemperature5
+FuncPara=待定
+CalMethodDesc=健康度=(当前温度偏差－健康指标0%%指标)/(健康指标100%%指标-健康指标0%%指标)*100%%
+
+[grgeneratorwindingtemperature6]
+IndexDsec=发电机绕组6温度
+ResultTable=healthy_state_index
+ResultDBField=grGeneratorWindingTemperature6
+x1_step1_xoffset=29.6,0,-28.9,1,-21.966667,-22.1,1,0,30.0069,-23.25
+x1_step1_gain = 0.051282,0.000630,0.028986,5,0.000638,0.000636,0.003339,0.001390,0.005677,0.000638
+x1_step1_ymin = -1
+y1_step1_ymin = -1
+y1_step1_gain = 0.023364
+y1_step1_xoffset = 35
+layers=3
+W1=-1.227662,0.171971,-0.483319,0.034822,-0.553109,-0.363131,-0.056349,0.087702,0.007927,1.240621;
+ 0.244108,0.022667,-0.024530,-0.023896,-0.292077,-0.073956,0.019738,-0.012645,-0.017057,0.714912;
+ -1.667701,0.187549,0.956641,0.107860,0.086612,-0.415402,0.012151,-0.085862,0.586647,1.055486;
+ 1.134856,-0.052688,0.173836,-0.003928,-0.272066,0.031998,0.055940,-0.023406,-0.212770,-0.431210;
+ 0.077374,-0.009770,-0.101626,-0.002224,0.160110,0.268041,0.003757,0.014414,-0.284858,0.054734
+W2 = 0.304086,-1.662477,-0.019862,0.154080,1.759872;
+ 0.576236,-1.419695,-0.026997,0.229229,-0.322994;
+ 0.773218,-0.628230,-0.078394,0.055923,-1.772535;
+ -0.386948,1.778947,0.141522,-0.015735,1.863545;
+ -6.487484,10.531408,-3.318467,-6.291082,4.828305
+W3 = 5.537974,-6.445523,2.938281,2.865588,0.147521
+b1 = 0.118421,0.425018,-0.811882,-1.038152,-1.925450
+b2 = 2.550213,0.222862,-1.539173,0.322939,-0.776906
+b3 = 0.267432
+HealthyLevel0=10
+HealthyLevel100=5
+HealthyLevel0Desc=期望温度1min平均值与实际温度1min平均值偏差超过10℃
+HealthyLevel100Desc=期望温度1min平均值与实际温度1min平均值偏差不超过5℃
+DataResource=golden
+CalFunc=grGeneratorWindingTemperature6
+FuncPara=待定
+CalMethodDesc=健康度=(当前温度偏差－健康指标0%%指标)/(健康指标100%%指标-健康指标0%%指标)*100%%
+
+[grgeneratorgearboxsidebearingtemperature]
+IndexDsec=发电机齿轮箱侧轴承估计温度
+ResultTable=healthy_state_index
+ResultDBField=grGeneratorDEBearingTemperature
+x1_step1_xoffset=25.5,0,0,-29,0,0,1,0,11.72164,-12.433333
+x1_step1_gain = 0.046189,0.024570,0.000630,0.028902,0.000642,0.000641,0.003339,0.001390,0.005396,0.000641
+x1_step1_ymin = -1
+y1_step1_ymin = -1
+y1_step1_gain = 0.043103
+y1_step1_xoffset = 35
+layers=2
+W1=1.003892,-1.045215,0.765302,-0.718515,-0.095322,-1.845707,0.709499,-4.683316,-1.413956,-2.125121;
+ 0.198308,-0.996230,-0.023318,-0.148166,-0.562596,0.048956,-0.013301,-0.081055,-0.029924,0.530185;
+ -0.154651,0.793747,0.017572,0.117797,0.525899,-0.091239,0.005963,0.016574,0.090904,-0.347573;
+ -11.408329,-1.945380,-0.002804,2.873223,-1.838380,1.973725,0.202721,-2.449265,-1.600625,5.442634;
+ -0.637872,2.550429,0.004454,-0.416311,0.624403,0.282792,-0.098398,0.567418,-0.267775,-1.120783;
+ 0.496044,-8.261034,-0.084131,3.021168,-1.029105,-1.107180,0.419510,0.042277,1.320087,3.068438;
+ -2.514131,7.289351,-0.075492,0.795197,1.235777,0.349580,-0.159040,0.376419,-0.590320,-1.007780;
+ 0.050726,1.669275,-0.018646,0.255544,-0.186080,0.145667,-0.008004,0.067184,-0.211650,0.148385
+W2 = 0.031048,4.989497,4.189513,-0.032915,0.421379,0.129452,-0.178590,0.781651
+b1 = 2.050061,-0.942484,0.582946,3.660002,0.414305,-0.622995,-2.369648,-1.031909
+b2 = 1.460872
+HealthyLevel0=10
+HealthyLevel100=5
+HealthyLevel0Desc=期望温度1min平均值与实际温度1min平均值偏差超过10℃
+HealthyLevel100Desc=期望温度1min平均值与实际温度1min平均值偏差不超过5℃
+DataResource=golden
+CalFunc=grGeneratorDEBearingTemperature
+FuncPara=待定
+CalMethodDesc=健康度=(当前温度偏差－健康指标0%%指标)/(健康指标100%%指标-健康指标0%%指标)*100%%
+
+[grgeneratornacellesidebearingtemperature]
+IndexDsec=发电机机舱侧轴承估计温度
+ResultTable=healthy_state_index
+ResultDBField=grGeneratorNDEBearingTemperature
+x1_step1_xoffset=24.1,0,0,-29,0,0,1,0,11.72164,-12.433333
+x1_step1_gain = 0.044743,0.023310,0.000630,0.028902,0.000642,0.000641,0.003339,0.001390,0.005396,0.000641
+x1_step1_ymin = -1
+y1_step1_ymin = -1
+y1_step1_gain = 0.039370
+y1_step1_xoffset = 35
+layers=2
+W1=-0.120642,0.681570,0.028008,0.042739,0.271577,0.033002,0.011399,0.036735,-0.100240,-0.229429;
+ -0.087373,1.707666,0.057192,-0.378064,0.612891,0.405818,0.947743,-0.818054,-0.496779,-0.850708;
+ 4.988232,4.072483,-0.006540,-1.376245,0.918089,0.224378,-0.023707,0.969320,-1.089987,-2.059910;
+ 0.041865,-1.130680,-0.036944,-0.049544,-0.482962,0.049442,0.001480,-0.045439,0.009234,0.288236;
+ -2.187200,1.640058,-0.222257,0.211041,2.377774,-0.221769,-4.042188,0.231892,0.728132,-4.072366;
+ -1.797080,-7.741374,0.122345,0.931901,-1.399219,-0.624429,0.172657,-1.337526,1.548927,2.828397;
+ 0.536801,-4.272368,-0.017251,-0.054291,-0.467653,0.225921,0.053746,-0.175584,-0.312136,0.255507;
+ -0.432454,-2.039554,-0.156003,-0.403077,-0.887933,-0.963227,0.051834,-0.136152,1.196414,1.180464
+W2 = -5.360946,0.060908,-0.117959,-3.276324,-0.968829,-0.103408,-0.506257,-0.175597
+b1 = 0.579821,-1.636534,-0.603561,-0.403403,-8.074601,1.383764,3.547632,0.699690
+b2 = 0.990898
+HealthyLevel0=10
+HealthyLevel100=5
+HealthyLevel0Desc=期望温度1min平均值与实际温度1min平均值偏差超过10℃
+HealthyLevel100Desc=期望温度1min平均值与实际温度1min平均值偏差不超过5℃
+DataResource=golden
+CalFunc=grGeneratorNDEBearingTemperature
+FuncPara=待定
+CalMethodDesc=健康度=(当前温度偏差－健康指标0%%指标)/(健康指标100%%指标-健康指标0%%指标)*100%%
+
+[grgeneratorhealthylevel]
+IndexDsec=发电机健康度
+ResultTable=healthy_state_component
+ResultDBField=grGenerator
+DataResource=afterInitialCal
+CalFunc=grGenerator
+FuncPara=grGeneratorFloatingVoltage,grGeneratorWindingTemperature1,grGeneratorWindingTemperature2,grGeneratorWindingTemperature3,grGeneratorWindingTemperature4,grGeneratorWindingTemperature5,grGeneratorWindingTemperature6,grGeneratorDEBearingTemperature,grGeneratorNDEBearingTemperature
+CalMethodDesc=齿轮箱健康度(%%)=min(发电机空载电压健康指标,发电机绕组温度健康指标,发电机轴承健康指标)
+
+[grgearboxmainpumpontime1]
+IndexDsec=齿轮箱主泵1运行时间
+ResultTable=healthy_state_index
+ResultDBField=grGearboxMainPumpMotorOperationTime1
+HealthyLevel0=30000
+HealthyLevel100=0
+HealthyLevel0Desc=电机运行时间30000小时
+HealthyLevel100Desc=电机运行时间0小时
+DataResource=golden
+CalFunc=grGearboxMainPumpMotorOperationTime1
+FuncPara=grgearboxmainpumpontime1
+CalMethodDesc=健康度=(1-当前运行时间/30000)*100%%
+
+[grgearboxmainpumpontime2]
+IndexDsec=齿轮箱主泵2运行时间
+ResultTable=healthy_state_index
+ResultDBField=grGearboxMainPumpMotorOperationTime2
+HealthyLevel0=30000
+HealthyLevel100=0
+HealthyLevel0Desc=电机运行时间30000小时
+HealthyLevel100Desc=电机运行时间0小时
+DataResource=golden
+CalFunc=grGearboxMainPumpMotorOperationTime2
+FuncPara=grgearboxmainpumpontime2
+CalMethodDesc=健康度=(1-当前运行时间/30000)*100%%
+
+[grgearboxmotorhealthylevel]
+IndexDsec=齿轮箱主泵电机健康度
+ResultTable=healthy_state_index
+ResultDBField=grGearboxMotorHealthyLevel
+DataResource=afterInitialCal
+CalFunc=grGearboxMotorHealthyLevel
+FuncPara=grGearboxMainPumpMotorOperationTime1,grGearboxMainPumpMotorOperationTime2
+CalMethodDesc=电机健康度=min(电机1健康度,电机2健康度)
+
+;[grgearboxoilpressurea1]
+;IndexDsec=齿轮箱A1压力
+;ResultDBField=grPitch1BackupPowerCapacity
+;HealthyLevel0=0.5
+;HealthyLevel100=1
+;HealthyLevel0Desc=双泵高速时期望压力1min平均值与实际1min平均值偏差超过期望值的50%%
+;HealthyLevel100Desc=双泵高速时期望压力1min平均值与实际1min平均值偏差小于1bar
+;CalFunc=grGearboxoilPressure
+;FuncPara=待定
+;CalMethodDesc=健康度=(当前压力偏差－健康指标0%%指标)/(健康指标100%%指标-健康指标0%%指标)*100%%
+
+[grgearboxoilpressurea2]
+IndexDsec=齿轮箱A2压力
+ResultTable=healthy_state_index
+ResultDBField=grGearboxOilPressureA2
+x1_step1_xoffset=22.8,11.1,0,0,0,0
+x1_step1_gain = 0.043860,0.030960,2,2,2,2
+x1_step1_ymin = -1
+y1_step1_ymin = -1
+y1_step1_gain = 0.470278
+y1_step1_xoffset = 0.3472
+layers=3
+W1=-1.349492,0.832332,0.785531,0.697232,0.639993,0.416080;
+ 24.104241,2.436287,-2.327477,-0.943068,3.145753,-0.554451;
+ -8.817289,6.572004,-1.049925,-0.216028,-1.098071,0.099529;
+ -1.633717,5.134332,-0.119310,0.462999,0.329278,-0.118599;
+ 18.964113,0.854986,-3.154111,-4.156617,1.439831,4.073030
+W2 = -1.596364,-0.557933,0.740714,1.984260,0.081007;
+ -1.004542,-0.114235,-0.989058,-1.128274,-0.259377;
+ -1.428229,-1.336356,-1.597256,0.994958,-2.465554;
+ -1.200902,-2.952018,6.231268,12.951847,5.393334;
+ -2.304760,3.983631,-2.276362,-7.359275,-4.217801
+W3 =-0.534252,-0.903245,0.143025,-0.223490,0.272251
+b1 = 0.431737,-4.416873,-0.524445,-1.650394,4.716726
+b2 = 1.630319,0.934281,-2.481053,-0.338694,7.017801
+b3 = 0.434195
+HealthyLevel0=0.5
+HealthyLevel100=1
+HealthyLevel0Desc=双泵高速时期望压力1min平均值与实际1min平均值偏差超过期望值的50%%
+HealthyLevel100Desc=双泵高速时期望压力1min平均值与实际1min平均值偏差小于1bar
+DataResource=golden
+CalFunc=grGearboxOilPressureA2
+FuncPara=待定
+CalMethodDesc=健康度=(当前压力偏差－健康指标0%%指标)/(健康指标100%%指标-健康指标0%%指标)*100%%
+
+[grgearboxoilpressurea3]
+IndexDsec=齿轮箱A3压力
+ResultTable=healthy_state_index
+ResultDBField=grGearboxOilPressureA3
+x1_step1_xoffset=22.8,11.1,0,0,0,0
+x1_step1_gain = 0.043860,0.030960,2,2,2,2
+x1_step1_ymin = -1
+y1_step1_ymin = -1
+y1_step1_gain = 0.784437
+y1_step1_xoffset = 0.5908
+layers=3
+W1 = -14.127142,-23.083418,9.021739,3.145061,-7.913106,-4.154619;
+ -15.911828,-17.219573,5.920191,3.109424,-5.495011,-2.923924;
+ 6.608855,-8.533798,-2.484554,1.552673,2.338664,0.124507;
+ 3.587416,-10.731838,0.944057,1.240017,0.522825,-1.333841;
+ -0.262373,-1.114568,0.129058,-0.630074,-0.561954,-0.794926
+W2 = 0.324102,2.707317,-1.729632,4.790053,-3.032317;
+ 0.728876,-0.201671,-2.227940,0.479014,-2.122939;
+ 0.065897,-16.405910,-0.149986,-0.253268,-0.871202;
+ 4.660120,-6.142162,-16.149616,5.199642,13.087324;
+ 0.691268,-0.169337,-2.365953,0.648098,-2.197088
+W3 = -0.195218,-5.623626,-3.584150,-0.139723,5.521517
+b1 = -7.625982,-1.123735,5.568583,3.599543,0.110991
+b2 = 0.553142,1.016497,18.328869,6.520965,0.884966
+b3 = 3.421690
+HealthyLevel0=0.5
+HealthyLevel100=1
+HealthyLevel0Desc=双泵高速时期望压力1min平均值与实际1min平均值偏差超过期望值的50%%
+HealthyLevel100Desc=双泵高速时期望压力1min平均值与实际1min平均值偏差小于1bar
+DataResource=golden
+CalFunc=grGearboxOilPressureA3
+FuncPara=待定
+CalMethodDesc=健康度=(当前压力偏差－健康指标0%%指标)/(健康指标100%%指标-健康指标0%%指标)*100%%
+
+[grgearboxoilpressurea4]
+IndexDsec=齿轮箱A4压力
+ResultTable=healthy_state_index
+ResultDBField=grGearboxOilpressureA4
+x1_step1_xoffset=22.8,11.1,0,0,0,0
+x1_step1_gain = 0.043860,0.030960,2,2,2,2
+x1_step1_ymin = -1
+y1_step1_ymin = -1
+y1_step1_gain = 0.368304
+y1_step1_xoffset = 0.2871
+layers=3
+W1=-8.346446,29.391257,1.137637,-3.854176,-1.756544,3.951728;
+ 14.831174,-20.465601,0.759011,2.510618,-0.639384,-2.533132;
+ 0.109278,4.231751,-0.671137,0.549820,-0.165657,-0.694246;
+ 2.197563,-6.471667,1.201236,0.583256,-2.735359,-0.537964;
+ -5.552304,-9.281092,1.630709,0.535759,-1.306530,-1.634205
+W2 = -2.977477,-3.927402,-4.587285,-6.589954,0.062034;
+ 0.029687,-0.071559,-0.576205,-0.746716,0.035810;
+ -5.609304,-6.318033,0.094035,1.697811,1.472597;
+ -1.955871,9.372344,-9.395131,-8.471927,0.381919;
+ -2.594247,-2.466654,-10.458365,-13.805114,0.179617
+W3 = -0.895331,-1.454846,-0.121650,0.375455,1.054505
+b1 = -6.904442,-1.183954,-3.842902,-1.864812,-1.545248
+b2 = 3.265605,0.592641,0.783226,-10.649561,2.621357
+b3 = 1.310036
+HealthyLevel0=0.5
+HealthyLevel100=1
+HealthyLevel0Desc=双泵高速时期望压力1min平均值与实际1min平均值偏差超过期望值的50%%
+HealthyLevel100Desc=双泵高速时期望压力1min平均值与实际1min平均值偏差小于1bar
+DataResource=golden
+CalFunc=grGearboxOilPressureA4
+FuncPara=待定
+CalMethodDesc=健康度=(当前压力偏差－健康指标0%%指标)/(健康指标100%%指标-健康指标0%%指标)*100%%
+
+[grgearboxlubricationpump]
+IndexDsec=齿轮箱润滑泵健康度
+ResultTable=healthy_state_index
+ResultDBField=grGearboxLubricationPumpHealthyLevel
+DataResource=afterInitialCal
+CalFunc=grGearboxLubricationPumpHealthyLevel
+FuncPara=grGearboxOilPressureA2,grGearboxOilPressureA3,grGearboxOilpressureA4
+CalMethodDesc=润滑泵健康度=1/3*(A2口压力健康度+A3口压力健康度+A4口压力健康度)**此处计算方法暂定,后续会更新
+
+[grgearboxmainpumpfilter1errortemperature]
+IndexDsec=齿轮箱主泵滤芯1堵塞时温度
+ResultTable=healthy_state_index
+ResultDBField=grGearboxMainPumpFilter1ErrorTemperature
+HealthyLevel0=45
+HealthyLevel100=40
+HealthyLevel0Desc=堵塞时油温高于45℃
+HealthyLevel100Desc=堵塞时油温低于40℃
+DataResource=golden
+CalFunc=grGearboxMainPumpFilter1ErrorTemperature
+FuncPara=grgearboxmainpumpfilter1errortemperature
+CalMethodDesc=健康度=(当前堵塞时油温-健康指标100%%)/(健康指标0%%-健康指标100%%)*100％
+
+[grgearboxmainpumpfilter2errortemperature]
+IndexDsec=齿轮箱主泵滤芯2堵塞时温度
+ResultTable=healthy_state_index
+ResultDBField=grGearboxMainPumpFilter2ErrorTemperature
+HealthyLevel0=45
+HealthyLevel100=40
+HealthyLevel0Desc=堵塞时油温高于45℃
+HealthyLevel100Desc=堵塞时油温低于40℃
+DataResource=golden
+CalFunc=grGearboxMainPumpFilter2ErrorTemperature
+FuncPara=grgearboxmainpumpfilter2errortemperature
+CalMethodDesc=健康度=(当前堵塞时油温-健康指标100%%)/(健康指标0%%-健康指标100%%)*100％
+
+[grgearboxfilterparthealthylevel]
+IndexDsec=齿轮箱主泵滤芯健康度
+ResultTable=healthy_state_index
+ResultDBField=grGearboxMainPumpFilterHealthyLevel
+DataResource=afterInitialCal
+CalFunc=grGearboxMainPumpFilterHealthyLevel
+FuncPara=grGearboxMainPumpFilter1ErrorTemperature,grGearboxMainPumpFilter2ErrorTemperature
+CalMethodDesc=齿轮箱主泵滤芯健康度=2/5*(滤芯1健康度+滤芯2健康度+1/(1/滤芯1健康度+1/滤芯2健康度))
+
+[grgearboxoilfanontime]
+IndexDsec=齿轮箱油冷却器电机运行时间
+ResultTable=healthy_state_index
+ResultDBField=grGearboxOilCoolerMotorOperationTime
+HealthyLevel0=30000
+HealthyLevel100=0
+HealthyLevel0Desc=电机运行时间30000小时
+HealthyLevel100Desc=电机运行时间0小时
+DataResource=golden
+CalFunc=grGearboxOilCoolerMotorOperationTime
+FuncPara=grgearboxoilfanontime
+CalMethodDesc=齿轮箱油冷却器电机健康度=(1-当前运行时间/30000)*100%%
+
+[grgearboxoiltemperture]
+IndexDsec=散热器本体健康度
+ResultTable=healthy_state_index
+ResultDBField=grGearboxOilTemperature
+x1_step1_xoffset=-28.9,0,11,16.89,15.1,0,-18,0,1,0,0.01,0.715,4.37
+x1_step1_gain = 0.029028,2,0.031746,0.035020,0.033063,0.000643,0.000638,0.033333,0.000187,3.869894e-05,0.005227,0.098649,0.027060
+x1_step1_ymin = -1
+y1_step1_ymin = -1
+y1_step1_gain = 0.059172
+y1_step1_xoffset = 35
+layers=4
+W1=0.288198,1.677957,-1.721363,-0.042981,-1.876899,0.193236,0.367879,0.026287,0.081230,0.132516,-0.132117,0.035991,-1.370597;
+ -0.165681,0.019903,0.435201,-0.238882,-1.336243,0.046961,0.070891,-0.011428,-0.016705,-0.218588,-0.190840,0.024002,-1.375806;
+ 1.152828,0.515242,-3.754362,2.711065,-1.460151,0.005212,-0.649944,0.046948,-0.031432,-0.808061,0.092408,-0.095386,-4.095967;
+ -0.517775,-3.048783,3.546500,2.799788,3.729048,-0.161000,-0.352085,0.049991,0.092692,1.455177,-0.476013,0.065178,-1.981968;
+ 0.009028,-0.006732,-0.069090,-0.214121,-0.246340,0.001960,-0.010782,-0.001933,-0.002011,-0.025493,-0.001189,0.003493,-0.122494;
+ 0.431642,-0.020757,-2.099841,-2.104554,4.332718,-0.041162,-0.113907,0.008990,0.042360,-0.131489,0.058926,-0.015610,-1.029099;
+ -0.278892,-0.066640,1.649211,3.346271,-4.418018,0.041679,0.016167,-0.000468,-0.049693,0.022283,0.092011,0.005415,1.598538;
+ 1.060137,-0.455549,-3.663828,4.393389,-2.237782,0.023030,-0.385376,0.045960,0.021375,-0.009788,0.562976,-0.059225,1.364803;
+ -1.637650,2.129930,-0.381539,7.401611,-6.817172,0.359601,2.411637,-0.531330,0.244827,-0.305962,-1.505459,0.380016,-0.915295;
+ -0.078666,0.715461,0.396238,-1.572883,2.070774,0.339484,1.007904,-0.002853,0.672358,-0.011093,1.033125,-0.778132,-1.724153
+W2 =-0.134895,2.554495,-0.588825,0.016583,-0.159838,-2.326401,-0.530079,1.000551,0.131348,-0.443173;
+ 0.187904,-0.338193,0.131734,-0.512186,6.191093,-0.931158,0.025854,0.553548,0.239543,-1.474216;
+ -0.690676,0.420649,-0.056038,-0.458245,-0.789279,-0.608306,-1.151163,1.227932,-0.024342,-0.433707;
+ -0.364031,0.144132,0.140341,0.134978,-6.543466,0.099254,-0.601543,-0.238380,-0.124314,1.035480;
+ -2.986754,3.154128,-0.784139,-2.827107,0.192375,-1.760819,-3.554364,2.142454,-0.920006,-0.896256;
+ -2.387711,-0.001406,-0.907668,-0.489745,-2.175296,-2.675951,-3.580383,1.375659,-0.293481,1.749272;
+ 0.149307,2.561804,-1.206971,-2.707622,-0.779842,0.424952,0.302394,-0.691926,0.402775,-0.995567;
+ 1.136195,-0.981006,-0.355590,0.508330,6.293429,-2.117940,-0.958272,0.681090,0.225003,0.545796;
+ 0.012826,-0.300345,0.117758,-0.074150,2.520645,-0.313499,-0.107248,-0.084737,0.064858,-0.281028;
+ -2.724470,3.869126,-0.234297,-5.897267,1.174068,3.629211,-1.875035,-4.065722,-0.680559,-3.650835
+W3 =2.915994,-0.055418,-1.442949,2.431416,-0.127450,-0.184808,0.104736,-1.592389,-3.710269,1.327102;
+ 2.800940,3.551243,-2.064377,1.777731,0.444924,0.753350,-0.274154,-1.983687,-0.022395,0.105542;
+ -1.514418,2.647418,0.094060,2.455266,0.068665,-0.113491,-0.018655,2.377110,1.589502,-0.002824;
+ -0.914953,1.144810,0.248630,1.771215,0.559311,0.134308,0.118432,1.761906,2.357879,-0.751133;
+ -4.444227,-0.139918,-2.019198,-2.996722,-1.596516,0.322040,0.521247,-0.749277,6.367470,1.731018;
+ 4.088161,-2.169957,0.236315,0.393472,-1.199419,0.659459,-0.184685,-0.777933,1.752563,1.498310;
+ -1.169121,0.619075,0.754930,0.351621,0.272587,-0.415433,0.433072,0.916568,-1.061066,-0.068194;
+ 0.934293,0.409656,1.777682,-0.157862,0.003958,-1.924301,0.001898,-1.486211,-1.324701,-1.930595;
+ 0.325556,2.670841,0.210281,3.609717,-0.340424,-0.247671,-0.403338,0.669521,1.019364,-1.215310;
+ -0.738166,-2.300523,2.004877,-1.135054,-0.646692,0.156650,0.352984,0.169140,1.588531,-1.365574
+W4=0.153253,-0.071446,-0.476173,-0.647777,-0.127814,0.111218,0.827862,-0.211043,0.496422,-0.244857
+b1=-0.707345,0.444068,-1.081564,0.677344,-0.042660,-0.287059,0.007064,-1.210878,3.220871,4.741496
+b2 =2.553244,3.954063,1.284333,-3.319750,0.470393,-3.112375,3.323420,3.091047,0.702649,-5.296757
+b3 =3.401527,1.644172,-0.135995,1.251819,1.755644,0.192713,-0.938686,-3.566650,-1.241177,-1.538759
+b4=0.575069
+HealthyLevel0=10
+HealthyLevel100=5
+HealthyLevel0Desc=散热风扇开启后油温高于估算油温10℃
+HealthyLevel100Desc=散热风扇开启后油温低于估算油温5℃
+DataResource=golden
+CalFunc=grGearboxOilTemperature
+FuncPara=grgearboxoiltemperture
+CalMethodDesc=散热器本体健康度=(散热风扇开启后油温-健康指标100%%)/(健康指标0%%-健康指标100%%)*100%%
+
+[grgearboxbypasspumpontime]
+IndexDsec=齿轮箱过滤泵电机运行时间
+ResultTable=healthy_state_index
+ResultDBField=grGearboxBypassPumpMotorOperationTime
+HealthyLevel0=30000
+HealthyLevel100=0
+HealthyLevel0Desc=电机运行时间30000小时
+HealthyLevel100Desc=电机运行时间0小时
+DataResource=golden
+CalFunc=grGearboxBypassPumpMotorOperationTime
+FuncPara=grgearboxbypasspumpontime
+CalMethodDesc=健康度=(1-当前运行时间/30000)*100%%
+
+[grgearboxbypasspumpfiltererrortemperature]
+IndexDsec=齿轮箱过滤泵滤芯堵塞温度
+ResultTable=healthy_state_index
+ResultDBField=grGearboxBypassPumpFilterErrorTemperature
+HealthyLevel0=45
+HealthyLevel100=40
+HealthyLevel0Desc=堵塞时油温高于45℃
+HealthyLevel100Desc=堵塞时油温低于40℃
+DataResource=golden
+CalFunc=grGearboxBypassPumpFilterErrorTemperature
+FuncPara=grgearboxbypasspumpfiltererrortemperature
+CalMethodDesc=健康度=(当前堵塞时油温-健康指标100%%)/(健康指标0%%-健康指标100%%)*100％
+
+[grgearboxcooler]
+IndexDsec=齿轮箱散热器健康度
+ResultTable=healthy_state_index
+ResultDBField=grGearboxRadiatorHealthyLevel
+DataResource=afterInitialCal
+CalFunc=grGearboxRadiatorHealthyLevel
+FuncPara=grGearboxOilCoolerMotorOperationTime,grGearboxOilTemperature
+CalMethodDesc=散热器健康度=min(齿轮箱油冷却器电机健康度,散热器本体健康度)
+
+[grgearboxoillevel]
+IndexDsec=齿轮箱油位
+ResultTable=healthy_state_index
+ResultDBField=grGearboxOilLevel
+HealthyLevel0=10
+HealthyLevel100=60
+HealthyLevel0Desc=油位低于10%%，数据库中返回的即为百分比
+HealthyLevel100Desc=油位高于60%%
+DataResource=golden
+CalFunc=grGearboxOilLevel
+FuncPara=grgearboxoillevel
+CalMethodDesc=健康度=(当前油位-健康指标100%%)/(健康指标0%%-健康指标100%%)*100％
+
+[grgearboxfiltersystem]
+IndexDsec=齿轮箱过滤系统健康度
+ResultTable=healthy_state_index
+ResultDBField=grGearboxBypassPartHealthyLevel
+DataResource=afterInitialCal
+CalFunc=grGearboxBypassPartHealthyLevel
+FuncPara=grGearboxBypassPumpMotorOperationTime,grGearboxBypassPumpFilterErrorTemperature
+CalMethodDesc=齿轮箱过滤系统健康度=1/(1/过滤泵电机健康度+1/过滤泵滤芯健康度)
+
+[grgearboxlubricationsystemlubricationpart]
+IndexDsec=齿轮箱润滑系统润滑部分健康度
+ResultTable=healthy_state_index
+ResultDBField=grGearboxLubricatingPartHealthyLevel
+DataResource=afterInitialCal
+CalFunc=grGearboxLubricatingPartHealthyLevel
+FuncPara=grGearboxMainPumpMotorOperationTime1,grGearboxMainPumpMotorOperationTime2,grGearboxOilPressureA2,grGearboxOilPressureA3,grGearboxOilpressureA4,grGearboxMainPumpFilter1ErrorTemperature,grGearboxMainPumpFilter2ErrorTemperature,grGearboxOilLevel,grGearboxOilCoolerMotorOperationTime,grGearboxOilTemperature
+CalMethodDesc=齿轮箱润滑系统润滑部分健康百分比=min(电机健康度,润滑泵健康度,滤芯健康度,油位健康度,散热器健康度)
+
+[grgearboxlubricationsystemhealthylevel]
+IndexDsec=齿轮箱润滑系统健康度
+ResultTable=healthy_state_component
+ResultDBField=grGearboxLubrication
+DataResource=afterInitialCal
+CalFunc=grGearboxLubrication
+FuncPara=grGearboxLubricatingPartHealthyLevel,grGearboxBypassPartHealthyLevel
+CalMethodDesc=齿轮油润滑系统健康度=2/3*(齿轮箱润滑系统润滑部分健康百分比+齿轮箱过滤系统健康度+1/(1/齿轮箱润滑系统润滑部分健康百分比+1/齿轮箱过滤系统健康度))
+
+[grgeneratorwaterpumpontime]
+IndexDsec=发电机水冷泵电机运行时间
+ResultTable=healthy_state_index
+ResultDBField=grGeneratorWaterPumpOnTime
+HealthyLevel0=30000
+HealthyLevel100=0
+HealthyLevel0Desc=电机运行时间30000小时
+HealthyLevel100Desc=电机运行时间0小时
+DataResource=golden
+CalFunc=grGeneratorWaterPumpOnTime
+FuncPara=grgeneratorwaterpumpontime
+CalMethodDesc=健康度=(1-当前运行时间/30000)*100%%
+
+[grgeneratorwaterinoutpressuredifference]
+IndexDsec=发电机水冷泵进出口压力偏差
+ResultTable=healthy_state_index
+ResultDBField=grGeneratorWaterPumpPressureDifference
+HealthyLevel0=1
+HealthyLevel100=3
+HealthyLevel0Desc=起泵10s后进出水压力低于1bar
+HealthyLevel100Desc=起泵10s后进出水压力高于3bar
+DataResource=golden
+CalFunc=grGeneratorWaterPumpPressureDifference
+FuncPara=grgeneratorwaterpressurein,grgeneratorwaterpressureout
+CalMethodDesc=健康度=(起泵10s压差-健康指标100%%)/(健康指标0%%-健康指标100%%)*100％
+
+[grgeneratorwaterfanontime]
+IndexDsec=发电机水冷风扇电机运行时间
+ResultTable=healthy_state_index
+ResultDBField=grGeneratorWaterFanOnTime
+HealthyLevel0=30000
+HealthyLevel100=0
+HealthyLevel0Desc=电机运行时间30000小时
+HealthyLevel100Desc=电机运行时间0小时
+DataResource=golden
+CalFunc=grGeneratorWaterFanOnTime
+FuncPara=grgeneratorwaterfanontime
+CalMethodDesc=健康度=(1-当前运行时间/30000)*100%%
+
+[grgeneratorcoolwaterestimatedtemp]
+IndexDsec=发电机冷却水估计温度
+ResultTable=healthy_state_index
+ResultDBField=grGeneratorWaterTemperature
+HealthyLevel0=10
+HealthyLevel100=5
+HealthyLevel0Desc=散热风扇开启后水温高于估算水温10℃
+HealthyLevel100Desc=散热风扇开启后水温低于估算水温5℃
+DataResource=golden
+CalFunc=grGeneratorWaterTemperature
+FuncPara=grgeneratorcoolwaterestimatedtemp
+CalMethodDesc=散热器本体健康度=(散热风扇开启后油温-健康指标100%%)/(健康指标0%%-健康指标100%%)*100％
+
+;[grgeneratorcoolerhealthylevel]
+;IndexDsec=散热器健康度
+;ResultTable=healthy_state_index
+;ResultDBField=NULL
+;DataResource=golden
+;CalFunc=grPitch2HealthyLevel
+;FuncPara=grgeneratorwaterfanontime,grgeneratorcoolwaterestimatedtemp
+;CalMethodDesc=散热器健康度=min(电机健康度,散热器本体健康度)
+
+[grgeneratorcoolersystem]
+IndexDsec=发电机冷却系统健康百分比
+ResultTable=healthy_state_component
+ResultDBField=grGeneratorWaterCooling
+DataResource=afterInitialCal
+CalFunc=grGeneratorWaterCooling
+FuncPara=grGeneratorWaterPumpOnTime,grGeneratorWaterPumpPressureDifference,grGeneratorWaterFanOnTime,grGeneratorWaterTemperature
+CalMethodDesc=水冷系统健康度=min(水泵电机健康度,水泵健康度,散热器健康度)
+
+[grhydraulicpumpontime]
+IndexDsec=液压泵电机运行时间
+ResultTable=healthy_state_index
+ResultDBField=grHydraulicPumpMotorOperationTime
+HealthyLevel0=30000
+HealthyLevel100=0
+HealthyLevel0Desc=电机运行时间30000小时
+HealthyLevel100Desc=电机运行时间0小时
+DataResource=golden
+CalFunc=grHydraulicPumpMotorOperationTime
+FuncPara=grhydraulicpumpontime
+CalMethodDesc=健康度=(1-当前运行时间/30000)*100%%
+
+[grhydraulicpumpestablishpressuretime]
+IndexDsec=液压泵建压时间
+ResultTable=healthy_state_index
+ResultDBField=grHydraulicPumpEstablishPressureTime
+HealthyLevel0=120
+HealthyLevel100=60
+HealthyLevel0Desc=建压时间大于120s
+HealthyLevel100Desc=建压时间小于60s
+DataResource=golden
+CalFunc=grHydraulicPumpEstablishPressureTime
+FuncPara=grhydraulicpumpestablishpressuretime
+CalMethodDesc=健康度=(建压时间-健康指标100%%)/(健康指标0%%-健康指标100%%)*100％
+
+[giyawbrakeopentotalvalveactivetimes]
+IndexDsec=偏航全释放阀动作次数
+ResultTable=healthy_state_index
+ResultDBField=giYawBrakeOpenTotalValveActiveTimes
+HealthyLevel0=10000000
+HealthyLevel100=0
+HealthyLevel0Desc=动作次数1千万次
+HealthyLevel100Desc=动作次数0次
+DataResource=golden
+CalFunc=giYawBrakeOpenTotalValveActiveTimes
+FuncPara=giyawbrakeopentotalvalveactivetimes
+CalMethodDesc=健康度=(动作次数-健康指标100%%)/(健康指标0%%-健康指标100%%)*100％
+
+[giyawbrakeopenhalfvalveactivetimes]
+IndexDsec=偏航半释放阀动作次数
+ResultTable=healthy_state_index
+ResultDBField=giYawBrakeOpenHalfValveActiveTimes
+HealthyLevel0=10000000
+HealthyLevel100=0
+HealthyLevel0Desc=动作次数1千万次
+HealthyLevel100Desc=动作次数0次
+DataResource=golden
+CalFunc=giYawBrakeOpenHalfValveActiveTimes
+FuncPara=giyawbrakeopenhalfvalveactivetimes
+CalMethodDesc=健康度=(动作次数-健康指标100%%)/(健康指标0%%-健康指标100%%)*100％
+
+[girotorlockvalveactivetimes]
+IndexDsec=叶轮锁阀动作次数
+ResultTable=healthy_state_index
+ResultDBField=giRotorLockValveActiveTimes
+HealthyLevel0=10000000
+HealthyLevel100=0
+HealthyLevel0Desc=动作次数1千万次
+HealthyLevel100Desc=动作次数0次
+DataResource=golden
+CalFunc=giRotorLockValveActiveTimes
+FuncPara=girotorlockvalveactivetimes
+CalMethodDesc=健康度=(动作次数-健康指标100%%)/(健康指标0%%-健康指标100%%)*100％
+
+[girotorbrakevalveactivetimes]
+IndexDsec=叶轮制动阀动作次数
+ResultTable=healthy_state_index
+ResultDBField=giRotorBrakeValveActiveTimes
+HealthyLevel0=10000000
+HealthyLevel100=0
+HealthyLevel0Desc=动作次数1千万次
+HealthyLevel100Desc=动作次数0次
+DataResource=golden
+CalFunc=giRotorBrakeValveActiveTimes
+FuncPara=girotorbrakevalveactivetimes
+CalMethodDesc=健康度=(动作次数-健康指标100%%)/(健康指标0%%-健康指标100%%)*100％
+
+;[grhydraulicvalvehealthylevel]
+;IndexDsec=液压阀健康度
+;ResultTable=healthy_state_index
+;ResultDBField=NULL
+;DataResource=golden
+;CalFunc=grPitch2HealthyLevel
+;FuncPara=giyawbrakeopentotalvalveactivetimes,giyawbrakeopenhalfvalveactivetimes,girotorlockvalveactivetimes,girotorbrakevalveactivetimes
+;CalMethodDesc=液压阀健康度=min(偏航全释放阀动作次数,偏航半释放阀动作次数,叶轮锁阀动作次数,叶轮制动阀动作次数)
+
+[grhydraulichealthylevel]
+IndexDsec=液压系统百分比
+ResultTable=healthy_state_component
+ResultDBField=grHydraulic
+DataResource=afterInitialCal
+CalFunc=grHydraulic
+FuncPara=grHydraulicPumpMotorOperationTime,grHydraulicPumpEstablishPressureTime,giYawBrakeOpenTotalValveActiveTimes,giYawBrakeOpenHalfValveActiveTimes,giRotorLockValveActiveTimes,giRotorBrakeValveActiveTimes
+CalMethodDesc=液压系统健康度=min(电机健康度,泵健康度,阀健康度)
+
+[grnacellefanontime]
+IndexDsec=机舱风扇运行时间
+ResultTable=healthy_state_index
+ResultDBField=grNacelleFanOperationTime
+HealthyLevel0=30000
+HealthyLevel100=0
+HealthyLevel0Desc=电机运行时间30000小时
+HealthyLevel100Desc=电机运行时间0小时
+DataResource=golden
+CalFunc=grNacelleFanOperationTime
+FuncPara=grnacellefanontime
+CalMethodDesc=健康度=(1-当前运行时间/30000)*100%%
+
+[grnacelletemperture]
+IndexDsec=机舱温度
+ResultTable=healthy_state_index
+ResultDBField=grNacelleTemperature
+HealthyLevel0=10
+HealthyLevel100=5
+HealthyLevel0Desc=散热风扇开启后机舱温高于估算机舱温度10℃
+HealthyLevel100Desc=散热风扇开启后机舱温低于估算机舱温度5℃
+DataResource=golden
+CalFunc=grNacelleTemperature
+FuncPara=grnacelletemperture
+CalMethodDesc=风扇本体健康度=(散热风扇开启后机舱温度-健康指标100%%)/(健康指标0%%-健康指标100%%)*100％
+
+[grnacellehealthylevel]
+IndexDsec=机舱散热健康度
+ResultTable=healthy_state_component
+ResultDBField=grNacelleCooling
+DataResource=afterInitialCal
+CalFunc=grNacelleCooling
+FuncPara=grNacelleFanOperationTime,grNacelleTemperature
+CalMethodDesc=机舱散热系统健康度=min(电机健康度,风扇本体健康度)
+
+[gryawtime]
+IndexDsec=偏航电机运行时间
+ResultTable=healthy_state_index
+ResultDBField=grYawMotorOperationTimes
+HealthyLevel0=30000
+HealthyLevel100=0
+HealthyLevel0Desc=电机运行时间30000小时
+HealthyLevel100Desc=电机运行时间0小时
+DataResource=golden
+CalFunc=grYawMotorOperationTimes
+FuncPara=gryawtime
+CalMethodDesc=健康度=(1-当前运行时间/30000)*100%%
+
+[gryawbrakewearoperationtime]
+IndexDsec=偏航制动器摩擦片运行时间
+ResultTable=healthy_state_index
+ResultDBField=grYawBrakeWearAwayOperationTime
+HealthyLevel0=40000
+HealthyLevel100=0
+HealthyLevel0Desc=摩擦片运行时间40000小时
+HealthyLevel100Desc=摩擦片运行时间0小时
+DataResource=golden
+CalFunc=grYawBrakeWearAwayOperationTime
+FuncPara=gryawbrakewearoperationtime
+CalMethodDesc=健康度=(1-当前运行时间/40000)*100%%
+
+[gryawhealthylevel]
+IndexDsec=偏航系统健康度
+ResultTable=healthy_state_component
+ResultDBField=grYaw
+DataResource=afterInitialCal
+CalFunc=grYaw
+FuncPara=grYawMotorOperationTimes,grYawBrakeWearAwayOperationTime
+CalMethodDesc=偏航系统健康度=min(电机健康度,摩擦片健康度)
+
+[grconverterwaterpumpmotoroperationtime]
+IndexDsec=变频器水冷泵电机运行时间
+ResultTable=healthy_state_index
+ResultDBField=grConverterWaterPumpMotorOperationTime
+HealthyLevel0=30000
+HealthyLevel100=0
+HealthyLevel0Desc=电机运行时间30000小时
+HealthyLevel100Desc=电机运行时间0小时
+DataResource=golden
+CalFunc=grConverterWaterPumpMotorOperationTime
+FuncPara=grconverterwaterpumpmotoroperationtime
+CalMethodDesc=健康度=(1-当前运行时间/30000)*100%%
+
+[grconverterwaterpumpinoutpressuredifference]
+IndexDsec=变频器水泵进出水压差
+ResultTable=healthy_state_index
+ResultDBField=grConverterWaterPumpInOutPressureDifference
+HealthyLevel0=1
+HealthyLevel100=3
+HealthyLevel0Desc=起泵10s后进出水压力低于1bar
+HealthyLevel100Desc=起泵10s后进出水压力高于3bar
+DataResource=golden
+CalFunc=grConverterWaterPumpInOutPressureDifference
+FuncPara=待定
+CalMethodDesc=健康度=(起泵10s压差-健康指标100%%)/(健康指标0%%-健康指标100%%)*100％
+
+[grconverterwatercoolingfanmotor1operationtime]
+IndexDsec=变频器水冷风扇电机1运行时间
+ResultTable=healthy_state_index
+ResultDBField=grConverterWaterCoolingFanMotor1OperationTime
+HealthyLevel0=30000
+HealthyLevel100=0
+HealthyLevel0Desc=电机运行时间30000小时
+HealthyLevel100Desc=电机运行时间0小时
+DataResource=golden
+CalFunc=grConverterWaterCoolingFanMotor1OperationTime
+FuncPara=grconverterwatercoolingfanmotor1operationtime
+CalMethodDesc=健康度=(1-当前运行时间/30000)*100%%
+
+[grconverterwatercoolingfanmotor2operationtime]
+IndexDsec=变频器水冷风扇电机2运行时间
+ResultTable=healthy_state_index
+ResultDBField=grConverterWaterCoolingFanMotor2OperationTime
+HealthyLevel0=30000
+HealthyLevel100=0
+HealthyLevel0Desc=电机运行时间30000小时
+HealthyLevel100Desc=电机运行时间0小时
+DataResource=golden
+CalFunc=grConverterWaterCoolingFanMotor2OperationTime
+FuncPara=grconverterwatercoolingfanmotor2operationtime
+CalMethodDesc=健康度=(1-当前运行时间/30000)*100%%
+
+[grconverterwatercoolingfanmotor3operationtime]
+IndexDsec=变频器水冷风扇电机3运行时间
+ResultTable=healthy_state_index
+ResultDBField=grConverterWaterCoolingFanMotor3OperationTime
+HealthyLevel0=30000
+HealthyLevel100=0
+HealthyLevel0Desc=电机运行时间30000小时
+HealthyLevel100Desc=电机运行时间0小时
+DataResource=golden
+CalFunc=grConverterWaterCoolingFanMotor3OperationTime
+FuncPara=grconverterwatercoolingfanmotor3operationtime
+CalMethodDesc=健康度=(1-当前运行时间/30000)*100%%
+
+[grconverterwatercoolingfanmotorhealthylevel]
+IndexDsec=变频器水冷风扇电机总健康度
+ResultTable=healthy_state_index
+ResultDBField=grConverterWaterCoolingFanMotorHealthyLevel
+DataResource=afterInitialCal
+CalFunc=grConverterWaterCoolingFanMotorHealthyLevel
+FuncPara=grConverterWaterCoolingFanMotor1OperationTime,grConverterWaterCoolingFanMotor2OperationTime,grConverterWaterCoolingFanMotor3OperationTime
+CalMethodDesc= 电机总健康度=1/3*(电机1健康度+电机2健康度+电机3健康度)
+
+[grconverterwaterestimatedtemp]
+IndexDsec=变频器估计水温
+ResultTable=healthy_state_index
+ResultDBField=grConverterWaterTemperature
+HealthyLevel0=10
+HealthyLevel100=5
+HealthyLevel0Desc=散热风扇开启后水温高于估算水温10℃
+HealthyLevel100Desc=散热风扇开启后水温低于估算水温5℃
+DataResource=golden
+CalFunc=grConverterWaterTemperature
+FuncPara=grconverterwaterestimatedtemp
+CalMethodDesc=风扇本体健康度=(散热风扇开启后水温偏差-健康指标100%%)/(健康指标0%%-健康指标100%%)*100％
+
+[grconverterwaterIGBTtemp]
+IndexDsec=变频器IGBT温度
+ResultTable=healthy_state_index
+ResultDBField=grConverterIGBTTemperature
+HealthyLevel0=10
+HealthyLevel100=5
+HealthyLevel0Desc=IGBT温高于估算IGBT温10℃
+HealthyLevel100Desc=IGBT温低于估算IGBT温5℃
+DataResource=golden
+CalFunc=grConverterIGBTTemperature
+FuncPara=grconverterwaterIGBTtemp
+CalMethodDesc=IGBT换热器健康度=(IGBT温度偏差-健康指标100%%)/(健康指标0%%-健康指标100%%)*100％
+
+[grconverterwaterhealthylevel]
+IndexDsec=变频器水冷系统健康度
+ResultTable=healthy_state_component
+ResultDBField=grConverterWaterCooling
+DataResource=afterInitialCal
+CalFunc=grConverterWaterCooling
+FuncPara=grConverterWaterPumpMotorOperationTime,grConverterWaterPumpInOutPressureDifference,grConverterWaterCoolingFanMotorHealthyLevel,grConverterWaterTemperature,grConverterIGBTTemperature
+CalMethodDesc=变频器水冷系统健康度=min(水泵电机健康度,水泵健康度,风扇电机总健康度,散热器健康度,IGBT换热器健康度)
+
+[grconvertercabinetfan1operationtime]
+IndexDsec=变频器控制柜风扇1运行时间
+ResultTable=healthy_state_index
+ResultDBField=grConverterCabinetFan1OperationTime
+HealthyLevel0=30000
+HealthyLevel100=0
+HealthyLevel0Desc=电机运行时间30000小时
+HealthyLevel100Desc=电机运行时间0小时
+DataResource=golden
+CalFunc=grConverterCabinetFan1OperationTime
+FuncPara=grconvertercabinetfan1operationtime
+CalMethodDesc=健康度=(1-当前运行时间/30000)*100%%
+
+[grconvertercabinetfan2operationtime]
+IndexDsec=变频器控制柜风扇2运行时间
+ResultTable=healthy_state_index
+ResultDBField=grConverterCabinetFan2OperationTime
+HealthyLevel0=30000
+HealthyLevel100=0
+HealthyLevel0Desc=电机运行时间30000小时
+HealthyLevel100Desc=电机运行时间0小时
+DataResource=golden
+CalFunc=grConverterCabinetFan2OperationTime
+FuncPara=grconvertercabinetfan2operationtime
+CalMethodDesc=健康度=(1-当前运行时间/30000)*100%%
+
+[grconvertercabinetfan3operationtime]
+IndexDsec=变频器控制柜风扇3运行时间
+ResultTable=healthy_state_index
+ResultDBField=grConverterCabinetFan3OperationTime
+HealthyLevel0=30000
+HealthyLevel100=0
+HealthyLevel0Desc=电机运行时间30000小时
+HealthyLevel100Desc=电机运行时间0小时
+DataResource=golden
+CalFunc=grConverterCabinetFan3OperationTime
+FuncPara=grconvertercabinetfan3operationtime
+CalMethodDesc=健康度=(1-当前运行时间/30000)*100%%
+
+[giconverterlinesidemcbactiontimes]
+IndexDsec=变频器网侧断路器动作次数
+ResultTable=healthy_state_index
+ResultDBField=giConverterLineSideMCBActionTimes
+HealthyLevel0=8000
+HealthyLevel100=0
+HealthyLevel0Desc=断路器动作超过8000次
+HealthyLevel100Desc=断路器动作超过0次
+DataResource=golden
+CalFunc=giConverterLineSideMCBActionTimes
+FuncPara=giconverterlinesidemcbactiontimes
+CalMethodDesc=健康度=(动作次数-健康指标100%%)/(健康指标0%%-健康指标100%%)*100％
+
+[giconvertergeneratorsidemcbactiontimes]
+IndexDsec=变频器机侧断路器动作次数
+ResultTable=healthy_state_index
+ResultDBField=grConverterGeneratorSideMCBActionTimes
+HealthyLevel0=8000
+HealthyLevel100=0
+HealthyLevel0Desc=断路器动作超过8000次
+HealthyLevel100Desc=断路器动作超过0次
+DataResource=golden
+CalFunc=grConverterGeneratorSideMCBActionTimes
+FuncPara=giconvertergeneratorsidemcbactiontimes
+CalMethodDesc=健康度=(动作次数-健康指标100%%)/(健康指标0%%-健康指标100%%)*100％
+
+[giconverterhealthylevel]
+IndexDsec=变频器本体健康度
+ResultTable=healthy_state_component
+ResultDBField=grConverterCabinet
+DataResource=afterInitialCal
+CalFunc=grConverterCabinet
+FuncPara=grConverterCabinetFan1OperationTime,grConverterCabinetFan2OperationTime,grConverterCabinetFan3OperationTime,giConverterLineSideMCBActionTimes,grConverterGeneratorSideMCBActionTimes
+CalMethodDesc=变频器本体健康度=min(风扇健康度,断路器健康度)
+
+[grbladepowerdifference]
+IndexDsec=叶片功率偏差
+ResultTable=healthy_state_index
+ResultDBField=grBladePowerDifference
+HealthyLevel0=0.15
+HealthyLevel100=0.05
+HealthyLevel0Desc=功率偏差超过15%%
+HealthyLevel100Desc=功率偏差不超过5%%
+DataResource=golden
+CalFunc=grBladePowerDifference
+FuncPara=待定
+CalMethodDesc=叶片功率偏差=(功率曲线偏差-健康指标100%%)/(健康指标0%%-健康指标100%%)*100％
+
+[grblade]
+IndexDsec=叶片健康度
+ResultTable=healthy_state_component
+ResultDBField=grBlade
+DataResource=afterInitialCal
+CalFunc=grBlade
+FuncPara=grBladePowerDifference
+CalMethodDesc=叶片健康度=叶片功率偏差
+
+[gigearboxmainpumpontimes1]
+IndexDsec=齿轮箱主泵启动次数1
+ResultTable=healthy_state_index
+ResultDBField=giGearboxMainPumpOnTimes1
+HealthyLevel0=1200000
+HealthyLevel100=0
+HealthyLevel0Desc=动作次数1200000次
+HealthyLevel100Desc=动作次数0次
+DataResource=golden
+CalFunc=giGearboxMainPumpOnTimes1
+FuncPara=gigearboxmainpumpontimes1
+CalMethodDesc=健康度=(1-当前运行次数/1200000)*100%%
+
+[gigearboxmainpumpontimes2]
+IndexDsec=齿轮箱主泵启动次数2
+ResultTable=healthy_state_index
+ResultDBField=giGearboxMainPumpOnTimes2
+HealthyLevel0=1200000
+HealthyLevel100=0
+HealthyLevel0Desc=动作次数1200000次
+HealthyLevel100Desc=动作次数0次
+DataResource=golden
+CalFunc=giGearboxMainPumpOnTimes2
+FuncPara=gigearboxmainpumpontimes2
+CalMethodDesc=健康度=(1-当前运行次数/1200000)*100%%
+
+[gigearboxbypasspunpontimes]
+IndexDsec=齿轮箱旁通过滤泵启动次数
+ResultTable=healthy_state_index
+ResultDBField=giGearboxBypassPunpOnTimes
+HealthyLevel0=1200000
+HealthyLevel100=0
+HealthyLevel0Desc=动作次数1200000次
+HealthyLevel100Desc=动作次数0次
+DataResource=golden
+CalFunc=giGearboxBypassPunpOnTimes
+FuncPara=gigearboxbypasspunpontimes
+CalMethodDesc=健康度=(1-当前运行次数/1200000)*100%%
+
+[gigearboxoilheaterontimes]
+IndexDsec=齿轮箱油加热器启动次数
+ResultTable=healthy_state_index
+ResultDBField=giGearboxOilHeaterOnTimes
+HealthyLevel0=1200000
+HealthyLevel100=0
+HealthyLevel0Desc=动作次数1200000次
+HealthyLevel100Desc=动作次数0次
+DataResource=golden
+CalFunc=giGearboxOilHeaterOnTimes
+FuncPara=gigearboxoilheaterontimes
+CalMethodDesc=健康度=(1-当前运行次数/1200000)*100%%
+
+[gigearboxoilfanontimes]
+IndexDsec=齿轮箱油风扇启动次数
+ResultTable=healthy_state_index
+ResultDBField=giGearboxOilFanOnTimes
+HealthyLevel0=1200000
+HealthyLevel100=0
+HealthyLevel0Desc=动作次数1200000次
+HealthyLevel100Desc=动作次数0次
+DataResource=golden
+CalFunc=giGearboxOilFanOnTimes
+FuncPara=gigearboxoilfanontimes
+CalMethodDesc=健康度=(1-当前运行次数/1200000)*100%%
+
+[gigearboxoilcoolerbypassvalvetimes]
+IndexDsec=齿轮箱油冷却滤油阀启动次数
+ResultTable=healthy_state_index
+ResultDBField=giGearboxOilCoolerBypassValveTimes
+HealthyLevel0=1200000
+HealthyLevel100=0
+HealthyLevel0Desc=动作次数1200000次
+HealthyLevel100Desc=动作次数0次
+DataResource=golden
+CalFunc=giGearboxOilCoolerBypassValveTimes
+FuncPara=gigearboxoilcoolerbypassvalvetimes
+CalMethodDesc=健康度=(1-当前运行次数/1200000)*100%%
+
+[gigearboxoilvolumevalvetimes]
+IndexDsec=齿轮箱油量阀启动次数
+ResultTable=healthy_state_index
+ResultDBField=giGearboxOilVolumeValveTimes
+HealthyLevel0=1200000
+HealthyLevel100=0
+HealthyLevel0Desc=动作次数1200000次
+HealthyLevel100Desc=动作次数0次
+DataResource=golden
+CalFunc=giGearboxOilVolumeValveTimes
+FuncPara=gigearboxoilvolumevalvetimes
+CalMethodDesc=健康度=(1-当前运行次数/1200000)*100%%
+
+[gigeneratorwaterpumpontimes]
+IndexDsec=发电机水冷泵启动次数
+ResultTable=healthy_state_index
+ResultDBField=giGeneratorWaterPumpOnTimes
+HealthyLevel0=1200000
+HealthyLevel100=0
+HealthyLevel0Desc=动作次数1200000次
+HealthyLevel100Desc=动作次数0次
+DataResource=golden
+CalFunc=giGeneratorWaterPumpOnTimes
+FuncPara=gigeneratorwaterpumpontimes
+CalMethodDesc=健康度=(1-当前运行次数/1200000)*100%%
+
+[gigeneratorwaterfanontimes]
+IndexDsec=发电机水冷风扇启动次数
+ResultTable=healthy_state_index
+ResultDBField=giGeneratorWaterFanOnTimes
+HealthyLevel0=1200000
+HealthyLevel100=0
+HealthyLevel0Desc=动作次数1200000次
+HealthyLevel100Desc=动作次数0次
+DataResource=golden
+CalFunc=giGeneratorWaterFanOnTimes
+FuncPara=gigeneratorwaterfanontimes
+CalMethodDesc=健康度=(1-当前运行次数/1200000)*100%%
+
+[gigeneratorwaterheaterontimes]
+IndexDsec=发电机水加热器启动次数
+ResultTable=healthy_state_index
+ResultDBField=giGeneratorWaterHeaterOnTimes
+HealthyLevel0=1200000
+HealthyLevel100=0
+HealthyLevel0Desc=动作次数1200000次
+HealthyLevel100Desc=动作次数0次
+DataResource=golden
+CalFunc=giGeneratorWaterHeaterOnTimes
+FuncPara=gigeneratorwaterheaterontimes
+CalMethodDesc=健康度=(1-当前运行次数/1200000)*100%%
+
+[gihydraulicpumpontimes]
+IndexDsec=液压泵启动次数
+ResultTable=healthy_state_index
+ResultDBField=giHydraulicPumpOnTimes
+HealthyLevel0=1200000
+HealthyLevel100=0
+HealthyLevel0Desc=动作次数1200000次
+HealthyLevel100Desc=动作次数0次
+DataResource=golden
+CalFunc=giHydraulicPumpOnTimes
+FuncPara=gihydraulicpumpontimes
+CalMethodDesc=健康度=(1-当前运行次数/1200000)*100%%
+
+[giyawtimes]
+IndexDsec=偏航次数
+ResultTable=healthy_state_index
+ResultDBField=giYawTimes
+HealthyLevel0=1200000
+HealthyLevel100=0
+HealthyLevel0Desc=动作次数1200000次
+HealthyLevel100Desc=动作次数0次
+DataResource=golden
+CalFunc=giYawTimes
+FuncPara=giyawtimes
+CalMethodDesc=健康度=(1-当前运行次数/1200000)*100%%
+
+[ginacellefanontimes]
+IndexDsec=机舱风扇启动次数
+ResultTable=healthy_state_index
+ResultDBField=giNacelleFanOnTimes
+HealthyLevel0=1200000
+HealthyLevel100=0
+HealthyLevel0Desc=动作次数1200000次
+HealthyLevel100Desc=动作次数0次
+DataResource=golden
+CalFunc=giNacelleFanOnTimes
+FuncPara=ginacellefanontimes
+CalMethodDesc=机舱风扇健康度=(1-当前运行次数/1200000)*100%%
+
+[grnacellecabinetupsbatteryworktime]
+IndexDsec=机舱柜UPS电池工作时间
+ResultTable=healthy_state_index
+ResultDBField=grNacelleCabinetUPSBatteryWorkTime
+HealthyLevel0=10
+HealthyLevel100=30
+HealthyLevel0Desc=放电时间小于10min
+HealthyLevel100Desc=放电时间大于30min
+DataResource=golden
+CalFunc=grNacelleCabinetUPSBatteryWorkTime
+FuncPara=grnacellecabinetupsbatteryworktime
+CalMethodDesc=机舱柜UPS电池健康度=(当前放电时间-健康指标100%%)/(健康指标0%%-健康指标100%%)*100％
+
+[grtowercabinetupsbatteryworktime]
+IndexDsec=塔基柜UPS电池工作时间
+ResultTable=healthy_state_index
+ResultDBField=grTowerCabinetUPSBatteryWorkTime
+HealthyLevel0=10
+HealthyLevel100=30
+HealthyLevel0Desc=放电时间小于10min
+HealthyLevel100Desc=放电时间大于30min
+DataResource=golden
+CalFunc=grTowerCabinetUPSBatteryWorkTime
+FuncPara=grtowercabinetupsbatteryworktime
+CalMethodDesc=塔基柜UPS电池健康度=(当前放电时间-健康指标100%%)/(健康指标0%%-健康指标100%%)*100％
+
+[grcontrolcabinethealthylevel]
+IndexDsec=控制柜健康度
+ResultTable=healthy_state_component
+ResultDBField=grControlCabinet
+DataResource=afterInitialCal
+CalFunc=grControlCabinet
+FuncPara=giGearboxMainPumpOnTimes1,giGearboxMainPumpOnTimes2,giGearboxBypassPunpOnTimes,giGearboxOilHeaterOnTimes,giGearboxOilFanOnTimes,giGearboxOilCoolerBypassValveTimes,giGeneratorWaterPumpOnTimes,giGeneratorWaterFanOnTimes,giGeneratorWaterHeaterOnTimes,giHydraulicPumpOnTimes,giYawTimes,giNacelleFanOnTimes,grNacelleCabinetUPSBatteryWorkTime,grTowerCabinetUPSBatteryWorkTime
+CalMethodDesc=控制柜健康度=min(接触器健康度,UPS电池健康度)
+
+[grturbinehealthylevel]
+IndexDsec=整机健康度
+ResultTable=healthy_state_component
+ResultDBField=turbine
+DataResource=afterInitialCal
+CalFunc=turbine
+FuncPara=grPitch,grGearbox,grGenerator,grGearboxLubrication,grGeneratorWaterCooling,grHydraulic,grNacelleCooling,grYaw,grConverterWaterCooling,grConverterCabinet,grBladePowerDifference,grControlCabinet
+CalMethodDesc=整机健康度=min(变桨系统健康度,齿轮箱健康度,发电机健康度,齿轮箱润滑系统健康度,发电机水冷系统健康度,液压系统健康度,机舱散热健康度,偏航系统健康度,变频器水冷系统健康度,变频器本体健康度,叶片健康度,控制柜健康度)
