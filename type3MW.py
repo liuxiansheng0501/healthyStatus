@@ -10,9 +10,7 @@ import logging
 import random
 import pandas as pd
 import pymysql
-import time
 import calFunctionUtils
-import runHaltTime
 import os
 import numpy
 os.environ['CLASSPATH'] = "./Lib/my.golden.jar"
@@ -40,8 +38,8 @@ class wtgsCalProcess:
         [self.healthy_state_index_value,self.healthy_state_component_value]=self.indicatorCalProcess(his)
         self.addRunMode()
         self.addBaseInfo()
-        # self.exportIndexResultToRemoteDB()
-        # self.exportComponentResultToRemoteDB()
+        self.exportIndexResultToRemoteDB()
+        self.exportComponentResultToRemoteDB()
 
     def indicatorSet(self):
         cfg = configparser.ConfigParser()
@@ -174,12 +172,12 @@ class wtgsCalProcess:
 
 class mainLoopProcess:
     def __init__(self):
-        conn = pymysql.connect(host='192.168.0.19', port=3306, user='llj', passwd='llj@2016', db='iot_wind',charset="utf8")
-        sqlstr = "SELECT MAX(realTime) FROM healthy_state_component"
-        latest_cal_time = pd.read_sql(sql=sqlstr, con=conn)
-        conn.close()
-        from_time=str(latest_cal_time['MAX(realTime)'].iloc[0]) # 已经计算的最新时间
-        # from_time="2017-12-08 00:00:00"
+        # conn = pymysql.connect(host='192.168.0.19', port=3306, user='llj', passwd='llj@2016', db='iot_wind',charset="utf8")
+        # sqlstr = "SELECT MAX(realTime) FROM healthy_state_component"
+        # latest_cal_time = pd.read_sql(sql=sqlstr, con=conn)
+        # conn.close()
+        # from_time=str(latest_cal_time['MAX(realTime)'].iloc[0]) # 已经计算的最新时间
+        from_time="2017-12-20 01:00:00"
         from_time=datetime.strptime(from_time,"%Y-%m-%d %H:%M:%S")
         currentTime=datetime.now().strftime("%Y-%m-%d %H")+":00:00"#整点计算时间
         currentTime = datetime.strptime(currentTime, "%Y-%m-%d %H:%M:%S")
@@ -199,18 +197,17 @@ class mainLoopProcess:
         for wtgs_id in range(30002001,30002018):
             print(wtgs_id)
             wtgsCalProcess(wtgs_id,self.currentTime,his)
-            # break
         server.close()
         his.close()
 
 
 if __name__=="__main__":
-    while True:
-        if datetime.now().strftime("%Y-%m-%d %H:%M:%S")[14:16]=='40':
-            mainLoopProcess()
-        else:
-            pass
-    # mainLoopProcess()
+    # while True:
+    #     if datetime.now().strftime("%Y-%m-%d %H:%M:%S")[14:16]=='40':
+    #         mainLoopProcess()
+    #     else:
+    #         pass
+    mainLoopProcess()
 
 
 
