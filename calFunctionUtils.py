@@ -2497,7 +2497,7 @@ def readTagIndex(tag_EN,wtgs_id):#查询标签点在庚顿数据库中的索引
 def queryDataFromGolden(tag_id,start_time, end_time,his):#查数据
     data_unit = autoclass('com.rtdb.api.util.DateUtil')
     count = pd.date_range(start=start_time, end=end_time, freq='S').size
-    result = his.getDoubleArchivedValues(tag_id, count, data_unit.stringToDate(start_time),data_unit.stringToDate(end_time))
+    result = his.getFloatInterpoValues(tag_id, count, data_unit.stringToDate(start_time),data_unit.stringToDate(end_time))
     if result.size() > 0:
         values = []
         for i in range(result.size()):
@@ -2511,7 +2511,7 @@ def queryDataFromGolden(tag_id,start_time, end_time,his):#查数据
 def queryDataFromGolden3(tag_id,start_time, end_time,his):#查数据-空载电压设置
     data_unit = autoclass('com.rtdb.api.util.DateUtil')
     count = pd.date_range(start=start_time, end=end_time, freq='S').size
-    result = his.getDoubleArchivedValues(tag_id, count, data_unit.stringToDate(start_time),data_unit.stringToDate(end_time))
+    result = his.getFloatInterpoValues(tag_id, count, data_unit.stringToDate(start_time),data_unit.stringToDate(end_time))
     if result.size() > 0:
         values = []
         for i in range(result.size()):
@@ -2529,7 +2529,7 @@ def queryDataFromGolden2(tag_EN,wtgs_id,current_time,start_time, end_time,his):#
     tag_golden_index = readTagIndex(tag_EN, wtgs_id)
     data_unit = autoclass('com.rtdb.api.util.DateUtil')
     count = pd.date_range(start=start_time, end=end_time, freq='S').size
-    result = his.getDoubleArchivedValues(tag_golden_index, count, data_unit.stringToDate(start_time),data_unit.stringToDate(end_time))
+    result = his.getFloatInterpoValues(tag_golden_index, count, data_unit.stringToDate(start_time),data_unit.stringToDate(end_time))
     timelist=[]
     valuelist=[]
     flag=0
@@ -2563,7 +2563,7 @@ def queryDataFromGolden2(tag_EN,wtgs_id,current_time,start_time, end_time,his):#
 def gbGearboxOilFanOn(tag_id,start_time, end_time,his):#查数据
     data_unit = autoclass('com.rtdb.api.util.DateUtil')
     count = pd.date_range(start=start_time, end=end_time, freq='S').size
-    result = his.getIntArchivedValues(tag_id, count, data_unit.stringToDate(start_time),data_unit.stringToDate(end_time))
+    result = his.getIntInterpoValues(tag_id, count, data_unit.stringToDate(start_time),data_unit.stringToDate(end_time))
     if result.size() > 1:
         values = []
         turn_on_times=0
@@ -2735,6 +2735,10 @@ def ANNLinearDescend(fromValue,toValue,xValue):
         return (toValue-xValue)/(toValue-fromValue)
 
 if __name__=="__main__":
-    queryRunHaltTime(30002001,'2017-12-12 15:00:00')
+    server_impl = autoclass('com.rtdb.service.impl.ServerImpl')
+    server = server_impl("192.168.0.37", 6327, "sa", "golden")
+    historian_impl = autoclass('com.rtdb.service.impl.HistorianImpl')
+    his = historian_impl(server)
+    queryDataFromGolden3(633189,'2017-12-20 10:18:33','2017-12-20 10:19:14',his)
 
 
