@@ -921,7 +921,7 @@ HealthyLevel0Desc=起泵10s后进出水压力低于1bar
 HealthyLevel100Desc=起泵10s后进出水压力高于3bar
 DataResource=golden
 CalFunc=grGeneratorWaterPumpPressureDifference
-FuncPara=grgeneratorwaterpressurein,grgeneratorwaterpressureout
+FuncPara=giwindturbineoperationmode,gbgeneratorwaterpumpon,grgeneratorwaterpressurein,grgeneratorwaterpressureout
 CalMethodDesc=健康度=(起泵10s压差-健康指标100%%)/(健康指标0%%-健康指标100%%)*100％
 
 [grgeneratorwaterfanontime]

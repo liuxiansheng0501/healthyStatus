@@ -40,8 +40,8 @@ class wtgsCalProcess:
         [self.healthy_state_index_value,self.healthy_state_component_value]=self.indicatorCalProcess(his)
         self.addRunMode()
         self.addBaseInfo()
-        self.exportIndexResultToRemoteDB()
-        self.exportComponentResultToRemoteDB()
+        # self.exportIndexResultToRemoteDB()
+        # self.exportComponentResultToRemoteDB()
 
     def indicatorSet(self):
         cfg = configparser.ConfigParser()
@@ -210,6 +210,7 @@ if __name__=="__main__":
             mainLoopProcess()
         else:
             pass
+    # mainLoopProcess()
 
 
 

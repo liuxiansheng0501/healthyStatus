@@ -2457,30 +2457,29 @@ def descend(index, fromValue, toValue, wtgs_id,from_time_now,current_time,to_tim
 
 def ascendMultiVariable(index, fromValue, toValue, wtgs_id,from_time_now,current_time,to_time_now,his):#值越大健康度越高
     index_list=index.split(',')
-    value_list=[]
+    value_dict={}
     if fromValue>toValue:
         fromValue,toValue=toValue,fromValue
-    if queryRunMode(wtgs_id,current_time) in [12,13,14]:
-        for index in index_list:
-            tag_golden_index = readTagIndex(index, wtgs_id)  # 查询标签点在golden中的id
-            latest_real_data = queryDataFromGolden(tag_golden_index, from_time_now, to_time_now,his)
-            if latest_real_data:
-                value_list.append(latest_real_data)
-            else:# 当前时间无存储值
-                loger.warning(str(index) + ' ' + str(wtgs_id) + ' ' + current_time + " is empty!")
-    if len(value_list)==2:
-        try:
-            latest_real_data=abs(value_list[0]-value_list[1])#两者差值的绝对值
-            if latest_real_data > toValue:
-                return 1
-            elif latest_real_data <= toValue and latest_real_data > fromValue:
-                return round((latest_real_data - fromValue) / (toValue - fromValue), 4)
+    for index in index_list:
+        tag_golden_index = readTagIndex(index, wtgs_id)  # 查询标签点在golden中的id
+        if index == 'giwindturbineoperationmode' or index=='gbgeneratorwaterpumpon':
+            [timelist, tag_real_data] = queryDataFromGolden4(tag_golden_index, from_time_now, to_time_now,his)
+        else:
+            tag_real_data = queryDataFromGolden5(tag_golden_index, from_time_now, to_time_now, his)
+        value_dict[index]=tag_real_data
+    value_dict=pd.DataFrame.from_dict(value_dict)
+    value_dict=value_dict[(value_dict['giwindturbineoperationmode']==14.0) & (value_dict['gbgeneratorwaterpumpon']==1.0)] # 机组并网且发电机水泵启动信号
+    degreeList=[]
+    if len(value_dict)>0:
+        for row in range(len(value_dict)):
+            diff = abs(value_dict['grgeneratorwaterpressurein'].iloc[row] - value_dict['grgeneratorwaterpressureout'].iloc[row])  # 两者差值的绝对值
+            if diff > toValue:
+                degreeList.append(1)
+            elif diff <= toValue and diff > fromValue:
+                degreeList.append(round((diff - fromValue) / (toValue - fromValue), 4))
             else:
-                return 0
-        except:
-            loger.debug(index + " " + str(wtgs_id) + " " + str(fromValue) + ">=" + str(toValue))
-        finally:
-            pass
+                degreeList.append(0)
+        return sum(degreeList)/len(degreeList)
     else:
         return None
 
@@ -2494,6 +2493,19 @@ def readTagIndex(tag_EN,wtgs_id):#查询标签点在庚顿数据库中的索引
     else:
         return []
 
+def queryDataFromGolden5(tag_id,start_time, end_time,his):#查数据
+    data_unit = autoclass('com.rtdb.api.util.DateUtil')
+    count = pd.date_range(start=start_time, end=end_time, freq='S').size
+    result = his.getFloatInterpoValues(tag_id, count, data_unit.stringToDate(start_time),data_unit.stringToDate(end_time))
+    if result.size() > 0:
+        values = []
+        for i in range(result.size()):
+            r = result.get(i)
+            values.append(r.getValue())
+        return values # 求均值时包含异常值的处理
+    else:
+        return None
+
 def queryDataFromGolden(tag_id,start_time, end_time,his):#查数据
     data_unit = autoclass('com.rtdb.api.util.DateUtil')
     count = pd.date_range(start=start_time, end=end_time, freq='S').size
@@ -2503,7 +2515,6 @@ def queryDataFromGolden(tag_id,start_time, end_time,his):#查数据
         for i in range(result.size()):
             r = result.get(i)
             values.append(r.getValue())
-        # print(tag_id,values)
         return meanData(values) # 求均值时包含异常值的处理
     else:
         return None
@@ -2524,6 +2535,19 @@ def queryDataFromGolden3(tag_id,start_time, end_time,his):#查数据-空载电�
             return None
     else:
         return None
+
+def queryDataFromGolden4(tag_golden_index,start_time, end_time,his):#查数据
+    data_unit = autoclass('com.rtdb.api.util.DateUtil')
+    count = pd.date_range(start=start_time, end=end_time, freq='S').size
+    result = his.getIntInterpoValues(tag_golden_index, count, data_unit.stringToDate(start_time),data_unit.stringToDate(end_time))
+    timelist=[]
+    valuelist=[]
+    if result.size() > 0:
+        for i in range(result.size()):
+            r = result.get(i)
+            timelist.append(data_unit.dateToString(r.getDateTime())) # 时间戳序列
+            valuelist.append(float(r.getValue())) # 存储值序列
+    return timelist,valuelist
 
 def queryDataFromGolden2(tag_EN,wtgs_id,current_time,start_time, end_time,his):#查数据
     tag_golden_index = readTagIndex(tag_EN, wtgs_id)
