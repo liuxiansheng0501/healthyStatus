@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6ea88464-867c-4aea-adab-4d1ed571a633" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config.db" afterPath="$PROJECT_DIR$/config.db" />
+    <list default="true" id="6ea88464-867c-4aea-adab-4d1ed571a633" name="Default" comment="修改所以的模型：&#10;1、数据均为查询插值后的数据，保证每秒均有数据&#10;2、先计算健康度再计算均值得到整点计算时间的健康度">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/run_halt_time.log" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/calFunctionUtils.py" afterPath="$PROJECT_DIR$/calFunctionUtils.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config" afterPath="$PROJECT_DIR$/config" />
@@ -17,9 +17,9 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/healthyStatus$type3MW.coverage" NAME="type3MW Coverage Results" MODIFIED="1513746336622" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/healthyStatus$type3MW.coverage" NAME="type3MW Coverage Results" MODIFIED="1514287022504" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/healthyStatus$calFunctionSet.coverage" NAME="calFunctionSet Coverage Results" MODIFIED="1513066862728" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/healthyStatus$calFunctionUtils.coverage" NAME="calFunctionUtils Coverage Results" MODIFIED="1513737771836" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/healthyStatus$calFunctionUtils.coverage" NAME="calFunctionUtils Coverage Results" MODIFIED="1513837881252" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/healthyStatus$runHaltTime.coverage" NAME="runHaltTime Coverage Results" MODIFIED="1512974098291" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/healthyStatus$main.coverage" NAME="main Coverage Results" MODIFIED="1511341171444" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
@@ -38,30 +38,11 @@
       <file leaf-file-name="type3MW.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/type3MW.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="343">
-              <caret line="169" column="15" lean-forward="true" selection-start-line="169" selection-start-column="15" selection-end-line="169" selection-end-column="15" />
+            <state relative-caret-position="301">
+              <caret line="64" column="115" lean-forward="false" selection-start-line="64" selection-start-column="115" selection-end-line="64" selection-end-column="115" />
               <folding>
                 <element signature="e#157#171#0" expanded="true" />
-                <marker date="1513746374098" expanded="true" signature="9813:9862" ph="SELECT MAX(r... healthy_state_component" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="runHaltTime.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/runHaltTime.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="721">
-              <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-              <folding>
-                <element signature="e#156#170#0" expanded="true" />
-                <marker date="1513068190309" expanded="true" signature="1339:1353" ph="SELECT * FRO... SELECT" />
-                <marker date="1513068190309" expanded="true" signature="1339:1484" ph="SELECT * FRO... healthy_state_run_halt_time" />
-                <marker date="1513068190309" expanded="true" signature="1339:1485" ph="SELECT * FRO... healthy_state_run_halt_time" />
-                <marker date="1513068190309" expanded="true" signature="1397:1484" ph="SELECT MAX(r... healthy_state_run_halt_time" />
-                <marker date="1513068190309" expanded="true" signature="3624:3671" ph="INSERT INTO healthy_state_run_halt_time... " />
-                <marker date="1513068190309" expanded="true" signature="3630:3671" ph="INSERT INTO healthy_state_run_halt_time... " />
-                <marker date="1513068190309" expanded="true" signature="3635:3671" ph="SELECT * FRO... healthy_state_run_halt_time" />
+                <marker date="1514287809010" expanded="true" signature="9660:9709" ph="SELECT MAX(r... healthy_state_component" />
               </folding>
             </state>
           </provider>
@@ -70,8 +51,8 @@
       <file leaf-file-name="config" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="311">
-              <caret line="922" column="46" lean-forward="true" selection-start-line="922" selection-start-column="46" selection-end-line="922" selection-end-column="46" />
+            <state relative-caret-position="44">
+              <caret line="305" column="94" lean-forward="true" selection-start-line="305" selection-start-column="94" selection-end-line="305" selection-end-column="94" />
               <folding />
             </state>
           </provider>
@@ -80,19 +61,49 @@
       <file leaf-file-name="calFunctionUtils.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/calFunctionUtils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="586">
-              <caret line="2468" column="18" lean-forward="false" selection-start-line="2468" selection-start-column="8" selection-end-line="2468" selection-end-column="18" />
+            <state relative-caret-position="3950">
+              <caret line="458" column="82" lean-forward="false" selection-start-line="458" selection-start-column="52" selection-end-line="458" selection-end-column="82" />
               <folding>
-                <marker date="1513746302218" expanded="true" signature="131827:131938" ph="SELECT tag_i... tag_golden_index" />
-                <marker date="1513746302218" expanded="true" signature="138685:138766" ph="SELECT * FRO... healthy_state_run_halt_time" />
-                <marker date="1513746302218" expanded="true" signature="140032:140095" ph="SELECT runMo... healthy_state_run_halt_time" />
-                <marker date="1513746302218" expanded="true" signature="140032:140221" ph="SELECT * FRO... healthy_state_run_halt_time" />
-                <marker date="1513746302218" expanded="true" signature="140032:140238" ph="SELECT runMo... healthy_state_run_halt_time" />
-                <marker date="1513746302218" expanded="true" signature="140032:140257" ph="SELECT runMo... healthy_state_run_halt_time" />
-                <marker date="1513746302218" expanded="true" signature="140130:140221" ph="SELECT MAX(r... healthy_state_run_halt_time" />
-                <marker date="1513746302218" expanded="true" signature="140576:140633" ph="SELECT * FRO... healthy_state_run_halt_time" />
-                <marker date="1513746302218" expanded="true" signature="140576:140795" ph="SELECT * FRO... healthy_state_run_halt_time" />
-                <marker date="1513746302218" expanded="true" signature="140668:140794" ph="SELECT MAX(r... healthy_state_run_halt_time" />
+                <element signature="e#167#181#0" expanded="true" />
+                <marker date="1514286570972" expanded="true" signature="126369:126480" ph="SELECT tag_i... tag_golden_index" />
+                <marker date="1514286570972" expanded="false" signature="128455:129027" ph="..." />
+                <marker date="1514286570972" expanded="true" signature="132448:132529" ph="SELECT * FRO... healthy_state_run_halt_time" />
+                <marker date="1514286570972" expanded="true" signature="133795:133858" ph="SELECT runMo... healthy_state_run_halt_time" />
+                <marker date="1514286570972" expanded="true" signature="133795:133984" ph="SELECT * FRO... healthy_state_run_halt_time" />
+                <marker date="1514286570972" expanded="true" signature="133795:134001" ph="SELECT runMo... healthy_state_run_halt_time" />
+                <marker date="1514286570972" expanded="true" signature="133795:134020" ph="SELECT runMo... healthy_state_run_halt_time" />
+                <marker date="1514286570972" expanded="true" signature="133893:133984" ph="SELECT MAX(r... healthy_state_run_halt_time" />
+                <marker date="1514286570972" expanded="true" signature="134339:134396" ph="SELECT * FRO... healthy_state_run_halt_time" />
+                <marker date="1514286570972" expanded="true" signature="134339:134558" ph="SELECT * FRO... healthy_state_run_halt_time" />
+                <marker date="1514286570972" expanded="true" signature="134431:134557" ph="SELECT MAX(r... healthy_state_run_halt_time" />
+                <marker date="1514286570972" expanded="false" signature="135675:136039" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SECOND">
+              <first_editor relative-caret-position="45">
+                <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+                <folding />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="runHaltTime.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/runHaltTime.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1080">
+              <caret line="29" column="28" lean-forward="false" selection-start-line="29" selection-start-column="28" selection-end-line="29" selection-end-column="28" />
+              <folding>
+                <marker date="1513068190309" expanded="true" signature="1339:1485" ph="SELECT * FRO... healthy_state_run_halt_time" />
+                <marker date="1513068190309" expanded="true" signature="1397:1484" ph="SELECT MAX(r... healthy_state_run_halt_time" />
+                <marker date="1513068190309" expanded="true" signature="3624:3671" ph="INSERT INTO healthy_state_run_halt_time... " />
               </folding>
             </state>
           </provider>
@@ -109,51 +120,38 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>query_last_state(wtgs_id,</find>
-      <find>query_last_state(wtgs_id</find>
-      <find>print</find>
-      <find>空载</find>
-      <find>grPitch2BackupPowerCapacity</find>
-      <find>query_last_state</find>
-      <find>空载电压</find>
-      <find>queryDataFromGolden3</find>
-      <find>齿轮箱主泵1运行时间</find>
-      <find>齿轮箱主泵1</find>
-      <find>齿轮箱主泵滤芯1堵塞时温度</find>
-      <find>主泵1滤芯</find>
-      <find>exportIndexResultToRemoteDB</find>
-      <find>queryDataFromGolden</find>
-      <find>dateTimeRange</find>
-      <find>x1_step1_xoffset</find>
-      <find>神经网络参数</find>
-      <find>weightBias</find>
-      <find>x1_step1_gain</find>
-      <find>齿轮箱主轴承温度</find>
-      <find>queryDataFromGolden2</find>
-      <find>%</find>
-      <find>result.size()</find>
-      <find>des</find>
-      <find>y1_step1_xoffset</find>
+      <find>grGeneratorWindingTemperature1</find>
+      <find>发电机绕组1温度</find>
+      <find>grgearboxmainbearingtemperature</find>
       <find>current_time</find>
-      <find>grGearboxDETemperature</find>
-      <find>calFunctionSet</find>
-      <find>his.</find>
-      <find>发电机水冷泵进出口压力偏差</find>
+      <find>grgeneratorwindingtemperature1</find>
+      <find>grgeneratorwindingtemperature2</find>
+      <find>grgeneratorwindingtemperature3</find>
+      <find>grgeneratorwindingtemperature4</find>
+      <find>golden</find>
+      <find>numpy</find>
+      <find>hisOrFurTime(base_time_loop, -5, 0, 0),  hisOrFurTime(base_time_loop, 5, 0, 0),his)</find>
+      <find>hisOrFurTime(base_time_loop, 5, 0, 0)</find>
+      <find>grGearboxOilPressureA3</find>
+      <find>grGearboxOilPressureA2</find>
+      <find>散热器</find>
+      <find>发电机绕组</find>
+      <find>grGearboxMainBearingTemperature</find>
+      <find>A2</find>
+      <find>grGeneratorNDEBearingTemperature</find>
+      <find>grGeneratorDEBearingTemperature</find>
+      <find>grGeneratorWindingTemperature6</find>
+      <find>if len(predict_value_list) &gt; 0:</find>
+      <find>grGearboxOilLevel</find>
+      <find>齿轮箱油位</find>
+      <find>grGearboxOilTemperature</find>
+      <find>out = {'predict'</find>
+      <find>autoclass</find>
+      <find>sa</find>
+      <find>hisOrFurTime(base_time_loop, -1800, 0, 0),hisOrFurTime(base_time_loop, 1800, 0, 0), his)</find>
+      <find>绕组</find>
     </findStrings>
     <replaceStrings>
-      <replace>(</replace>
-      <replace>=</replace>
-      <replace>%%</replace>
-      <replace>,</replace>
-      <replace>ResultDBField</replace>
-      <replace>descend</replace>
-      <replace>FuncPara=HealthyLevel100,HealthyLevel0</replace>
-      <replace>value_list</replace>
-      <replace>round(random.uniform(0, 1),6)</replace>
-      <replace>index, fromValue, toValue, wtgs_id,from_time,current_time,to_time</replace>
-      <replace>return None</replace>
-      <replace>(index, fromValue, toValue, wtgs_id,from_time,current_time,to_time)</replace>
-      <replace>getattr(calFunctionSet,attribute['calfunc'])</replace>
       <replace>for para,attr in para_value_dict.items():</replace>
       <replace>res</replace>
       <replace>grGearboxOilpressureA4</replace>
@@ -171,6 +169,19 @@
       <replace>if attr['value'] is None:</replace>
       <replace>query_last_state(wtgs_id,'grTowerCabinetUPSBatteryWorkTime','healthy_state_index',current_time)</replace>
       <replace>query_last_state(wtgs_id,current_time,</replace>
+      <replace>getFloatInterpoValuesFromGolden2</replace>
+      <replace>tag_golden_index, wtgs_id,</replace>
+      <replace>,</replace>
+      <replace>wtgs_id,</replace>
+      <replace>grgeneratorwindingtemperature3</replace>
+      <replace>grgeneratorwindingtemperature4</replace>
+      <replace>grgeneratorwindingtemperature5</replace>
+      <replace>grgeneratorwindingtemperature6</replace>
+      <replace>gridactivepower</replace>
+      <replace>hisOrFurTime(base_time_loop, -5, 0, 0),  hisOrFurTime(base_time_loop, 0, 0, 0),his)</replace>
+      <replace>hisOrFurTime(base_time_loop, 0, 0, 0)</replace>
+      <replace>if len(predict_value_list) &gt; 0:</replace>
+      <replace>hisOrFurTime(base_time_loop, -3600, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -185,10 +196,11 @@
         <option value="$PROJECT_DIR$/test.log" />
         <option value="$PROJECT_DIR$/aa" />
         <option value="$PROJECT_DIR$/runHaltTime.py" />
-        <option value="$PROJECT_DIR$/run.log" />
         <option value="$PROJECT_DIR$/calFunctionSet.py" />
         <option value="$PROJECT_DIR$/run_halt_time.log" />
         <option value="$USER_HOME$/Desktop/main.py" />
+        <option value="$PROJECT_DIR$/run.log" />
+        <option value="$PROJECT_DIR$/fieldTableCfg.py" />
         <option value="$PROJECT_DIR$/config" />
         <option value="$PROJECT_DIR$/calFunctionUtils.py" />
         <option value="$PROJECT_DIR$/type3MW.py" />
@@ -204,12 +216,12 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-9" />
     <option name="y" value="-9" />
-    <option name="width" value="1938" />
-    <option name="height" value="1048" />
+    <option name="width" value="2418" />
+    <option name="height" value="1318" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
-    <navigator proportions="" version="1">
+    <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -222,14 +234,34 @@
       <manualOrder />
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes />
+    <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="healthyStatus" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="healthyStatus" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../WindFarmKPI" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\software\python\project\healthyStatus" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\software\python\project\healthyStatus" />
     </key>
@@ -549,7 +581,28 @@
       <option name="project" value="LOCAL" />
       <updated>1513737989133</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="修改发电机进出水压差模型：&#10;1、查询数据为插值查询&#10;2、加并网&amp;发电机水泵信号==1的筛选条件&#10;3、每条记录先计算健康度值，最后再作均值得到总的整点时间的健康度值">
+      <created>1513746568527</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1513746568527</updated>
+    </task>
+    <task id="LOCAL-00003" summary="修改所以的模型：&#10;1、数据均为查询插值后的数据，保证每秒均有数据&#10;2、先计算健康度再计算均值得到整点计算时间的健康度">
+      <created>1513761790934</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1513761790934</updated>
+    </task>
+    <task id="LOCAL-00004" summary="修改所以的模型：&#10;1、数据均为查询插值后的数据，保证每秒均有数据&#10;2、先计算健康度再计算均值得到整点计算时间的健康度">
+      <created>1513761862994</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1513761862994</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TodoView">
@@ -562,20 +615,20 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
+    <frame x="-9" y="-9" width="2418" height="1318" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.62174404" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.7294016" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295583" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="WINDOWED" visible="false" show_stripe_button="true" weight="0.1786134" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="1" y="38" width="1914" height="991" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3295583" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="WINDOWED" visible="true" show_stripe_button="true" weight="0.1786134" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="0" y="29" width="2400" height="1271" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295583" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.66364664" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295583" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22317597" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23421502" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32842582" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30203864" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.398641" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.12285408" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3250283" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -597,74 +650,46 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="从庚顿数据库查询存储值修改为查询等间隔插值" />
-    <option name="LAST_COMMIT_MESSAGE" value="从庚顿数据库查询存储值修改为查询等间隔插值" />
+    <MESSAGE value="修改发电机进出水压差模型：&#10;1、查询数据为插值查询&#10;2、加并网&amp;发电机水泵信号==1的筛选条件&#10;3、每条记录先计算健康度值，最后再作均值得到总的整点时间的健康度值" />
+    <MESSAGE value="修改所以的模型：&#10;1、数据均为查询插值后的数据，保证每秒均有数据&#10;2、先计算健康度再计算均值得到整点计算时间的健康度" />
+    <option name="LAST_COMMIT_MESSAGE" value="修改所以的模型：&#10;1、数据均为查询插值后的数据，保证每秒均有数据&#10;2、先计算健康度再计算均值得到整点计算时间的健康度" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/type3MW.py</url>
-          <line>8</line>
-          <option name="timeStamp" value="9" />
+          <url>file://$PROJECT_DIR$/calFunctionUtils.py</url>
+          <line>2137</line>
+          <option name="timeStamp" value="12" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="10" />
+      <option name="time" value="16" />
     </breakpoint-manager>
-    <watches-manager />
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="local_layer_out[0:12] " />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/calFunctionUtils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="32805">
-          <caret line="741" column="74" lean-forward="false" selection-start-line="741" selection-start-column="24" selection-end-line="741" selection-end-column="74" />
-          <folding>
-            <marker date="1513746302218" expanded="true" signature="131827:131938" ph="SELECT tag_i... tag_golden_index" />
-            <marker date="1513746302218" expanded="true" signature="138685:138766" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140095" ph="SELECT runMo... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140221" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140238" ph="SELECT runMo... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140257" ph="SELECT runMo... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140130:140221" ph="SELECT MAX(r... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140576:140633" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140576:140795" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140668:140794" ph="SELECT MAX(r... healthy_state_run_halt_time" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/type3MW.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#157#171#0" expanded="true" />
-            <marker date="1513746374098" expanded="true" signature="9813:9862" ph="SELECT MAX(r... healthy_state_component" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/run.log">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/calFunctionUtils.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="12330">
           <caret line="286" column="15" lean-forward="false" selection-start-line="286" selection-start-column="15" selection-end-line="286" selection-end-column="15" />
           <folding>
-            <marker date="1513746302218" expanded="true" signature="131827:131938" ph="SELECT tag_i... tag_golden_index" />
-            <marker date="1513746302218" expanded="true" signature="138685:138766" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140095" ph="SELECT runMo... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140221" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140238" ph="SELECT runMo... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140257" ph="SELECT runMo... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140130:140221" ph="SELECT MAX(r... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140576:140633" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140576:140795" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140668:140794" ph="SELECT MAX(r... healthy_state_run_halt_time" />
+            <element signature="e#167#181#0" expanded="true" />
+            <marker date="1514286570972" expanded="true" signature="126369:126480" ph="SELECT tag_i... tag_golden_index" />
+            <marker date="1514286570972" expanded="false" signature="128455:129027" ph="..." />
+            <marker date="1514286570972" expanded="true" signature="132448:132529" ph="SELECT * FRO... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133795:133858" ph="SELECT runMo... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133795:133984" ph="SELECT * FRO... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133795:134001" ph="SELECT runMo... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133795:134020" ph="SELECT runMo... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133893:133984" ph="SELECT MAX(r... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="134339:134396" ph="SELECT * FRO... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="134339:134558" ph="SELECT * FRO... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="134431:134557" ph="SELECT MAX(r... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="false" signature="135675:136039" ph="..." />
           </folding>
         </state>
       </provider>
@@ -683,7 +708,7 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#157#171#0" expanded="true" />
-            <marker date="1513746374098" expanded="true" signature="9813:9862" ph="SELECT MAX(r... healthy_state_component" />
+            <marker date="1514287809010" expanded="true" signature="9660:9709" ph="SELECT MAX(r... healthy_state_component" />
           </folding>
         </state>
       </provider>
@@ -700,16 +725,19 @@
         <state relative-caret-position="12330">
           <caret line="286" column="15" lean-forward="true" selection-start-line="286" selection-start-column="15" selection-end-line="286" selection-end-column="15" />
           <folding>
-            <marker date="1513746302218" expanded="true" signature="131827:131938" ph="SELECT tag_i... tag_golden_index" />
-            <marker date="1513746302218" expanded="true" signature="138685:138766" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140095" ph="SELECT runMo... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140221" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140238" ph="SELECT runMo... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140257" ph="SELECT runMo... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140130:140221" ph="SELECT MAX(r... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140576:140633" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140576:140795" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140668:140794" ph="SELECT MAX(r... healthy_state_run_halt_time" />
+            <element signature="e#167#181#0" expanded="true" />
+            <marker date="1514286570972" expanded="true" signature="126369:126480" ph="SELECT tag_i... tag_golden_index" />
+            <marker date="1514286570972" expanded="false" signature="128455:129027" ph="..." />
+            <marker date="1514286570972" expanded="true" signature="132448:132529" ph="SELECT * FRO... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133795:133858" ph="SELECT runMo... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133795:133984" ph="SELECT * FRO... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133795:134001" ph="SELECT runMo... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133795:134020" ph="SELECT runMo... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133893:133984" ph="SELECT MAX(r... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="134339:134396" ph="SELECT * FRO... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="134339:134558" ph="SELECT * FRO... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="134431:134557" ph="SELECT MAX(r... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="false" signature="135675:136039" ph="..." />
           </folding>
         </state>
       </provider>
@@ -728,7 +756,7 @@
           <caret line="179" column="52" lean-forward="false" selection-start-line="179" selection-start-column="52" selection-end-line="179" selection-end-column="52" />
           <folding>
             <element signature="e#157#171#0" expanded="true" />
-            <marker date="1513746374098" expanded="true" signature="9813:9862" ph="SELECT MAX(r... healthy_state_component" />
+            <marker date="1514287809010" expanded="true" signature="9660:9709" ph="SELECT MAX(r... healthy_state_component" />
           </folding>
         </state>
       </provider>
@@ -738,16 +766,19 @@
         <state relative-caret-position="10665">
           <caret line="241" column="22" lean-forward="false" selection-start-line="241" selection-start-column="22" selection-end-line="241" selection-end-column="22" />
           <folding>
-            <marker date="1513746302218" expanded="true" signature="131827:131938" ph="SELECT tag_i... tag_golden_index" />
-            <marker date="1513746302218" expanded="true" signature="138685:138766" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140095" ph="SELECT runMo... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140221" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140238" ph="SELECT runMo... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140257" ph="SELECT runMo... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140130:140221" ph="SELECT MAX(r... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140576:140633" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140576:140795" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140668:140794" ph="SELECT MAX(r... healthy_state_run_halt_time" />
+            <element signature="e#167#181#0" expanded="true" />
+            <marker date="1514286570972" expanded="true" signature="126369:126480" ph="SELECT tag_i... tag_golden_index" />
+            <marker date="1514286570972" expanded="false" signature="128455:129027" ph="..." />
+            <marker date="1514286570972" expanded="true" signature="132448:132529" ph="SELECT * FRO... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133795:133858" ph="SELECT runMo... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133795:133984" ph="SELECT * FRO... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133795:134001" ph="SELECT runMo... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133795:134020" ph="SELECT runMo... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133893:133984" ph="SELECT MAX(r... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="134339:134396" ph="SELECT * FRO... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="134339:134558" ph="SELECT * FRO... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="134431:134557" ph="SELECT MAX(r... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="false" signature="135675:136039" ph="..." />
           </folding>
         </state>
       </provider>
@@ -773,7 +804,7 @@
           <caret line="49" column="62" lean-forward="false" selection-start-line="49" selection-start-column="53" selection-end-line="49" selection-end-column="62" />
           <folding>
             <element signature="e#157#171#0" expanded="true" />
-            <marker date="1513746374098" expanded="true" signature="9813:9862" ph="SELECT MAX(r... healthy_state_component" />
+            <marker date="1514287809010" expanded="true" signature="9660:9709" ph="SELECT MAX(r... healthy_state_component" />
           </folding>
         </state>
       </provider>
@@ -791,16 +822,19 @@
         <state relative-caret-position="3375">
           <caret line="75" column="17" lean-forward="true" selection-start-line="75" selection-start-column="17" selection-end-line="75" selection-end-column="17" />
           <folding>
-            <marker date="1513746302218" expanded="true" signature="131827:131938" ph="SELECT tag_i... tag_golden_index" />
-            <marker date="1513746302218" expanded="true" signature="138685:138766" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140095" ph="SELECT runMo... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140221" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140238" ph="SELECT runMo... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140257" ph="SELECT runMo... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140130:140221" ph="SELECT MAX(r... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140576:140633" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140576:140795" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140668:140794" ph="SELECT MAX(r... healthy_state_run_halt_time" />
+            <element signature="e#167#181#0" expanded="true" />
+            <marker date="1514286570972" expanded="true" signature="126369:126480" ph="SELECT tag_i... tag_golden_index" />
+            <marker date="1514286570972" expanded="false" signature="128455:129027" ph="..." />
+            <marker date="1514286570972" expanded="true" signature="132448:132529" ph="SELECT * FRO... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133795:133858" ph="SELECT runMo... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133795:133984" ph="SELECT * FRO... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133795:134001" ph="SELECT runMo... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133795:134020" ph="SELECT runMo... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133893:133984" ph="SELECT MAX(r... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="134339:134396" ph="SELECT * FRO... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="134339:134558" ph="SELECT * FRO... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="134431:134557" ph="SELECT MAX(r... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="false" signature="135675:136039" ph="..." />
           </folding>
         </state>
       </provider>
@@ -811,7 +845,7 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#157#171#0" expanded="true" />
-            <marker date="1513746374098" expanded="true" signature="9813:9862" ph="SELECT MAX(r... healthy_state_component" />
+            <marker date="1514287809010" expanded="true" signature="9660:9709" ph="SELECT MAX(r... healthy_state_component" />
           </folding>
         </state>
       </provider>
@@ -828,16 +862,19 @@
         <state relative-caret-position="1440">
           <caret line="32" column="76" lean-forward="false" selection-start-line="32" selection-start-column="30" selection-end-line="32" selection-end-column="76" />
           <folding>
-            <marker date="1513746302218" expanded="true" signature="131827:131938" ph="SELECT tag_i... tag_golden_index" />
-            <marker date="1513746302218" expanded="true" signature="138685:138766" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140095" ph="SELECT runMo... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140221" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140238" ph="SELECT runMo... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140257" ph="SELECT runMo... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140130:140221" ph="SELECT MAX(r... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140576:140633" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140576:140795" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140668:140794" ph="SELECT MAX(r... healthy_state_run_halt_time" />
+            <element signature="e#167#181#0" expanded="true" />
+            <marker date="1514286570972" expanded="true" signature="126369:126480" ph="SELECT tag_i... tag_golden_index" />
+            <marker date="1514286570972" expanded="false" signature="128455:129027" ph="..." />
+            <marker date="1514286570972" expanded="true" signature="132448:132529" ph="SELECT * FRO... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133795:133858" ph="SELECT runMo... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133795:133984" ph="SELECT * FRO... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133795:134001" ph="SELECT runMo... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133795:134020" ph="SELECT runMo... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133893:133984" ph="SELECT MAX(r... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="134339:134396" ph="SELECT * FRO... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="134339:134558" ph="SELECT * FRO... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="134431:134557" ph="SELECT MAX(r... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="false" signature="135675:136039" ph="..." />
           </folding>
         </state>
       </provider>
@@ -848,7 +885,7 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#157#171#0" expanded="true" />
-            <marker date="1513746374098" expanded="true" signature="9813:9862" ph="SELECT MAX(r... healthy_state_component" />
+            <marker date="1514287809010" expanded="true" signature="9660:9709" ph="SELECT MAX(r... healthy_state_component" />
           </folding>
         </state>
       </provider>
@@ -865,16 +902,19 @@
         <state relative-caret-position="765">
           <caret line="17" column="18" lean-forward="false" selection-start-line="17" selection-start-column="11" selection-end-line="17" selection-end-column="18" />
           <folding>
-            <marker date="1513746302218" expanded="true" signature="131827:131938" ph="SELECT tag_i... tag_golden_index" />
-            <marker date="1513746302218" expanded="true" signature="138685:138766" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140095" ph="SELECT runMo... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140221" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140238" ph="SELECT runMo... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140257" ph="SELECT runMo... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140130:140221" ph="SELECT MAX(r... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140576:140633" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140576:140795" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140668:140794" ph="SELECT MAX(r... healthy_state_run_halt_time" />
+            <element signature="e#167#181#0" expanded="true" />
+            <marker date="1514286570972" expanded="true" signature="126369:126480" ph="SELECT tag_i... tag_golden_index" />
+            <marker date="1514286570972" expanded="false" signature="128455:129027" ph="..." />
+            <marker date="1514286570972" expanded="true" signature="132448:132529" ph="SELECT * FRO... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133795:133858" ph="SELECT runMo... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133795:133984" ph="SELECT * FRO... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133795:134001" ph="SELECT runMo... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133795:134020" ph="SELECT runMo... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133893:133984" ph="SELECT MAX(r... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="134339:134396" ph="SELECT * FRO... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="134339:134558" ph="SELECT * FRO... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="134431:134557" ph="SELECT MAX(r... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="false" signature="135675:136039" ph="..." />
           </folding>
         </state>
       </provider>
@@ -885,7 +925,7 @@
           <caret line="58" column="45" lean-forward="false" selection-start-line="58" selection-start-column="45" selection-end-line="58" selection-end-column="45" />
           <folding>
             <element signature="e#157#171#0" expanded="true" />
-            <marker date="1513746374098" expanded="true" signature="9813:9862" ph="SELECT MAX(r... healthy_state_component" />
+            <marker date="1514287809010" expanded="true" signature="9660:9709" ph="SELECT MAX(r... healthy_state_component" />
           </folding>
         </state>
       </provider>
@@ -895,16 +935,19 @@
         <state relative-caret-position="2430">
           <caret line="54" column="14" lean-forward="false" selection-start-line="54" selection-start-column="4" selection-end-line="54" selection-end-column="14" />
           <folding>
-            <marker date="1513746302218" expanded="true" signature="131827:131938" ph="SELECT tag_i... tag_golden_index" />
-            <marker date="1513746302218" expanded="true" signature="138685:138766" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140095" ph="SELECT runMo... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140221" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140238" ph="SELECT runMo... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140257" ph="SELECT runMo... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140130:140221" ph="SELECT MAX(r... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140576:140633" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140576:140795" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140668:140794" ph="SELECT MAX(r... healthy_state_run_halt_time" />
+            <element signature="e#167#181#0" expanded="true" />
+            <marker date="1514286570972" expanded="true" signature="126369:126480" ph="SELECT tag_i... tag_golden_index" />
+            <marker date="1514286570972" expanded="false" signature="128455:129027" ph="..." />
+            <marker date="1514286570972" expanded="true" signature="132448:132529" ph="SELECT * FRO... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133795:133858" ph="SELECT runMo... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133795:133984" ph="SELECT * FRO... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133795:134001" ph="SELECT runMo... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133795:134020" ph="SELECT runMo... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133893:133984" ph="SELECT MAX(r... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="134339:134396" ph="SELECT * FRO... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="134339:134558" ph="SELECT * FRO... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="134431:134557" ph="SELECT MAX(r... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="false" signature="135675:136039" ph="..." />
           </folding>
         </state>
       </provider>
@@ -923,7 +966,7 @@
           <caret line="58" column="45" lean-forward="true" selection-start-line="58" selection-start-column="45" selection-end-line="58" selection-end-column="45" />
           <folding>
             <element signature="e#157#171#0" expanded="true" />
-            <marker date="1513746374098" expanded="true" signature="9813:9862" ph="SELECT MAX(r... healthy_state_component" />
+            <marker date="1514287809010" expanded="true" signature="9660:9709" ph="SELECT MAX(r... healthy_state_component" />
           </folding>
         </state>
       </provider>
@@ -933,16 +976,19 @@
         <state relative-caret-position="2430">
           <caret line="54" column="14" lean-forward="false" selection-start-line="54" selection-start-column="4" selection-end-line="54" selection-end-column="14" />
           <folding>
-            <marker date="1513746302218" expanded="true" signature="131827:131938" ph="SELECT tag_i... tag_golden_index" />
-            <marker date="1513746302218" expanded="true" signature="138685:138766" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140095" ph="SELECT runMo... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140221" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140238" ph="SELECT runMo... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140257" ph="SELECT runMo... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140130:140221" ph="SELECT MAX(r... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140576:140633" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140576:140795" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140668:140794" ph="SELECT MAX(r... healthy_state_run_halt_time" />
+            <element signature="e#167#181#0" expanded="true" />
+            <marker date="1514286570972" expanded="true" signature="126369:126480" ph="SELECT tag_i... tag_golden_index" />
+            <marker date="1514286570972" expanded="false" signature="128455:129027" ph="..." />
+            <marker date="1514286570972" expanded="true" signature="132448:132529" ph="SELECT * FRO... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133795:133858" ph="SELECT runMo... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133795:133984" ph="SELECT * FRO... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133795:134001" ph="SELECT runMo... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133795:134020" ph="SELECT runMo... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133893:133984" ph="SELECT MAX(r... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="134339:134396" ph="SELECT * FRO... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="134339:134558" ph="SELECT * FRO... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="134431:134557" ph="SELECT MAX(r... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="false" signature="135675:136039" ph="..." />
           </folding>
         </state>
       </provider>
@@ -961,7 +1007,7 @@
           <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
           <folding>
             <element signature="e#157#171#0" expanded="true" />
-            <marker date="1513746374098" expanded="true" signature="9813:9862" ph="SELECT MAX(r... healthy_state_component" />
+            <marker date="1514287809010" expanded="true" signature="9660:9709" ph="SELECT MAX(r... healthy_state_component" />
           </folding>
         </state>
       </provider>
@@ -986,16 +1032,19 @@
         <state relative-caret-position="765">
           <caret line="17" column="61" lean-forward="false" selection-start-line="17" selection-start-column="61" selection-end-line="17" selection-end-column="61" />
           <folding>
-            <marker date="1513746302218" expanded="true" signature="131827:131938" ph="SELECT tag_i... tag_golden_index" />
-            <marker date="1513746302218" expanded="true" signature="138685:138766" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140095" ph="SELECT runMo... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140221" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140238" ph="SELECT runMo... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140257" ph="SELECT runMo... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140130:140221" ph="SELECT MAX(r... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140576:140633" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140576:140795" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140668:140794" ph="SELECT MAX(r... healthy_state_run_halt_time" />
+            <element signature="e#167#181#0" expanded="true" />
+            <marker date="1514286570972" expanded="true" signature="126369:126480" ph="SELECT tag_i... tag_golden_index" />
+            <marker date="1514286570972" expanded="false" signature="128455:129027" ph="..." />
+            <marker date="1514286570972" expanded="true" signature="132448:132529" ph="SELECT * FRO... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133795:133858" ph="SELECT runMo... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133795:133984" ph="SELECT * FRO... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133795:134001" ph="SELECT runMo... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133795:134020" ph="SELECT runMo... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133893:133984" ph="SELECT MAX(r... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="134339:134396" ph="SELECT * FRO... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="134339:134558" ph="SELECT * FRO... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="134431:134557" ph="SELECT MAX(r... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="false" signature="135675:136039" ph="..." />
           </folding>
         </state>
       </provider>
@@ -1024,92 +1073,94 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/run_halt_time.log">
+    <entry file="file://$PROJECT_DIR$/run_halt_time.log" />
+    <entry file="file://$USER_HOME$/Desktop/main.py" />
+    <entry file="file://$USER_HOME$/.PyCharm2017.1/system/python_stubs/-1732845258/_datetime.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="1093">
+          <caret line="165" column="6" lean-forward="false" selection-start-line="165" selection-start-column="6" selection-end-line="165" selection-end-column="6" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/run.log">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="443">
-          <caret line="54012" column="85" lean-forward="true" selection-start-line="54012" selection-start-column="85" selection-end-line="54012" selection-end-column="85" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="35010">
+          <caret line="778" column="0" lean-forward="false" selection-start-line="778" selection-start-column="0" selection-end-line="778" selection-end-column="0" />
         </state>
       </provider>
-      <provider selected="true" editor-type-id="LargeFileEditor">
+      <provider editor-type-id="LargeFileEditor">
         <state relative-caret-position="221">
           <caret line="11805" column="72" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="11813" selection-end-column="75" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Desktop/main.py" />
+    <entry file="file://$PROJECT_DIR$/fieldTableCfg.py" />
+    <entry file="file://$PROJECT_DIR$/kk" />
     <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SECOND">
+          <first_editor relative-caret-position="45">
+            <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
         </state>
       </provider>
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SECOND">
-          <first_editor relative-caret-position="45">
-            <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/runHaltTime.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="721">
-          <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+        <state relative-caret-position="1080">
+          <caret line="29" column="28" lean-forward="false" selection-start-line="29" selection-start-column="28" selection-end-line="29" selection-end-column="28" />
           <folding>
-            <element signature="e#156#170#0" expanded="true" />
-            <marker date="1513068190309" expanded="true" signature="1339:1353" ph="SELECT * FRO... SELECT" />
-            <marker date="1513068190309" expanded="true" signature="1339:1484" ph="SELECT * FRO... healthy_state_run_halt_time" />
             <marker date="1513068190309" expanded="true" signature="1339:1485" ph="SELECT * FRO... healthy_state_run_halt_time" />
             <marker date="1513068190309" expanded="true" signature="1397:1484" ph="SELECT MAX(r... healthy_state_run_halt_time" />
             <marker date="1513068190309" expanded="true" signature="3624:3671" ph="INSERT INTO healthy_state_run_halt_time... " />
-            <marker date="1513068190309" expanded="true" signature="3630:3671" ph="INSERT INTO healthy_state_run_halt_time... " />
-            <marker date="1513068190309" expanded="true" signature="3635:3671" ph="SELECT * FRO... healthy_state_run_halt_time" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/config">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="922" column="46" lean-forward="true" selection-start-line="922" selection-start-column="46" selection-end-line="922" selection-end-column="46" />
+        <state relative-caret-position="44">
+          <caret line="305" column="94" lean-forward="true" selection-start-line="305" selection-start-column="94" selection-end-line="305" selection-end-column="94" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/calFunctionUtils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="586">
-          <caret line="2468" column="18" lean-forward="false" selection-start-line="2468" selection-start-column="8" selection-end-line="2468" selection-end-column="18" />
+        <state relative-caret-position="3950">
+          <caret line="458" column="82" lean-forward="false" selection-start-line="458" selection-start-column="52" selection-end-line="458" selection-end-column="82" />
           <folding>
-            <marker date="1513746302218" expanded="true" signature="131827:131938" ph="SELECT tag_i... tag_golden_index" />
-            <marker date="1513746302218" expanded="true" signature="138685:138766" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140095" ph="SELECT runMo... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140221" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140238" ph="SELECT runMo... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140032:140257" ph="SELECT runMo... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140130:140221" ph="SELECT MAX(r... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140576:140633" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140576:140795" ph="SELECT * FRO... healthy_state_run_halt_time" />
-            <marker date="1513746302218" expanded="true" signature="140668:140794" ph="SELECT MAX(r... healthy_state_run_halt_time" />
+            <element signature="e#167#181#0" expanded="true" />
+            <marker date="1514286570972" expanded="true" signature="126369:126480" ph="SELECT tag_i... tag_golden_index" />
+            <marker date="1514286570972" expanded="false" signature="128455:129027" ph="..." />
+            <marker date="1514286570972" expanded="true" signature="132448:132529" ph="SELECT * FRO... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133795:133858" ph="SELECT runMo... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133795:133984" ph="SELECT * FRO... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133795:134001" ph="SELECT runMo... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133795:134020" ph="SELECT runMo... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="133893:133984" ph="SELECT MAX(r... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="134339:134396" ph="SELECT * FRO... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="134339:134558" ph="SELECT * FRO... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="true" signature="134431:134557" ph="SELECT MAX(r... healthy_state_run_halt_time" />
+            <marker date="1514286570972" expanded="false" signature="135675:136039" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/type3MW.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
-          <caret line="169" column="15" lean-forward="true" selection-start-line="169" selection-start-column="15" selection-end-line="169" selection-end-column="15" />
+        <state relative-caret-position="301">
+          <caret line="64" column="115" lean-forward="false" selection-start-line="64" selection-start-column="115" selection-end-line="64" selection-end-column="115" />
           <folding>
             <element signature="e#157#171#0" expanded="true" />
-            <marker date="1513746374098" expanded="true" signature="9813:9862" ph="SELECT MAX(r... healthy_state_component" />
+            <marker date="1514287809010" expanded="true" signature="9660:9709" ph="SELECT MAX(r... healthy_state_component" />
           </folding>
         </state>
       </provider>

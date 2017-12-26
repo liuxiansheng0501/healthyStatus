@@ -223,7 +223,7 @@ def grPitch(wtgs_id,current_time,para_value_dict):#桨叶总健康度
             return value_last_state
 
 def grGearboxMainBearingTemperature(attribute,wtgs_id,current_time,his):#齿轮箱主轴承温度
-    # TODO-TESTED-齿轮箱主轴承温度
+    # TODO-齿轮箱主轴承温度
     if queryRunMode(wtgs_id,current_time)!=14:
         return 1
     else: # 并网的条件下才看健康度
@@ -267,12 +267,14 @@ def grGearboxMainBearingTemperature(attribute,wtgs_id,current_time,his):#齿轮�
                 predict_value_list.append(ANN.output) # 神经网络预期输出
         if len(predict_value_list)>0:
             healthy_score=ANNLinearDescend(float(attribute['healthylevel0']),float(attribute['healthylevel100']),abs(meanData(predict_value_list) - meanData(actual_value_list)))
+            out={'predict':predict_value_list,'actual':actual_value_list}
+            #pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\"+attribute['indexdsec']+".xlsx")
         else:
             healthy_score=query_last_state(wtgs_id,current_time,'grGearboxMainBearingTemperature','healthy_state_index')
         return healthy_score
 
 def grGearboxDETemperature(attribute,wtgs_id,current_time,his):#齿轮箱轮毂侧轴承温度
-    # TODO-齿轮箱轮毂侧轴承温度-预期输出:-40+, 较大出入
+    # TODO-齿轮箱轮毂侧轴承温度
     if queryRunMode(wtgs_id,current_time)!=14:
         return 1
     else: # 并网的条件下才看健康度
@@ -319,12 +321,14 @@ def grGearboxDETemperature(attribute,wtgs_id,current_time,his):#齿轮箱轮毂�
                 predict_value_list.append(ANN.output)  # 神经网络预期输出
         if len(predict_value_list) > 0:
             healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']), abs(meanData(predict_value_list) - meanData(actual_value_list)))
+            #out = {'predict': predict_value_list, 'actual': actual_value_list}
+            #pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\" + attribute['indexdsec'] + ".xlsx")
         else:
             healthy_score=query_last_state(wtgs_id,current_time,'grGearboxDETemperature','healthy_state_index')
         return healthy_score
 
 def grGearboxNDETemperature(attribute,wtgs_id,current_time,his):#齿轮箱发电机侧轴承温度
-    #TODO-齿轮箱发电机侧轴承温度-预期输出:70+, 较大出入
+    #TODO-齿轮箱发电机侧轴承温度
     if queryRunMode(wtgs_id,current_time)!=14:
         return 1
     else: # 并网的条件下才看健康度
@@ -351,7 +355,7 @@ def grGearboxNDETemperature(attribute,wtgs_id,current_time,his):#齿轮箱发电
             # 输入变量-空气密度：grairdensity
             grAirDensityValue = getFloatInterpoValuesFromGolden2('grairdensity', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),  hisOrFurTime(base_time_loop, 0, 0, 0),his)
             # 输入变量-30分钟平均功率：grgridactivepower
-            grGridActivePowerValue_30MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id,hisOrFurTime(base_time_loop, -900, 0, 0),hisOrFurTime(base_time_loop, 900, 0, 0),his)
+            grGridActivePowerValue_30MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id,hisOrFurTime(base_time_loop, -1800, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0),his)
             # 输入变量-10分钟平均功率：grgridactivepower
             grGridActivePowerValue_10MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id, hisOrFurTime(base_time_loop, -300, 0, 0), hisOrFurTime(base_time_loop, 300, 0, 0),his)
             # 输入变量-本次机组运行时间：runtime
@@ -376,6 +380,8 @@ def grGearboxNDETemperature(attribute,wtgs_id,current_time,his):#齿轮箱发电
                 predict_value_list.append(ANN.output)  # 神经网络预期输出
         if len(predict_value_list) > 0:
             healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']), abs(meanData(predict_value_list) - meanData(actual_value_list)))
+            #out = {'predict': predict_value_list, 'actual': actual_value_list}
+            #pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\" + attribute['indexdsec'] + ".xlsx")
         else:
             healthy_score=query_last_state(wtgs_id,current_time,'grGearboxNDETemperature','healthy_state_index')
         return healthy_score
@@ -442,7 +448,7 @@ def grGeneratorWindingTemperature1(attribute,wtgs_id,current_time,his):#发电�
             # 输入变量-发电机10分钟平均转速：grgeneratorspeed1
             grGeneratorSpeed1Value_10MIN = getFloatInterpoValuesFromGolden2('grgeneratorspeed1', wtgs_id, hisOrFurTime(base_time_loop, -600, 0, 0),  hisOrFurTime(base_time_loop, 0, 0, 0),his)
             # 输入变量-1小时平均功率：grgridactivepower
-            grGridActivePowerValue_1HOUR = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id, hisOrFurTime(base_time_loop, -1800, 0, 0),  hisOrFurTime(base_time_loop, 1800, 0, 0),his)
+            grGridActivePowerValue_1HOUR = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id, hisOrFurTime(base_time_loop, -3600, 0, 0),  hisOrFurTime(base_time_loop, 0, 0, 0),his)
             # 实际输出变量-发电机绕组1温度：grgeneratorwindingtemperature1
             grGeneratorWindingTemperature1 = getFloatInterpoValuesFromGolden2('grgeneratorwindingtemperature1', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),  hisOrFurTime(base_time_loop, 0, 0, 0),his)
             actual_value_list.append(grGeneratorWindingTemperature1)
@@ -457,6 +463,8 @@ def grGeneratorWindingTemperature1(attribute,wtgs_id,current_time,his):#发电�
                 predict_value_list.append(ANN.output)  # 神经网络预期输出
         if len(predict_value_list) > 0:
             healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']),abs(meanData(predict_value_list) - meanData(actual_value_list)))
+            #out = {'predict': predict_value_list, 'actual': actual_value_list}
+            #pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\" + attribute['indexdsec'] + ".xlsx")
         else:
             healthy_score=query_last_state(wtgs_id,current_time,'grGeneratorWindingTemperature1','healthy_state_index')
         return healthy_score
@@ -495,26 +503,26 @@ def grGeneratorWindingTemperature2(attribute,wtgs_id,current_time, his):#发电�
                                                                  hisOrFurTime(base_time_loop, 0, 0, 0), his)
             # 输入变量-30分钟平均功率：grgridactivepower
             grGridActivePowerValue_30MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id,
-                                                                            hisOrFurTime(base_time_loop, -900, 0, 0),
-                                                                            hisOrFurTime(base_time_loop, 900, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, -1800, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, 0, 0, 0),
                                                                             his)
             # 输入变量-10分钟平均功率：grgridactivepower
             grGridActivePowerValue_10MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id,
-                                                                            hisOrFurTime(base_time_loop, -300, 0, 0),
-                                                                            hisOrFurTime(base_time_loop, 300, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, -600, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, 0, 0, 0),
                                                                             his)
             # 输入变量-本次机组运行时间：runtime
             # 输入变量-本次机组停机时间：halttime
             [runtime, halttime] = queryRunHaltTime(wtgs_id, base_time_loop)
             # 输入变量-发电机10分钟平均转速：grgeneratorspeed1
             grGeneratorSpeed1Value_10MIN = getFloatInterpoValuesFromGolden2('grgeneratorspeed1', wtgs_id,
-                                                                            hisOrFurTime(base_time_loop, -300, 0, 0),
-                                                                            hisOrFurTime(base_time_loop, 300, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, -600, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, 0, 0, 0),
                                                                             his)
             # 输入变量-1小时平均功率：grgridactivepower
             grGridActivePowerValue_1HOUR = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id,
-                                                                            hisOrFurTime(base_time_loop, -1800, 0, 0),
-                                                                            hisOrFurTime(base_time_loop, 1800, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, -3600, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, 0, 0, 0),
                                                                             his)
             # 实际输出变量-发电机绕组2温度：grgeneratorwindingtemperature2
             grGeneratorWindingTemperature2 = getFloatInterpoValuesFromGolden2('grgeneratorwindingtemperature2', wtgs_id,
@@ -533,8 +541,9 @@ def grGeneratorWindingTemperature2(attribute,wtgs_id,current_time, his):#发电�
                 ANN = BP(argv_dict)  # 采用神经网络
                 predict_value_list.append(ANN.output)  # 神经网络预期输出
         if len(predict_value_list) > 0:
-            healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']),
-                                             abs(meanData(predict_value_list) - meanData(actual_value_list)))
+            healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']),abs(meanData(predict_value_list) - meanData(actual_value_list)))
+            #out = {'predict': predict_value_list, 'actual': actual_value_list}
+            #pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\" + attribute['indexdsec'] + ".xlsx")
         else:
             healthy_score=query_last_state(wtgs_id,current_time,'grGeneratorWindingTemperature2','healthy_state_index')
         return healthy_score
@@ -573,26 +582,26 @@ def grGeneratorWindingTemperature3(attribute,wtgs_id,current_time, his):#发电�
                                                                  hisOrFurTime(base_time_loop, 0, 0, 0), his)
             # 输入变量-30分钟平均功率：grgridactivepower
             grGridActivePowerValue_30MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id,
-                                                                            hisOrFurTime(base_time_loop, -900, 0, 0),
-                                                                            hisOrFurTime(base_time_loop, 900, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, -1800, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, 0, 0, 0),
                                                                             his)
             # 输入变量-10分钟平均功率：grgridactivepower
             grGridActivePowerValue_10MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id,
-                                                                            hisOrFurTime(base_time_loop, -300, 0, 0),
-                                                                            hisOrFurTime(base_time_loop, 300, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, -600, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, 0, 0, 0),
                                                                             his)
             # 输入变量-本次机组运行时间：runtime
             # 输入变量-本次机组停机时间：halttime
             [runtime, halttime] = queryRunHaltTime(wtgs_id, base_time_loop)
             # 输入变量-发电机10分钟平均转速：grgeneratorspeed1
             grGeneratorSpeed1Value_10MIN = getFloatInterpoValuesFromGolden2('grgeneratorspeed1', wtgs_id,
-                                                                            hisOrFurTime(base_time_loop, -300, 0, 0),
-                                                                            hisOrFurTime(base_time_loop, 300, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, -600, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, 0, 0, 0),
                                                                             his)
             # 输入变量-1小时平均功率：grgridactivepower
             grGridActivePowerValue_1HOUR = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id,
-                                                                            hisOrFurTime(base_time_loop, -1800, 0, 0),
-                                                                            hisOrFurTime(base_time_loop, 1800, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, -3600, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, 0, 0, 0),
                                                                             his)
             # 实际输出变量-发电机绕组3温度：grgeneratorwindingtemperature3
             grgeneratorwindingtemperature3 = getFloatInterpoValuesFromGolden2('grgeneratorwindingtemperature3', wtgs_id,
@@ -612,6 +621,8 @@ def grGeneratorWindingTemperature3(attribute,wtgs_id,current_time, his):#发电�
         if len(predict_value_list) > 0:
             healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']),
                                              abs(meanData(predict_value_list) - meanData(actual_value_list)))
+            #out = {'predict': predict_value_list, 'actual': actual_value_list}
+            #pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\" + attribute['indexdsec'] + ".xlsx")
         else:
             healthy_score=query_last_state(wtgs_id,current_time,'grGeneratorWindingTemperature3','healthy_state_index')
         return healthy_score
@@ -650,26 +661,26 @@ def grGeneratorWindingTemperature4(attribute,wtgs_id,current_time, his):#发电�
                                                                  hisOrFurTime(base_time_loop, 0, 0, 0), his)
             # 输入变量-30分钟平均功率：grgridactivepower
             grGridActivePowerValue_30MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id,
-                                                                            hisOrFurTime(base_time_loop, -900, 0, 0),
-                                                                            hisOrFurTime(base_time_loop, 900, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, -1800, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, 0, 0, 0),
                                                                             his)
             # 输入变量-10分钟平均功率：grgridactivepower
             grGridActivePowerValue_10MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id,
-                                                                            hisOrFurTime(base_time_loop, -300, 0, 0),
-                                                                            hisOrFurTime(base_time_loop, 300, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, -600, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, 0, 0, 0),
                                                                             his)
             # 输入变量-本次机组运行时间：runtime
             # 输入变量-本次机组停机时间：halttime
             [runtime, halttime] = queryRunHaltTime(wtgs_id, base_time_loop)
             # 输入变量-发电机10分钟平均转速：grgeneratorspeed1
             grGeneratorSpeed1Value_10MIN = getFloatInterpoValuesFromGolden2('grgeneratorspeed1', wtgs_id,
-                                                                            hisOrFurTime(base_time_loop, -300, 0, 0),
-                                                                            hisOrFurTime(base_time_loop, 300, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, -600, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, 0, 0, 0),
                                                                             his)
             # 输入变量-1小时平均功率：grgridactivepower
             grGridActivePowerValue_1HOUR = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id,
-                                                                            hisOrFurTime(base_time_loop, -1800, 0, 0),
-                                                                            hisOrFurTime(base_time_loop, 1800, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, -3600, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, 0, 0, 0),
                                                                             his)
             # 实际输出变量-发电机绕组4温度：grgeneratorwindingtemperature4
             grgeneratorwindingtemperature4 = getFloatInterpoValuesFromGolden2('grgeneratorwindingtemperature4', wtgs_id,
@@ -689,6 +700,8 @@ def grGeneratorWindingTemperature4(attribute,wtgs_id,current_time, his):#发电�
         if len(predict_value_list) > 0:
             healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']),
                                              abs(meanData(predict_value_list) - meanData(actual_value_list)))
+            #out = {'predict': predict_value_list, 'actual': actual_value_list}
+            #pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\" + attribute['indexdsec'] + ".xlsx")
         else:
             healthy_score=query_last_state(wtgs_id,current_time,'grGeneratorWindingTemperature4','healthy_state_index')
         return healthy_score
@@ -727,26 +740,26 @@ def grGeneratorWindingTemperature5(attribute,wtgs_id,current_time, his):#发电�
                                                                  hisOrFurTime(base_time_loop, 0, 0, 0), his)
             # 输入变量-30分钟平均功率：grgridactivepower
             grGridActivePowerValue_30MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id,
-                                                                            hisOrFurTime(base_time_loop, -900, 0, 0),
-                                                                            hisOrFurTime(base_time_loop, 900, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, -1800, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, 0, 0, 0),
                                                                             his)
             # 输入变量-10分钟平均功率：grgridactivepower
             grGridActivePowerValue_10MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id,
-                                                                            hisOrFurTime(base_time_loop, -300, 0, 0),
-                                                                            hisOrFurTime(base_time_loop, 300, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, -600, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, 0, 0, 0),
                                                                             his)
             # 输入变量-本次机组运行时间：runtime
             # 输入变量-本次机组停机时间：halttime
             [runtime, halttime] = queryRunHaltTime(wtgs_id, base_time_loop)
             # 输入变量-发电机10分钟平均转速：grgeneratorspeed1
             grGeneratorSpeed1Value_10MIN = getFloatInterpoValuesFromGolden2('grgeneratorspeed1', wtgs_id,
-                                                                            hisOrFurTime(base_time_loop, -300, 0, 0),
-                                                                            hisOrFurTime(base_time_loop, 300, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, -600, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, 0, 0, 0),
                                                                             his)
             # 输入变量-1小时平均功率：grgridactivepower
             grGridActivePowerValue_1HOUR = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id,
-                                                                            hisOrFurTime(base_time_loop, -1800, 0, 0),
-                                                                            hisOrFurTime(base_time_loop, 1800, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, -3600, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, 0, 0, 0),
                                                                             his)
             # 实际输出变量-发电机绕组5温度：grgeneratorwindingtemperature5
             grgeneratorwindingtemperature5 = getFloatInterpoValuesFromGolden2('grgeneratorwindingtemperature5', wtgs_id,
@@ -765,6 +778,8 @@ def grGeneratorWindingTemperature5(attribute,wtgs_id,current_time, his):#发电�
                 predict_value_list.append(ANN.output)  # 神经网络预期输出
         if len(predict_value_list) > 0:
             healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']),abs(meanData(predict_value_list) - meanData(actual_value_list)))
+            #out = {'predict': predict_value_list, 'actual': actual_value_list}
+            #pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\" + attribute['indexdsec'] + ".xlsx")
         else:
             healthy_score=query_last_state(wtgs_id,current_time,'grGeneratorWindingTemperature5','healthy_state_index')
         return healthy_score
@@ -803,26 +818,26 @@ def grGeneratorWindingTemperature6(attribute,wtgs_id,current_time, his):#发电�
                                                                  hisOrFurTime(base_time_loop, 0, 0, 0), his)
             # 输入变量-30分钟平均功率：grgridactivepower
             grGridActivePowerValue_30MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id,
-                                                                            hisOrFurTime(base_time_loop, -900, 0, 0),
-                                                                            hisOrFurTime(base_time_loop, 900, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, -1800, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, 0, 0, 0),
                                                                             his)
             # 输入变量-10分钟平均功率：grgridactivepower
             grGridActivePowerValue_10MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id,
-                                                                            hisOrFurTime(base_time_loop, -300, 0, 0),
-                                                                            hisOrFurTime(base_time_loop, 300, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, -600, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, 0, 0, 0),
                                                                             his)
             # 输入变量-本次机组运行时间：runtime
             # 输入变量-本次机组停机时间：halttime
             [runtime, halttime] = queryRunHaltTime(wtgs_id, base_time_loop)
             # 输入变量-发电机10分钟平均转速：grgeneratorspeed1
             grGeneratorSpeed1Value_10MIN = getFloatInterpoValuesFromGolden2('grgeneratorspeed1', wtgs_id,
-                                                                            hisOrFurTime(base_time_loop, -300, 0, 0),
-                                                                            hisOrFurTime(base_time_loop, 300, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, -600, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, 0, 0, 0),
                                                                             his)
             # 输入变量-1小时平均功率：grgridactivepower
             grGridActivePowerValue_1HOUR = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id,
-                                                                            hisOrFurTime(base_time_loop, -1800, 0, 0),
-                                                                            hisOrFurTime(base_time_loop, 1800, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, -3600, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, 0, 0, 0),
                                                                             his)
             # 实际输出变量-发电机绕组6温度：grgeneratorwindingtemperature6
             grgeneratorwindingtemperature6 = getFloatInterpoValuesFromGolden2('grgeneratorwindingtemperature6', wtgs_id,
@@ -842,6 +857,8 @@ def grGeneratorWindingTemperature6(attribute,wtgs_id,current_time, his):#发电�
                 predict_value_list.append(ANN.output)  # 神经网络预期输出
         if len(predict_value_list) > 0:
             healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']),abs(meanData(predict_value_list) - meanData(actual_value_list)))
+            #out = {'predict': predict_value_list, 'actual': actual_value_list}
+            #pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\" + attribute['indexdsec'] + ".xlsx")
         else:
             healthy_score=query_last_state(wtgs_id,current_time,'grGeneratorWindingTemperature6','healthy_state_index')
         return healthy_score
@@ -868,16 +885,16 @@ def grGeneratorDEBearingTemperature(attribute,wtgs_id,current_time,his):#发电�
             # 输入变量-室外温度：groutdoortemperature
             grOutdoorTemperatureValue = getFloatInterpoValuesFromGolden2('groutdoortemperature', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
             # 输入变量-30分钟平均功率：grgridactivepower
-            grGridActivePowerValue_30MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id, hisOrFurTime(base_time_loop, -900, 0, 0),hisOrFurTime(base_time_loop, 900, 0, 0), his)
+            grGridActivePowerValue_30MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id, hisOrFurTime(base_time_loop, -1800, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
             # 输入变量-10分钟平均功率：grgridactivepower
-            grGridActivePowerValue_10MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id, hisOrFurTime(base_time_loop, -300, 0, 0),hisOrFurTime(base_time_loop, 300, 0, 0), his)
+            grGridActivePowerValue_10MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id, hisOrFurTime(base_time_loop, -600, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
             # 输入变量-本次机组运行时间：runtime
             # 输入变量-本次机组停机时间：halttime
             [runtime, halttime] = queryRunHaltTime(wtgs_id, base_time_loop)
             # 输入变量-发电机10分钟平均转速：grgeneratorspeed1
-            grGeneratorSpeed1Value_10MIN = getFloatInterpoValuesFromGolden2('grgeneratorspeed1', wtgs_id, hisOrFurTime(base_time_loop, -300, 0, 0),hisOrFurTime(base_time_loop, 300, 0, 0), his)
+            grGeneratorSpeed1Value_10MIN = getFloatInterpoValuesFromGolden2('grgeneratorspeed1', wtgs_id, hisOrFurTime(base_time_loop, -600, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
             # 输入变量-1小时平均功率：grgridactivepower
-            grGridActivePowerValue_1HOUR = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id, hisOrFurTime(base_time_loop, -1800, 0, 0),hisOrFurTime(base_time_loop, 1800, 0, 0), his)
+            grGridActivePowerValue_1HOUR = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id, hisOrFurTime(base_time_loop, -3600, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
             # 实际输出变量-发电机前轴承温度：grgearboxgeneratorsidebearingtemperature
             grGeneratorGearboxsideBearingTemperature = getFloatInterpoValuesFromGolden2('grgeneratorgearboxsidebearingtemperature', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
             actual_value_list.append(grGeneratorGearboxsideBearingTemperature)
@@ -892,6 +909,8 @@ def grGeneratorDEBearingTemperature(attribute,wtgs_id,current_time,his):#发电�
                 predict_value_list.append(ANN.output)  # 神经网络预期输出
         if len(predict_value_list) > 0:
             healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']),abs(meanData(predict_value_list) - meanData(actual_value_list)))
+            #out = {'predict': predict_value_list, 'actual': actual_value_list}
+            #pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\" + attribute['indexdsec'] + ".xlsx")
         else:
             healthy_score=query_last_state(wtgs_id,current_time,'grGeneratorDEBearingTemperature','healthy_state_index')
         return healthy_score
@@ -918,16 +937,16 @@ def grGeneratorNDEBearingTemperature(attribute,wtgs_id,current_time,his):#发电
             # 输入变量-室外温度：groutdoortemperature
             grOutdoorTemperatureValue = getFloatInterpoValuesFromGolden2('groutdoortemperature', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
             # 输入变量-30分钟平均功率：grgridactivepower
-            grGridActivePowerValue_30MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id, hisOrFurTime(base_time_loop, -900, 0, 0),hisOrFurTime(base_time_loop, 900, 0, 0), his)
+            grGridActivePowerValue_30MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id, hisOrFurTime(base_time_loop, -1800, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
             # 输入变量-10分钟平均功率：grgridactivepower
-            grGridActivePowerValue_10MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id, hisOrFurTime(base_time_loop, -300, 0, 0),hisOrFurTime(base_time_loop, 300, 0, 0), his)
+            grGridActivePowerValue_10MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id, hisOrFurTime(base_time_loop, -600, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
             # 输入变量-本次机组运行时间：runtime
             # 输入变量-本次机组停机时间：halttime
             [runtime, halttime] = queryRunHaltTime(wtgs_id, base_time_loop)
             # 输入变量-发电机10分钟平均转速：grgeneratorspeed1
-            grGeneratorSpeed1Value_10MIN = getFloatInterpoValuesFromGolden2('grgeneratorspeed1', wtgs_id, hisOrFurTime(base_time_loop, -300, 0, 0),hisOrFurTime(base_time_loop, 300, 0, 0), his)
+            grGeneratorSpeed1Value_10MIN = getFloatInterpoValuesFromGolden2('grgeneratorspeed1', wtgs_id, hisOrFurTime(base_time_loop, -600, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
             # 输入变量-1小时平均功率：grgridactivepower
-            grGridActivePowerValue_1HOUR = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id, hisOrFurTime(base_time_loop, -1800, 0, 0),hisOrFurTime(base_time_loop, 1800, 0, 0), his)
+            grGridActivePowerValue_1HOUR = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id, hisOrFurTime(base_time_loop, -3600, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
             # 实际输出变量-发电机后轴承温度：grgearboxgeneratorsidebearingtemperature
             grGeneratorNacellesideBearingTemperature = getFloatInterpoValuesFromGolden2('grgeneratornacellesidebearingtemperature', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
             actual_value_list.append(grGeneratorNacellesideBearingTemperature)
@@ -942,6 +961,8 @@ def grGeneratorNDEBearingTemperature(attribute,wtgs_id,current_time,his):#发电
                 predict_value_list.append(ANN.output)  # 神经网络预期输出
         if len(predict_value_list) > 0:
             healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']),abs(meanData(predict_value_list) - meanData(actual_value_list)))
+            #out = {'predict': predict_value_list, 'actual': actual_value_list}
+            #pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\" + attribute['indexdsec'] + ".xlsx")
         else:
             healthy_score=query_last_state(wtgs_id,current_time,'grGeneratorNDEBearingTemperature','healthy_state_index')
         return healthy_score
@@ -1046,6 +1067,8 @@ def grGearboxOilPressureA2(attribute,wtgs_id,current_time,his):#齿轮箱A2压�
                 predict_value_list.append(ANN.output)  # 神经网络预期输出
         if len(predict_value_list) > 0:
             healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']),abs(meanData(predict_value_list)-meanData(actual_value_list)))
+            #out = {'predict': predict_value_list, 'actual': actual_value_list}
+            #pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\" + attribute['indexdsec'] + ".xlsx")
         else:
             healthy_score=query_last_state(wtgs_id,current_time,'grGearboxOilPressureA2','healthy_state_index')
         return healthy_score
@@ -1088,6 +1111,8 @@ def grGearboxOilPressureA3(attribute,wtgs_id,current_time,his):#齿轮箱A3压�
                 predict_value_list.append(ANN.output)  # 神经网络预期输出
         if len(predict_value_list) > 0:
             healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']),abs(meanData(predict_value_list) - meanData(actual_value_list)))
+            #out = {'predict': predict_value_list, 'actual': actual_value_list}
+            #pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\" + attribute['indexdsec'] + ".xlsx")
         else:
             healthy_score=query_last_state(wtgs_id,current_time,'grGearboxOilPressureA3','healthy_state_index')
         return healthy_score
@@ -1130,6 +1155,8 @@ def grGearboxOilPressureA4(attribute,wtgs_id,current_time,his):#齿轮箱A4压�
                 predict_value_list.append(ANN.output)  # 神经网络预期输出
         if len(predict_value_list) > 0:
             healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']),abs(meanData(predict_value_list) - meanData(actual_value_list)))
+            #out = {'predict': predict_value_list, 'actual': actual_value_list}
+            #pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\" + attribute['indexdsec'] + ".xlsx")
         else:
             healthy_score=query_last_state(wtgs_id,current_time,'grGearboxOilPressureA4','healthy_state_index')
         return healthy_score
@@ -1235,9 +1262,9 @@ def grGearboxOilTemperature(attribute,wtgs_id,current_time,his):#齿轮箱油温
             # 输入变量-齿轮箱前轴承温度：grgearboxhubsidebearingtemperature
             grGearboxHubsideBearingTemperatureValue = getFloatInterpoValuesFromGolden2('grgearboxhubsidebearingtemperature', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
             # 输入变量-30分钟平均功率：grgridactivepower
-            grGridActivePowerValue_30MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id, hisOrFurTime(base_time_loop, -900, 0, 0),hisOrFurTime(base_time_loop, 900, 0, 0), his)
+            grGridActivePowerValue_30MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id, hisOrFurTime(base_time_loop, -1800, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
             # 输入变量-10分钟平均功率：grgridactivepower
-            grGridActivePowerValue_10MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id, hisOrFurTime(base_time_loop, -300, 0, 0),hisOrFurTime(base_time_loop, 300, 0, 0), his)
+            grGridActivePowerValue_10MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id, hisOrFurTime(base_time_loop, -600, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
             # 输入变量-油冷风扇60分钟的启动次数：gbgearboxoilfanon
             gbGearboxOilFanOn_1hour = gbGearboxOilFanOn('gbgearboxoilfanon', wtgs_id, hisOrFurTime(base_time_loop, -3600, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
             # 输入变量-本次机组运行时间：runtime
@@ -1264,8 +1291,11 @@ def grGearboxOilTemperature(attribute,wtgs_id,current_time,his):#齿轮箱油温
                 predict_value_list.append(ANN.output)  # 神经网络预期输出
         if len(predict_value_list) > 0:
             healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']),abs(meanData(predict_value_list) - meanData(actual_value_list)))
+            #out = {'predict': predict_value_list, 'actual': actual_value_list}
+            #pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\" + attribute['indexdsec'] + ".xlsx")
         else:
             healthy_score=query_last_state(wtgs_id,current_time,'grGearboxOilTemperature','healthy_state_index')
+
         return healthy_score
 
 def grGearboxBypassPumpMotorOperationTime(index, fromValue, toValue, wtgs_id,from_time_now,current_time,to_time,his):#齿轮箱过滤泵电机运行时间
@@ -1569,7 +1599,7 @@ def grNacelleFanOperationTime(index, fromValue, toValue, wtgs_id,from_time_now,c
         return res
 
 def grNacelleTemperature(index, fromValue, toValue, wtgs_id,from_time_now,current_time,to_time,his):#机舱温度
-    #TODO-无模型
+    #TODO-机舱温度无模型
     return 1
 
 def grNacelleCooling(wtgs_id,current_time,para_value_dict):#机舱散热系统健康度
