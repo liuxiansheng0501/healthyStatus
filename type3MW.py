@@ -188,7 +188,7 @@ class mainLoopProcess:
 
     def loopWtgs(self):#循环机组
         server_impl = autoclass('com.rtdb.service.impl.ServerImpl')
-        server = server_impl("192.168.0.37", 6327, "sa", "golden")
+        server = server_impl("192.168.0.37", 6327, "mywind", "MyData@2018")
         historian_impl = autoclass('com.rtdb.service.impl.HistorianImpl')
         his = historian_impl(server)
         for wtgs_id in range(30002001,30002018):
