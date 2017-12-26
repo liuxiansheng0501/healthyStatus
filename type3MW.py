@@ -172,13 +172,13 @@ class wtgsCalProcess:
 
 class mainLoopProcess:
     def __init__(self):
-        conn = pymysql.connect(host='192.168.0.19', port=3306, user='llj', passwd='llj@2016', db='iot_wind',charset="utf8")
-        sqlstr = "SELECT MAX(realTime) FROM healthy_state_component"
-        latest_cal_time = pd.read_sql(sql=sqlstr, con=conn)
-        conn.close()
-        from_time=str(latest_cal_time['MAX(realTime)'].iloc[0]) # 已经计算的最新时间
-        # from_time="2017-12-20 01:00:00"
-        from_time=datetime.strptime(from_time,"%Y-%m-%d %H:%M:%S")
+        # conn = pymysql.connect(host='192.168.0.19', port=3306, user='llj', passwd='llj@2016', db='iot_wind',charset="utf8")
+        # sqlstr = "SELECT MAX(realTime) FROM healthy_state_component"
+        # latest_cal_time = pd.read_sql(sql=sqlstr, con=conn)
+        # conn.close()
+        # from_time=str(latest_cal_time['MAX(realTime)'].iloc[0]) # 已经计算的最新时间
+        from_time="2017-12-26 10:00:00"
+        from_time=datetime.strptime(from_time,"%Y-%m-%d %H:%M:%S")+timedelta(seconds=3600)
         currentTime=datetime.now().strftime("%Y-%m-%d %H")+":00:00"#整点计算时间
         currentTime = datetime.strptime(currentTime, "%Y-%m-%d %H:%M:%S")
 
@@ -191,7 +191,7 @@ class mainLoopProcess:
 
     def loopWtgs(self):#循环机组
         server_impl = autoclass('com.rtdb.service.impl.ServerImpl')
-        server = server_impl("192.168.0.37", 6327, "sa", "golden")
+        server = server_impl("192.168.0.37", 6327, "mywind", "MyData@2018")
         historian_impl = autoclass('com.rtdb.service.impl.HistorianImpl')
         his = historian_impl(server)
         for wtgs_id in range(30002001,30002018):
@@ -202,12 +202,12 @@ class mainLoopProcess:
 
 
 if __name__=="__main__":
-    while True:
-        if datetime.now().strftime("%Y-%m-%d %H:%M:%S")[14:16]=='40':
-            mainLoopProcess()
-        else:
-            pass
-    # mainLoopProcess()
+    # while True:
+    #     if datetime.now().strftime("%Y-%m-%d %H:%M:%S")[14:16]=='40':
+    #         mainLoopProcess()
+    #     else:
+    #         pass
+    mainLoopProcess()
 
 
 

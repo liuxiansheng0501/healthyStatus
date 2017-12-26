@@ -268,7 +268,7 @@ def grGearboxMainBearingTemperature(attribute,wtgs_id,current_time,his):#齿轮�
         if len(predict_value_list)>0:
             healthy_score=ANNLinearDescend(float(attribute['healthylevel0']),float(attribute['healthylevel100']),abs(meanData(predict_value_list) - meanData(actual_value_list)))
             out={'predict':predict_value_list,'actual':actual_value_list}
-            pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\"+attribute['indexdsec']+".xlsx")
+            #pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\"+attribute['indexdsec']+".xlsx")
         else:
             healthy_score=query_last_state(wtgs_id,current_time,'grGearboxMainBearingTemperature','healthy_state_index')
         return healthy_score
@@ -321,8 +321,8 @@ def grGearboxDETemperature(attribute,wtgs_id,current_time,his):#齿轮箱轮毂�
                 predict_value_list.append(ANN.output)  # 神经网络预期输出
         if len(predict_value_list) > 0:
             healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']), abs(meanData(predict_value_list) - meanData(actual_value_list)))
-            out = {'predict': predict_value_list, 'actual': actual_value_list}
-            pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\" + attribute['indexdsec'] + ".xlsx")
+            #out = {'predict': predict_value_list, 'actual': actual_value_list}
+            #pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\" + attribute['indexdsec'] + ".xlsx")
         else:
             healthy_score=query_last_state(wtgs_id,current_time,'grGearboxDETemperature','healthy_state_index')
         return healthy_score
@@ -380,8 +380,8 @@ def grGearboxNDETemperature(attribute,wtgs_id,current_time,his):#齿轮箱发电
                 predict_value_list.append(ANN.output)  # 神经网络预期输出
         if len(predict_value_list) > 0:
             healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']), abs(meanData(predict_value_list) - meanData(actual_value_list)))
-            out = {'predict': predict_value_list, 'actual': actual_value_list}
-            pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\" + attribute['indexdsec'] + ".xlsx")
+            #out = {'predict': predict_value_list, 'actual': actual_value_list}
+            #pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\" + attribute['indexdsec'] + ".xlsx")
         else:
             healthy_score=query_last_state(wtgs_id,current_time,'grGearboxNDETemperature','healthy_state_index')
         return healthy_score
@@ -463,8 +463,8 @@ def grGeneratorWindingTemperature1(attribute,wtgs_id,current_time,his):#发电�
                 predict_value_list.append(ANN.output)  # 神经网络预期输出
         if len(predict_value_list) > 0:
             healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']),abs(meanData(predict_value_list) - meanData(actual_value_list)))
-            out = {'predict': predict_value_list, 'actual': actual_value_list}
-            pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\" + attribute['indexdsec'] + ".xlsx")
+            #out = {'predict': predict_value_list, 'actual': actual_value_list}
+            #pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\" + attribute['indexdsec'] + ".xlsx")
         else:
             healthy_score=query_last_state(wtgs_id,current_time,'grGeneratorWindingTemperature1','healthy_state_index')
         return healthy_score
@@ -542,8 +542,8 @@ def grGeneratorWindingTemperature2(attribute,wtgs_id,current_time, his):#发电�
                 predict_value_list.append(ANN.output)  # 神经网络预期输出
         if len(predict_value_list) > 0:
             healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']),abs(meanData(predict_value_list) - meanData(actual_value_list)))
-            out = {'predict': predict_value_list, 'actual': actual_value_list}
-            pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\" + attribute['indexdsec'] + ".xlsx")
+            #out = {'predict': predict_value_list, 'actual': actual_value_list}
+            #pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\" + attribute['indexdsec'] + ".xlsx")
         else:
             healthy_score=query_last_state(wtgs_id,current_time,'grGeneratorWindingTemperature2','healthy_state_index')
         return healthy_score
@@ -621,8 +621,8 @@ def grGeneratorWindingTemperature3(attribute,wtgs_id,current_time, his):#发电�
         if len(predict_value_list) > 0:
             healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']),
                                              abs(meanData(predict_value_list) - meanData(actual_value_list)))
-            out = {'predict': predict_value_list, 'actual': actual_value_list}
-            pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\" + attribute['indexdsec'] + ".xlsx")
+            #out = {'predict': predict_value_list, 'actual': actual_value_list}
+            #pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\" + attribute['indexdsec'] + ".xlsx")
         else:
             healthy_score=query_last_state(wtgs_id,current_time,'grGeneratorWindingTemperature3','healthy_state_index')
         return healthy_score
@@ -700,8 +700,8 @@ def grGeneratorWindingTemperature4(attribute,wtgs_id,current_time, his):#发电�
         if len(predict_value_list) > 0:
             healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']),
                                              abs(meanData(predict_value_list) - meanData(actual_value_list)))
-            out = {'predict': predict_value_list, 'actual': actual_value_list}
-            pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\" + attribute['indexdsec'] + ".xlsx")
+            #out = {'predict': predict_value_list, 'actual': actual_value_list}
+            #pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\" + attribute['indexdsec'] + ".xlsx")
         else:
             healthy_score=query_last_state(wtgs_id,current_time,'grGeneratorWindingTemperature4','healthy_state_index')
         return healthy_score
@@ -778,8 +778,8 @@ def grGeneratorWindingTemperature5(attribute,wtgs_id,current_time, his):#发电�
                 predict_value_list.append(ANN.output)  # 神经网络预期输出
         if len(predict_value_list) > 0:
             healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']),abs(meanData(predict_value_list) - meanData(actual_value_list)))
-            out = {'predict': predict_value_list, 'actual': actual_value_list}
-            pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\" + attribute['indexdsec'] + ".xlsx")
+            #out = {'predict': predict_value_list, 'actual': actual_value_list}
+            #pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\" + attribute['indexdsec'] + ".xlsx")
         else:
             healthy_score=query_last_state(wtgs_id,current_time,'grGeneratorWindingTemperature5','healthy_state_index')
         return healthy_score
@@ -857,8 +857,8 @@ def grGeneratorWindingTemperature6(attribute,wtgs_id,current_time, his):#发电�
                 predict_value_list.append(ANN.output)  # 神经网络预期输出
         if len(predict_value_list) > 0:
             healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']),abs(meanData(predict_value_list) - meanData(actual_value_list)))
-            out = {'predict': predict_value_list, 'actual': actual_value_list}
-            pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\" + attribute['indexdsec'] + ".xlsx")
+            #out = {'predict': predict_value_list, 'actual': actual_value_list}
+            #pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\" + attribute['indexdsec'] + ".xlsx")
         else:
             healthy_score=query_last_state(wtgs_id,current_time,'grGeneratorWindingTemperature6','healthy_state_index')
         return healthy_score
@@ -909,8 +909,8 @@ def grGeneratorDEBearingTemperature(attribute,wtgs_id,current_time,his):#发电�
                 predict_value_list.append(ANN.output)  # 神经网络预期输出
         if len(predict_value_list) > 0:
             healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']),abs(meanData(predict_value_list) - meanData(actual_value_list)))
-            out = {'predict': predict_value_list, 'actual': actual_value_list}
-            pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\" + attribute['indexdsec'] + ".xlsx")
+            #out = {'predict': predict_value_list, 'actual': actual_value_list}
+            #pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\" + attribute['indexdsec'] + ".xlsx")
         else:
             healthy_score=query_last_state(wtgs_id,current_time,'grGeneratorDEBearingTemperature','healthy_state_index')
         return healthy_score
@@ -961,8 +961,8 @@ def grGeneratorNDEBearingTemperature(attribute,wtgs_id,current_time,his):#发电
                 predict_value_list.append(ANN.output)  # 神经网络预期输出
         if len(predict_value_list) > 0:
             healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']),abs(meanData(predict_value_list) - meanData(actual_value_list)))
-            out = {'predict': predict_value_list, 'actual': actual_value_list}
-            pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\" + attribute['indexdsec'] + ".xlsx")
+            #out = {'predict': predict_value_list, 'actual': actual_value_list}
+            #pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\" + attribute['indexdsec'] + ".xlsx")
         else:
             healthy_score=query_last_state(wtgs_id,current_time,'grGeneratorNDEBearingTemperature','healthy_state_index')
         return healthy_score
@@ -1067,8 +1067,8 @@ def grGearboxOilPressureA2(attribute,wtgs_id,current_time,his):#齿轮箱A2压�
                 predict_value_list.append(ANN.output)  # 神经网络预期输出
         if len(predict_value_list) > 0:
             healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']),abs(meanData(predict_value_list)-meanData(actual_value_list)))
-            out = {'predict': predict_value_list, 'actual': actual_value_list}
-            pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\" + attribute['indexdsec'] + ".xlsx")
+            #out = {'predict': predict_value_list, 'actual': actual_value_list}
+            #pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\" + attribute['indexdsec'] + ".xlsx")
         else:
             healthy_score=query_last_state(wtgs_id,current_time,'grGearboxOilPressureA2','healthy_state_index')
         return healthy_score
@@ -1111,8 +1111,8 @@ def grGearboxOilPressureA3(attribute,wtgs_id,current_time,his):#齿轮箱A3压�
                 predict_value_list.append(ANN.output)  # 神经网络预期输出
         if len(predict_value_list) > 0:
             healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']),abs(meanData(predict_value_list) - meanData(actual_value_list)))
-            out = {'predict': predict_value_list, 'actual': actual_value_list}
-            pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\" + attribute['indexdsec'] + ".xlsx")
+            #out = {'predict': predict_value_list, 'actual': actual_value_list}
+            #pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\" + attribute['indexdsec'] + ".xlsx")
         else:
             healthy_score=query_last_state(wtgs_id,current_time,'grGearboxOilPressureA3','healthy_state_index')
         return healthy_score
@@ -1155,8 +1155,8 @@ def grGearboxOilPressureA4(attribute,wtgs_id,current_time,his):#齿轮箱A4压�
                 predict_value_list.append(ANN.output)  # 神经网络预期输出
         if len(predict_value_list) > 0:
             healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']),abs(meanData(predict_value_list) - meanData(actual_value_list)))
-            out = {'predict': predict_value_list, 'actual': actual_value_list}
-            pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\" + attribute['indexdsec'] + ".xlsx")
+            #out = {'predict': predict_value_list, 'actual': actual_value_list}
+            #pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\" + attribute['indexdsec'] + ".xlsx")
         else:
             healthy_score=query_last_state(wtgs_id,current_time,'grGearboxOilPressureA4','healthy_state_index')
         return healthy_score
@@ -1291,8 +1291,8 @@ def grGearboxOilTemperature(attribute,wtgs_id,current_time,his):#齿轮箱油温
                 predict_value_list.append(ANN.output)  # 神经网络预期输出
         if len(predict_value_list) > 0:
             healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']),abs(meanData(predict_value_list) - meanData(actual_value_list)))
-            out = {'predict': predict_value_list, 'actual': actual_value_list}
-            pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\" + attribute['indexdsec'] + ".xlsx")
+            #out = {'predict': predict_value_list, 'actual': actual_value_list}
+            #pd.DataFrame.from_dict(out).to_excel("C:\\Users\\llj\\Desktop\\ANN\\" + attribute['indexdsec'] + ".xlsx")
         else:
             healthy_score=query_last_state(wtgs_id,current_time,'grGearboxOilTemperature','healthy_state_index')
 
