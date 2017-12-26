@@ -7,7 +7,6 @@
 # @Software: PyCharm
 
 import logging
-import random
 import pandas as pd
 import pymysql
 import calFunctionUtils
@@ -63,9 +62,8 @@ class wtgsCalProcess:
                 indicator_cal_result[attribute['resultdbfield']]['flag'] = 1
                 indicator_cal_result[attribute['resultdbfield']]['value']= res
             elif attribute['dataresource']=='golden' and 'x1_step1_xoffset' in attribute.keys():#计算最底层指标，神经网络类
-                # res = getattr(calFunctionUtils, attribute['calfunc'])(attribute,self.wtgs_id,self.current_time)
-                res=1
-                # print(attribute['indexdsec'],res)
+                res = getattr(calFunctionUtils, attribute['calfunc'])(attribute,self.wtgs_id,self.current_time,his)
+                print(attribute['indexdsec'],res)
                 indicator_cal_result[attribute['resultdbfield']]['flag'] = 1
                 indicator_cal_result[attribute['resultdbfield']]['value'] = res
         for index,attribute in self.indicator_dictory.items():
