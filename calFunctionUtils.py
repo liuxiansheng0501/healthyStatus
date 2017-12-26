@@ -1030,7 +1030,7 @@ def grGearboxMotorHealthyLevel(wtgs_id,current_time,para_value_dict):#齿轮箱�
             return value_last_state
 
 def grGearboxOilPressureA2(attribute,wtgs_id,current_time,his):#齿轮箱A2压力
-    # TODO-齿轮箱A2压力
+    #   TODO-齿轮箱A2压力
     if queryRunMode(wtgs_id, current_time) != 14:
         return 1
     else:  # 并网的条件下才看健康度
@@ -2358,7 +2358,7 @@ def quartile(data):
         min_value = q1 - (q3 - q1) * QUARTILE  # upper
         return min_value,max_value
 
-def queryRunMode(wtgs_id,current_time): # 查询运行模式
+def queryRunMode(wtgs_id,current_time): # 查询最新时间current_time机组的运行模式
     conn = pymysql.connect(host='192.168.0.19', port=3306, user='llj', passwd='llj@2016', db='iot_wind', charset="utf8")
     sqlstr = "SELECT runMode FROM healthy_state_run_halt_time WHERE wtgsId=\'" + str(wtgs_id)+"\' AND realTime=(SELECT MAX(realTime) FROM healthy_state_run_halt_time WHERE wtgsId=\'" + str(wtgs_id) + "\' AND realTime<=\'"+current_time+"\')"
     latest_cal_state = pd.read_sql(sql=sqlstr, con=conn)
