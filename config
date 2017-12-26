@@ -15,8 +15,8 @@ CalMethodDesc=健康度=(1-当前运行时间/30000)*100%%
 IndexDsec=桨叶1后备电源容量,额定容量待定
 ResultTable=healthy_state_index
 ResultDBField=grPitch1BackupPowerCapacity
-HealthyLevel0=8
-HealthyLevel100=10
+HealthyLevel0=6
+HealthyLevel100=7.5
 HealthyLevel0Desc=额定容量的80%%
 HealthyLevel100Desc=额定容量
 DataResource=golden
@@ -63,8 +63,8 @@ CalMethodDesc=健康度=(1-当前运行时间/30000)*100%%
 IndexDsec=桨叶2后备电源容量
 ResultTable=healthy_state_index
 ResultDBField=grPitch2BackupPowerCapacity
-HealthyLevel0=8
-HealthyLevel100=10
+HealthyLevel0=6
+HealthyLevel100=7.5
 HealthyLevel0Desc=额定容量的80%%
 HealthyLevel100Desc=额定容量
 DataResource=golden
@@ -111,8 +111,8 @@ CalMethodDesc=健康度=(1-当前运行时间/30000)*100%%
 IndexDsec=桨叶3后备电源容量
 ResultTable=healthy_state_index
 ResultDBField=grPitch3BackupPowerCapacity
-HealthyLevel0=8
-HealthyLevel100=10
+HealthyLevel0=6
+HealthyLevel100=7.5
 HealthyLevel0Desc=额定容量的80%%
 HealthyLevel100Desc=额定容量
 DataResource=golden
