@@ -33,7 +33,7 @@ def grPitch1MotorOpetationTime(index, fromValue, toValue, wtgs_id,from_time_now,
 
 def grPitch1BackupPowerCapacity(index, fromValue, toValue, wtgs_id,from_time_now,current_time,to_time,his):#桨叶1后备电源容量
     # TODO-TESTED
-    res=descend(index, fromValue, toValue, wtgs_id,from_time_now,current_time,to_time,his)
+    res=ascend(index, fromValue, toValue, wtgs_id,from_time_now,current_time,to_time,his)
     if res is None:#如果返回值为空
         value_last_state = query_last_state(wtgs_id, current_time, 'grPitch1BackupPowerCapacity', 'healthy_state_index')
         if value_last_state == 0:
@@ -44,16 +44,17 @@ def grPitch1BackupPowerCapacity(index, fromValue, toValue, wtgs_id,from_time_now
         return res
 
 def grPitch1FollowingDifference(index, fromValue, toValue, wtgs_id,from_time_now,current_time,to_time,his):#桨叶1跟随偏差
-    # TODO-TESTED-加故障逻辑判断，不故障的时候才算
-    res=descend(index, fromValue, toValue, wtgs_id,from_time_now,current_time,to_time,his)
-    if res is None:#如果返回值为空
-        value_last_state = query_last_state(wtgs_id, current_time, 'grPitch1FollowingDifference', 'healthy_state_index')
-        if value_last_state == 0:
-            return 1
-        else:
-            return value_last_state
-    else:
-        return res
+    # TODO-TESTED-加故障逻辑判断, 不故障的时候才算
+    return 1
+    # res=descend(index, fromValue, toValue, wtgs_id,from_time_now,current_time,to_time,his)
+    # if res is None:#如果返回值为空
+    #     value_last_state = query_last_state(wtgs_id, current_time, 'grPitch1FollowingDifference', 'healthy_state_index')
+    #     if value_last_state == 0:
+    #         return 1
+    #     else:
+    #         return value_last_state
+    # else:
+    #     return res
 
 def grPitch2MotorOpetationTime(index, fromValue, toValue, wtgs_id,from_time_now,current_time,to_time,his):#桨叶2电机工作时间
     # TODO-TESTED
@@ -69,7 +70,7 @@ def grPitch2MotorOpetationTime(index, fromValue, toValue, wtgs_id,from_time_now,
 
 def grPitch2BackupPowerCapacity(index, fromValue, toValue, wtgs_id,from_time_now,current_time,to_time,his):#桨叶2后备电源容量
     # TODO-TESTED
-    res=descend(index, fromValue, toValue, wtgs_id,from_time_now,current_time,to_time,his)
+    res=ascend(index, fromValue, toValue, wtgs_id,from_time_now,current_time,to_time,his)
     if res is None:#如果返回值为空
         value_last_state = query_last_state(wtgs_id, current_time, 'grPitch2BackupPowerCapacity', 'healthy_state_index')
         if value_last_state == 0:
@@ -105,7 +106,7 @@ def grPitch3MotorOpetationTime(index, fromValue, toValue, wtgs_id,from_time_now,
 
 def grPitch3BackupPowerCapacity(index, fromValue, toValue, wtgs_id,from_time_now,current_time,to_time,his):#桨叶3后备电源容量
     # TODO-TESTED
-    res=descend(index, fromValue, toValue, wtgs_id,from_time_now,current_time,to_time,his)
+    res=ascend(index, fromValue, toValue, wtgs_id,from_time_now,current_time,to_time,his)
     if res is None:#如果返回值为空
         value_last_state = query_last_state(wtgs_id, current_time, 'grPitch3BackupPowerCapacity', 'healthy_state_index')
         if value_last_state == 0:
@@ -232,41 +233,46 @@ def grGearboxMainBearingTemperature(attribute,wtgs_id,current_time,his):#齿轮�
             base_time_loop=hisOrFurTime(current_time, delta, 0, 0)
             # 神经网络参数
             argv_dict=weightBias(attribute)
+            # 输入变量-运行模式：giwindturbineoperationmode
+            grRunMode = getIntInterpoValuesFromGolden3('giwindturbineoperationmode', wtgs_id, hisOrFurTime(base_time_loop, -1, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
             # 输入变量-室外温度：groutdoortemperature
-            grOutdoorTemperatureValue = getFloatInterpoValuesFromGolden2('groutdoortemperature', wtgs_id, hisOrFurTime(base_time_loop, -1800, 0, 0),  hisOrFurTime(base_time_loop, 1800, 0, 0),his)
+            grOutdoorTemperatureValue = getFloatInterpoValuesFromGolden2('groutdoortemperature', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),  hisOrFurTime(base_time_loop, 0, 0, 0),his)
             # 输入变量-空气密度：grairdensity
-            grAirDensityValue = getFloatInterpoValuesFromGolden2('grairdensity', wtgs_id, hisOrFurTime(base_time_loop, -1800, 0, 0),  hisOrFurTime(base_time_loop, 1800, 0, 0),his)
+            grAirDensityValue = getFloatInterpoValuesFromGolden2('grairdensity', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),  hisOrFurTime(base_time_loop, 0, 0, 0),his)
             # 输入变量-一小时前齿轮箱主轴温度：grgearboxmainbearingtemperature
-            grGearboxMainbearingTemperature1HoursAgo = getFloatInterpoValuesFromGolden2('grgearboxmainbearingtemperature', wtgs_id, hisOrFurTime(base_time_loop, 0, -1, 0),  hisOrFurTime(base_time_loop, -1800, -1, 0),  hisOrFurTime(current_time, 1800, -1, 0),his)
+            grGearboxMainbearingTemperature1HoursAgo = getFloatInterpoValuesFromGolden2('grgearboxmainbearingtemperature', wtgs_id,  hisOrFurTime(base_time_loop, -5, -1, 0),  hisOrFurTime(base_time_loop, 0, -1, 0),his)
             # 输入变量-30分钟平均功率：grgridactivepower
-            grGridActivePowerValue_30MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id, hisOrFurTime(base_time_loop, -900, 0, 0),  hisOrFurTime(base_time_loop, 900, 0, 0),his)
+            grGridActivePowerValue_30MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id, hisOrFurTime(base_time_loop, -1800, 0, 0),  hisOrFurTime(base_time_loop, 0, 0, 0),his)
             # 输入变量-10分钟平均功率：grgridactivepower
-            grGridActivePowerValue_10MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id, hisOrFurTime(base_time_loop, -300, 0, 0),  hisOrFurTime(base_time_loop, 300, 0, 0),his)
+            grGridActivePowerValue_10MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id, hisOrFurTime(base_time_loop, -600, 0, 0),  hisOrFurTime(base_time_loop, 0, 0, 0),his)
             # 输入变量-本次机组运行时间：runtime
             # 输入变量-本次机组停机时间：halttime
             [runtime,halttime]=queryRunHaltTime(wtgs_id,base_time_loop)
             # 输入变量-发电机10分钟平均转速：grgeneratorspeed1
-            grGeneratorSpeed1Value_10MIN = getFloatInterpoValuesFromGolden2('grgeneratorspeed1', wtgs_id, hisOrFurTime(base_time_loop, -900, 0, 0),  hisOrFurTime(base_time_loop, 900, 0, 0),his)
+            grGeneratorSpeed1Value_10MIN = getFloatInterpoValuesFromGolden2('grgeneratorspeed1', wtgs_id, hisOrFurTime(base_time_loop, -1800, 0, 0),  hisOrFurTime(base_time_loop, 0, 0, 0),his)
             # 输入变量-10分钟平均风速：grwindspeed
-            grWindSpeedValue_10MIN = getFloatInterpoValuesFromGolden2('grwindspeed', wtgs_id, hisOrFurTime(base_time_loop, -900, 0, 0),  hisOrFurTime(base_time_loop, 900, 0, 0),his)
+            grWindSpeedValue_10MIN = getFloatInterpoValuesFromGolden2('grwindspeed', wtgs_id, hisOrFurTime(base_time_loop, -1800, 0, 0),  hisOrFurTime(base_time_loop, 0, 0, 0),his)
             # 输入变量-1小时功率平均值：grgridactivepower
-            grGridActivepower_1hour = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id, hisOrFurTime(base_time_loop, -1800, 0, 0),  hisOrFurTime(base_time_loop, 1800, 0, 0),his)
+            grGridActivepower_1hour = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id, hisOrFurTime(base_time_loop, -3600, 0, 0),  hisOrFurTime(base_time_loop, 0, 0, 0),his)
             # 输出变量-齿轮箱主轴承温度：grgridactivepower
-            grGearboxMainbearingTemperature_now = getFloatInterpoValuesFromGolden2('grgearboxmainbearingtemperature', wtgs_id, hisOrFurTime(base_time_loop, -1800, 0, 0),  hisOrFurTime(base_time_loop, 1800, 0, 0),his)
+            grGearboxMainbearingTemperature_now = getFloatInterpoValuesFromGolden2('grgearboxmainbearingtemperature', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),  hisOrFurTime(base_time_loop, 0, 0, 0),his)
             actual_value_list.append(grGearboxMainbearingTemperature_now)
             # 输入变量向量
             argv_dict['input_vector']=[grOutdoorTemperatureValue,grAirDensityValue,grGearboxMainbearingTemperature1HoursAgo,grGridActivePowerValue_30MIN,
                                        grGridActivePowerValue_10MIN,runtime,halttime,grGeneratorSpeed1Value_10MIN,grWindSpeedValue_10MIN,grGridActivepower_1hour]
-            if None in argv_dict['input_vector'] or grGearboxMainbearingTemperature_now is None:
+            if None in argv_dict['input_vector'] or grGearboxMainbearingTemperature_now is None or int(grRunMode)!=14: # 空或非并网的时候不运算
                 pass
             else:
                 ANN = BP(argv_dict) # 采用神经网络
                 predict_value_list.append(ANN.output) # 神经网络预期输出
-        healthy_score=ANNLinearDescend(float(attribute['healthylevel0']),float(attribute['healthylevel100']),abs(meanData(predict_value_list) - meanData(actual_value_list)))
+        if len(predict_value_list)>0:
+            healthy_score=ANNLinearDescend(float(attribute['healthylevel0']),float(attribute['healthylevel100']),abs(meanData(predict_value_list) - meanData(actual_value_list)))
+        else:
+            healthy_score=query_last_state(wtgs_id,current_time,'grGearboxMainBearingTemperature','healthy_state_index')
         return healthy_score
 
 def grGearboxDETemperature(attribute,wtgs_id,current_time,his):#齿轮箱轮毂侧轴承温度
-    # TODO-齿轮箱轮毂侧轴承温度-预期输出:40+，较大出入
+    # TODO-齿轮箱轮毂侧轴承温度-预期输出:-40+, 较大出入
     if queryRunMode(wtgs_id,current_time)!=14:
         return 1
     else: # 并网的条件下才看健康度
@@ -276,46 +282,49 @@ def grGearboxDETemperature(attribute,wtgs_id,current_time,his):#齿轮箱轮毂�
         argv_dict = weightBias(attribute)
         for delta in range(-30, 31):
             base_time_loop = hisOrFurTime(current_time, delta, 0, 0)
+            # 输入变量-运行模式：giwindturbineoperationmode
+            grRunMode = getIntInterpoValuesFromGolden3('giwindturbineoperationmode', wtgs_id, hisOrFurTime(base_time_loop, -1, 0, 0), hisOrFurTime(base_time_loop, 0, 0, 0), his)
             # 输入变量-齿轮箱油温：grgearboxoiltemperture
-            grGearboxoilTempertureValue = getFloatInterpoValuesFromGolden2('grgearboxoiltemperture', wtgs_id, hisOrFurTime(base_time_loop, -1800, 0, 0),  hisOrFurTime(base_time_loop, 1800, 0, 0),his)
+            grGearboxoilTempertureValue = getFloatInterpoValuesFromGolden2('grgearboxoiltemperture', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),  hisOrFurTime(base_time_loop, 0, 0, 0),his)
             # 输入变量-A1口压力：grgearboxoilpressurea1
-            grGearboxoilPressureA1Value = getFloatInterpoValuesFromGolden2('grgearboxoilpressurea1', wtgs_id, hisOrFurTime(base_time_loop, -1800, 0, 0),  hisOrFurTime(base_time_loop, 1800, 0, 0),his)
+            grGearboxoilPressureA1Value = getFloatInterpoValuesFromGolden2('grgearboxoilpressurea1', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),  hisOrFurTime(base_time_loop, 0, 0, 0),his)
             # 输入变量-A2口压力：grgearboxoilpressurea2
-            grGearboxoilPressureA2Value = getFloatInterpoValuesFromGolden2('grgearboxoilpressurea2', wtgs_id, hisOrFurTime(base_time_loop, -1800, 0, 0),  hisOrFurTime(base_time_loop, 1800, 0, 0),his)
+            grGearboxoilPressureA2Value = getFloatInterpoValuesFromGolden2('grgearboxoilpressurea2', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),  hisOrFurTime(base_time_loop, 0, 0, 0),his)
             # 输入变量-室外温度：groutdoortemperature
-            grOutdoorTemperatureValue = getFloatInterpoValuesFromGolden2('groutdoortemperature', wtgs_id, hisOrFurTime(base_time_loop, -1800, 0, 0),  hisOrFurTime(base_time_loop, 1800, 0, 0),his)
+            grOutdoorTemperatureValue = getFloatInterpoValuesFromGolden2('groutdoortemperature', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),  hisOrFurTime(base_time_loop, 0, 0, 0),his)
             # 输入变量-空气密度：grairdensity
-            grAirDensityValue = getFloatInterpoValuesFromGolden2('grairdensity', wtgs_id, hisOrFurTime(base_time_loop, -1800, 0, 0),  hisOrFurTime(base_time_loop, 1800, 0, 0),his)
+            grAirDensityValue = getFloatInterpoValuesFromGolden2('grairdensity', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),  hisOrFurTime(base_time_loop, 0, 0, 0),his)
             # 输入变量-30分钟平均功率：grgridactivepower
-            grGridActivePowerValue_30MIN =  getFloatInterpoValuesFromGolden2('grgridactivepower',wtgs_id, hisOrFurTime(base_time_loop, -900, 0, 0),  hisOrFurTime(base_time_loop, 900, 0, 0),his)
+            grGridActivePowerValue_30MIN =  getFloatInterpoValuesFromGolden2('grgridactivepower',wtgs_id, hisOrFurTime(base_time_loop, -1800, 0, 0),  hisOrFurTime(base_time_loop, 0, 0, 0),his)
             # 输入变量-10分钟平均功率：grgridactivepower
-            grGridActivePowerValue_10MIN =  getFloatInterpoValuesFromGolden2('grgridactivepower',wtgs_id, hisOrFurTime(base_time_loop, -300, 0, 0),  hisOrFurTime(base_time_loop, 300, 0, 0),his)
+            grGridActivePowerValue_10MIN =  getFloatInterpoValuesFromGolden2('grgridactivepower',wtgs_id, hisOrFurTime(base_time_loop, -600, 0, 0),  hisOrFurTime(base_time_loop, 0, 0, 0),his)
             # 输入变量-本次机组运行时间：runtime
             # 输入变量-本次机组停机时间：halttime
             [runtime, halttime] = queryRunHaltTime(wtgs_id, base_time_loop)
             # 输入变量-发电机10分钟平均转速：grgeneratorspeed1
-            grGeneratorSpeed1Value_10MIN =  getFloatInterpoValuesFromGolden2('grgeneratorspeed1',wtgs_id, hisOrFurTime(base_time_loop, -300, 0, 0),  hisOrFurTime(base_time_loop, 300, 0, 0),his)
+            grGeneratorSpeed1Value_10MIN =  getFloatInterpoValuesFromGolden2('grgeneratorspeed1',wtgs_id, hisOrFurTime(base_time_loop, -600, 0, 0),  hisOrFurTime(base_time_loop, 0, 0, 0),his)
             # 输入变量-10分钟平均风速：grwindspeed
-            grWindSpeedValue_10MIN =  getFloatInterpoValuesFromGolden2('grwindspeed', wtgs_id, hisOrFurTime(base_time_loop, -300, 0, 0),  hisOrFurTime(base_time_loop, 300, 0, 0),his)
+            grWindSpeedValue_10MIN =  getFloatInterpoValuesFromGolden2('grwindspeed', wtgs_id, hisOrFurTime(base_time_loop, -600, 0, 0),  hisOrFurTime(base_time_loop, 0, 0, 0),his)
             # 输入变量-10分钟平均油位：grgearboxoillevel
-            grGearboxOilLevel_10MIN =  getFloatInterpoValuesFromGolden2('grgearboxoillevel',wtgs_id, hisOrFurTime(base_time_loop, -300, 0, 0),  hisOrFurTime(base_time_loop, 300, 0, 0),his)
+            grGearboxOilLevel_10MIN =  getFloatInterpoValuesFromGolden2('grgearboxoillevel',wtgs_id, hisOrFurTime(base_time_loop, -600, 0, 0),  hisOrFurTime(base_time_loop, 0, 0, 0),his)
             # 实际输出变量-齿轮箱前轴承温度：grgearboxhubsidebearingtemperature
-            grGearboxHubsideBearingTemperature = getFloatInterpoValuesFromGolden2('grgearboxhubsidebearingtemperature', wtgs_id, hisOrFurTime(base_time_loop, -1800, 0, 0),  hisOrFurTime(base_time_loop, 1800, 0, 0),his)
+            grGearboxHubsideBearingTemperature = getFloatInterpoValuesFromGolden2('grgearboxhubsidebearingtemperature', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),  hisOrFurTime(base_time_loop, 0, 0, 0),his)
             actual_value_list.append(grGearboxHubsideBearingTemperature)
             # 输入变量向量
-            argv_dict['input_vector']=[grGearboxoilTempertureValue,grGearboxoilPressureA1Value,grGearboxoilPressureA2Value,grOutdoorTemperatureValue,
-                                       grAirDensityValue,grGridActivePowerValue_30MIN,grGridActivePowerValue_10MIN,runtime,halttime,
-                                       grGeneratorSpeed1Value_10MIN, grWindSpeedValue_10MIN,grGearboxOilLevel_10MIN]
-            if None in argv_dict['input_vector'] or grGearboxHubsideBearingTemperature is None:
+            argv_dict['input_vector']=[grGearboxoilTempertureValue,grGearboxoilPressureA1Value,grGearboxoilPressureA2Value,grOutdoorTemperatureValue,grAirDensityValue,grGridActivePowerValue_30MIN,grGridActivePowerValue_10MIN,runtime,halttime,grGeneratorSpeed1Value_10MIN, grWindSpeedValue_10MIN,grGearboxOilLevel_10MIN]
+            if None in argv_dict['input_vector'] or grGearboxHubsideBearingTemperature is None or int(grRunMode)!=14: # 空或非并网的时候不运算
                 pass
             else:
                 ANN = BP(argv_dict)  # 采用神经网络
                 predict_value_list.append(ANN.output)  # 神经网络预期输出
-        healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']), abs(removeAbnormalDatas(predict_value_list) - removeAbnormalDatas(actual_value_list)))
+        if len(predict_value_list) > 0:
+            healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']), abs(meanData(predict_value_list) - meanData(actual_value_list)))
+        else:
+            healthy_score=query_last_state(wtgs_id,current_time,'grGearboxDETemperature','healthy_state_index')
         return healthy_score
 
 def grGearboxNDETemperature(attribute,wtgs_id,current_time,his):#齿轮箱发电机侧轴承温度
-    #TODO-齿轮箱发电机侧轴承温度-预期输出:70+，较大出入
+    #TODO-齿轮箱发电机侧轴承温度-预期输出:70+, 较大出入
     if queryRunMode(wtgs_id,current_time)!=14:
         return 1
     else: # 并网的条件下才看健康度
@@ -325,45 +334,50 @@ def grGearboxNDETemperature(attribute,wtgs_id,current_time,his):#齿轮箱发电
         argv_dict = weightBias(attribute)
         for delta in range(-30, 31):
             base_time_loop = hisOrFurTime(current_time, delta, 0, 0)
+            # 输入变量-运行模式：giwindturbineoperationmode
+            grRunMode = getIntInterpoValuesFromGolden3('giwindturbineoperationmode', wtgs_id,hisOrFurTime(base_time_loop, -1, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
             # 输入变量-齿轮箱油温：grgearboxoiltemperture
-            grGearboxoilTempertureValue = getFloatInterpoValuesFromGolden2('grgearboxoiltemperture', wtgs_id, hisOrFurTime(base_time_loop, -1800, 0, 0),  hisOrFurTime(base_time_loop, 1800, 0, 0),his)
+            grGearboxoilTempertureValue = getFloatInterpoValuesFromGolden2('grgearboxoiltemperture', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),  hisOrFurTime(base_time_loop, 0, 0, 0),his)
             # 输入变量-A1口压力：grgearboxoilpressurea1
-            grGearboxoilPressureA1Value = getFloatInterpoValuesFromGolden2('grgearboxoilpressurea1', wtgs_id, hisOrFurTime(base_time_loop, -1800, 0, 0),  hisOrFurTime(base_time_loop, 1800, 0, 0),his)
+            grGearboxoilPressureA1Value = getFloatInterpoValuesFromGolden2('grgearboxoilpressurea1', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),  hisOrFurTime(base_time_loop, 0, 0, 0),his)
             # 输入变量-A2口压力：grgearboxoilpressurea2
-            grGearboxoilPressureA2Value = getFloatInterpoValuesFromGolden2('grgearboxoilpressurea2', wtgs_id, hisOrFurTime(base_time_loop, -1800, 0, 0),  hisOrFurTime(base_time_loop, 1800, 0, 0),his)
+            grGearboxoilPressureA2Value = getFloatInterpoValuesFromGolden2('grgearboxoilpressurea2', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),  hisOrFurTime(base_time_loop, 0, 0, 0),his)
             # 输入变量-A3口压力：grgearboxoilpressurea3
-            grGearboxoilPressureA3Value = getFloatInterpoValuesFromGolden2('grgearboxoilpressurea3', wtgs_id, hisOrFurTime(base_time_loop, -1800, 0, 0),  hisOrFurTime(base_time_loop, 1800, 0, 0),his)
+            grGearboxoilPressureA3Value = getFloatInterpoValuesFromGolden2('grgearboxoilpressurea3', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),  hisOrFurTime(base_time_loop, 0, 0, 0),his)
             # 输入变量-A4口压力：grgearboxoilpressurea4
-            grGearboxoilPressureA4Value = getFloatInterpoValuesFromGolden2('grgearboxoilpressurea4', wtgs_id, hisOrFurTime(base_time_loop, -1800, 0, 0),  hisOrFurTime(base_time_loop, 1800, 0, 0),his)
+            grGearboxoilPressureA4Value = getFloatInterpoValuesFromGolden2('grgearboxoilpressurea4', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),  hisOrFurTime(base_time_loop, 0, 0, 0),his)
             # 输入变量-室外温度：groutdoortemperature
-            grOutdoorTemperatureValue = getFloatInterpoValuesFromGolden2('groutdoortemperature', wtgs_id, hisOrFurTime(base_time_loop, -1800, 0, 0),  hisOrFurTime(base_time_loop, 1800, 0, 0),his)
+            grOutdoorTemperatureValue = getFloatInterpoValuesFromGolden2('groutdoortemperature', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),  hisOrFurTime(base_time_loop, 0, 0, 0),his)
             # 输入变量-空气密度：grairdensity
-            grAirDensityValue = getFloatInterpoValuesFromGolden2('grairdensity', wtgs_id, hisOrFurTime(base_time_loop, -1800, 0, 0),  hisOrFurTime(base_time_loop, 1800, 0, 0),his)
+            grAirDensityValue = getFloatInterpoValuesFromGolden2('grairdensity', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),  hisOrFurTime(base_time_loop, 0, 0, 0),his)
             # 输入变量-30分钟平均功率：grgridactivepower
-            grGridActivePowerValue_30MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id, wtgs_id, hisOrFurTime(base_time_loop, -900, 0, 0), hisOrFurTime(base_time_loop, -900, 0, 0),his)
+            grGridActivePowerValue_30MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id,hisOrFurTime(base_time_loop, -900, 0, 0),hisOrFurTime(base_time_loop, 900, 0, 0),his)
             # 输入变量-10分钟平均功率：grgridactivepower
-            grGridActivePowerValue_10MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id, wtgs_id, hisOrFurTime(base_time_loop, -300, 0, 0), hisOrFurTime(base_time_loop, -300, 0, 0),his)
+            grGridActivePowerValue_10MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id, hisOrFurTime(base_time_loop, -300, 0, 0), hisOrFurTime(base_time_loop, 300, 0, 0),his)
             # 输入变量-本次机组运行时间：runtime
             # 输入变量-本次机组停机时间：halttime
             [runtime, halttime] = queryRunHaltTime(wtgs_id, base_time_loop)
             # 输入变量-发电机10分钟平均转速：grgeneratorspeed1
-            grGeneratorSpeed1Value_10MIN = getFloatInterpoValuesFromGolden2('grgeneratorspeed1', wtgs_id, wtgs_id, hisOrFurTime(base_time_loop, -300, 0, 0), hisOrFurTime(base_time_loop, -300, 0, 0),his)
+            grGeneratorSpeed1Value_10MIN = getFloatInterpoValuesFromGolden2('grgeneratorspeed1', wtgs_id, hisOrFurTime(base_time_loop, -300, 0, 0), hisOrFurTime(base_time_loop, 300, 0, 0),his)
             # 输入变量-10分钟平均风速：grwindspeed
-            grWindSpeedValue_10MIN = getFloatInterpoValuesFromGolden2('grwindspeed', wtgs_id, hisOrFurTime(base_time_loop, -300, 0, 0), hisOrFurTime(base_time_loop, -300, 0, 0),his)
+            grWindSpeedValue_10MIN = getFloatInterpoValuesFromGolden2('grwindspeed', wtgs_id, hisOrFurTime(base_time_loop, -300, 0, 0), hisOrFurTime(base_time_loop, 300, 0, 0),his)
             # 实际输出变量-齿轮箱后轴承温度：grgearboxgeneratorsidebearingtemperature
-            grGearboxGeneratorsideBearingTemperature_Now = getFloatInterpoValuesFromGolden2('grgearboxgeneratorsidebearingtemperature', wtgs_id, hisOrFurTime(base_time_loop, -1800, 0, 0),  hisOrFurTime(base_time_loop, 1800, 0, 0),his)
+            grGearboxGeneratorsideBearingTemperature_Now = getFloatInterpoValuesFromGolden2('grgearboxgeneratorsidebearingtemperature', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),  hisOrFurTime(base_time_loop, 0, 0, 0),his)
             actual_value_list.append(grGearboxGeneratorsideBearingTemperature_Now)
             # 输入变量向量
             argv_dict['input_vector'] = [grGearboxoilTempertureValue, grGearboxoilPressureA1Value, grGearboxoilPressureA2Value,
                                          grGearboxoilPressureA3Value, grGearboxoilPressureA4Value,grOutdoorTemperatureValue,
                                          grAirDensityValue, grGridActivePowerValue_30MIN, grGridActivePowerValue_10MIN, runtime,
                                          halttime, grGeneratorSpeed1Value_10MIN,grWindSpeedValue_10MIN]
-            if None in argv_dict['input_vector'] or grGearboxGeneratorsideBearingTemperature_Now is None:
+            if None in argv_dict['input_vector'] or grGearboxGeneratorsideBearingTemperature_Now is None or int(grRunMode)!=14: # 空或非并网的时候不运算
                 pass
             else:
                 ANN = BP(argv_dict)  # 采用神经网络
                 predict_value_list.append(ANN.output)  # 神经网络预期输出
-        healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']), abs(removeAbnormalDatas(predict_value_list) - removeAbnormalDatas(actual_value_list)))
+        if len(predict_value_list) > 0:
+            healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']), abs(meanData(predict_value_list) - meanData(actual_value_list)))
+        else:
+            healthy_score=query_last_state(wtgs_id,current_time,'grGearboxNDETemperature','healthy_state_index')
         return healthy_score
 
 def grGearbox(wtgs_id,current_time,para_value_dict):#齿轮箱健康度
@@ -397,699 +411,543 @@ def grGeneratorFloatingVoltage(index, fromValue, toValue, wtgs_id,from_time_now,
     else:
         return res
 
-def grGeneratorWindingTemperature1(attribute,wtgs_id,current_time):#发电机绕组1温度
+def grGeneratorWindingTemperature1(attribute,wtgs_id,current_time,his):#发电机绕组1温度
     # TODO-发电机绕组1温度
-    # 神经网络参数
-    argv_dict = weightBias(attribute)
-    # 时间设定
-    from_time_now = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-5)
-    to_time_now = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=5)
-    from_time_now = from_time_now.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_now = to_time_now.strftime("%Y-%m-%d %H:%M:%S")
-    from_time_30MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-900)
-    to_time_30MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=900)
-    from_time_30MIN = from_time_30MIN.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_30MIN = to_time_30MIN.strftime("%Y-%m-%d %H:%M:%S")
-    from_time_10MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-300)
-    to_time_10MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=300)
-    from_time_10MIN = from_time_10MIN.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_10MIN = to_time_10MIN.strftime("%Y-%m-%d %H:%M:%S")
-    from_time_1hour = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-300)
-    to_time_1hour = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=300)
-    from_time_1hour = from_time_1hour.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_1hour = to_time_1hour.strftime("%Y-%m-%d %H:%M:%S")
-    # 输入变量-齿轮箱油温：grgearboxoiltemperture
-    tag_golden_index = readTagIndex('grgearboxoiltemperture', wtgs_id)  # 查询标签点在golden中的id
-    grGearboxoilTempertureValue = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    grGearboxoilTempertureValue=50
-    # 输入变量-有功功率：grgridactivepower
-    tag_golden_index = readTagIndex('grgridactivepower', wtgs_id)  # 查询标签点在golden中的id
-    grGridActivePowerValue = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    # 输入变量-室外温度：groutdoortemperature
-    tag_golden_index = readTagIndex('groutdoortemperature', wtgs_id)  # 查询标签点在golden中的id
-    grOutdoorTemperatureValue = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    # 输入变量-空气密度：grairdensity
-    tag_golden_index = readTagIndex('grairdensity', wtgs_id)  # 查询标签点在golden中的id
-    grAirDensityValue = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    grAirDensityValue = 1.1
-    # 输入变量-30分钟平均功率：grgridactivepower
-    tag_golden_index = readTagIndex('grgridactivepower', wtgs_id)  # 查询标签点在golden中的id
-    grGridActivePowerValue_30MIN = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_30MIN, to_time_30MIN)
-    # 输入变量-10分钟平均功率：grgridactivepower
-    tag_golden_index = readTagIndex('grgridactivepower', wtgs_id)  # 查询标签点在golden中的id
-    grGridActivePowerValue_10MIN = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_10MIN, to_time_10MIN)
-    # 输入变量-本次机组运行时间：runtime
-    runtime = 36
-    # 输入变量-本次机组停机时间：halttime
-    halttime = 0
-    # 输入变量-发电机10分钟平均转速：grgeneratorspeed1
-    tag_golden_index = readTagIndex('grgeneratorspeed1', wtgs_id)  # 查询标签点在golden中的id
-    grGeneratorSpeed1Value_10MIN = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_10MIN, to_time_10MIN)
-    # 输入变量-1小时平均功率：grgridactivepower
-    tag_golden_index = readTagIndex('grgridactivepower', wtgs_id)  # 查询标签点在golden中的id
-    grGridActivePowerValue_1HOUR = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_1hour, to_time_1hour)
-    # 实际输出变量-齿轮箱后轴承温度：grgearboxgeneratorsidebearingtemperature
-    tag_golden_index = readTagIndex('grgeneratorwindingtemperature1', wtgs_id)  # 查询标签点在golden中的id
-    grGearboxGeneratorsideBearingTemperature_Now = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    argv_dict['input_vector'] = [grGearboxoilTempertureValue, grGridActivePowerValue, grOutdoorTemperatureValue,
-                                 grAirDensityValue, grGridActivePowerValue_30MIN, grGridActivePowerValue_10MIN,
-                                 runtime, halttime, grGeneratorSpeed1Value_10MIN, grGridActivePowerValue_1HOUR]
-    #print(argv_dict['input_vector'])
-    # if not None in argv_dict['input_vector']:
-    ANN = BP(argv_dict)
-    predict_value = ANN.output
-    if not grGearboxGeneratorsideBearingTemperature_Now:
-        grGearboxGeneratorsideBearingTemperature_Now = 50
-    if grGearboxGeneratorsideBearingTemperature_Now and predict_value:
-        if float(attribute['healthylevel0']) > float(attribute['healthylevel100']):
-            fromValue = float(attribute['healthylevel100'])
-            toValue = float(attribute['healthylevel0'])
+    if queryRunMode(wtgs_id,current_time)!=14:
+        return 1
+    else: # 并网的条件下才看健康度
+        predict_value_list=[]
+        actual_value_list=[]
+        for delta in range(-30,31):
+            base_time_loop=hisOrFurTime(current_time, delta, 0, 0)
+            # 神经网络参数
+            argv_dict = weightBias(attribute)
+            # 输入变量-运行模式：giwindturbineoperationmode
+            grRunMode = getIntInterpoValuesFromGolden3('giwindturbineoperationmode', wtgs_id,hisOrFurTime(base_time_loop, -1, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-齿轮箱油温：grgearboxoiltemperture
+            grGearboxoilTempertureValue = getFloatInterpoValuesFromGolden2('grgearboxoiltemperture', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),  hisOrFurTime(base_time_loop, 0, 0, 0),his)
+            # 输入变量-有功功率：grgridactivepower
+            grGridActivePowerValue = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),  hisOrFurTime(base_time_loop, 0, 0, 0),his)
+            # 输入变量-室外温度：groutdoortemperature
+            grOutdoorTemperatureValue = getFloatInterpoValuesFromGolden2('groutdoortemperature', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),  hisOrFurTime(base_time_loop, 0, 0, 0),his)
+            # 输入变量-空气密度：grairdensity
+            grAirDensityValue = getFloatInterpoValuesFromGolden2('grairdensity', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),  hisOrFurTime(base_time_loop, 0, 0, 0),his)
+            # 输入变量-30分钟平均功率：grgridactivepower
+            grGridActivePowerValue_30MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id, hisOrFurTime(base_time_loop, -1800, 0, 0),  hisOrFurTime(base_time_loop, 0, 0, 0),his)
+            # 输入变量-10分钟平均功率：grgridactivepower
+            grGridActivePowerValue_10MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id, hisOrFurTime(base_time_loop, -600, 0, 0),  hisOrFurTime(base_time_loop, 0, 0, 0),his)
+            # 输入变量-本次机组运行时间：runtime
+            # 输入变量-本次机组停机时间：halttime
+            [runtime,halttime]=queryRunHaltTime(wtgs_id,base_time_loop)
+            # 输入变量-发电机10分钟平均转速：grgeneratorspeed1
+            grGeneratorSpeed1Value_10MIN = getFloatInterpoValuesFromGolden2('grgeneratorspeed1', wtgs_id, hisOrFurTime(base_time_loop, -600, 0, 0),  hisOrFurTime(base_time_loop, 0, 0, 0),his)
+            # 输入变量-1小时平均功率：grgridactivepower
+            grGridActivePowerValue_1HOUR = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id, hisOrFurTime(base_time_loop, -1800, 0, 0),  hisOrFurTime(base_time_loop, 1800, 0, 0),his)
+            # 实际输出变量-发电机绕组1温度：grgeneratorwindingtemperature1
+            grGeneratorWindingTemperature1 = getFloatInterpoValuesFromGolden2('grgeneratorwindingtemperature1', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),  hisOrFurTime(base_time_loop, 0, 0, 0),his)
+            actual_value_list.append(grGeneratorWindingTemperature1)
+            #神经网络输入向量
+            argv_dict['input_vector'] = [grGearboxoilTempertureValue, grGridActivePowerValue, grOutdoorTemperatureValue,
+                                         grAirDensityValue, grGridActivePowerValue_30MIN, grGridActivePowerValue_10MIN,
+                                         runtime, halttime, grGeneratorSpeed1Value_10MIN, grGridActivePowerValue_1HOUR]
+            if None in argv_dict['input_vector'] or grGeneratorWindingTemperature1 is None or int(grRunMode)!=14: # 空或非并网的时候不运算
+                pass
+            else:
+                ANN = BP(argv_dict)  # 采用神经网络
+                predict_value_list.append(ANN.output)  # 神经网络预期输出
+        if len(predict_value_list) > 0:
+            healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']),abs(meanData(predict_value_list) - meanData(actual_value_list)))
         else:
-            fromValue = float(attribute['healthylevel0'])
-            toValue = float(attribute['healthylevel100'])
-        abs_value = abs(predict_value - grGearboxGeneratorsideBearingTemperature_Now)  # 两者差值的绝对值
-        if abs_value > toValue:
-            return 0
-        elif abs_value <= toValue and abs_value > fromValue:
-            return round((toValue - abs_value) / (toValue - fromValue), 4)
-        else:
-            return 1
-    else:  # 当前时间无存储值
-        loger.warning('grGeneratorWindingTemperature1' + ' ' + str(wtgs_id) + ' ' + current_time + " is empty!")
-        value_last_state = query_last_state(wtgs_id, current_time, 'grGeneratorWindingTemperature1', 'healthy_state_index')
-        if value_last_state == 0:
-            return 1
-        else:
-            return value_last_state
+            healthy_score=query_last_state(wtgs_id,current_time,'grGeneratorWindingTemperature1','healthy_state_index')
+        return healthy_score
 
-def grGeneratorWindingTemperature2(attribute,wtgs_id,current_time):#发电机绕组2温度
+def grGeneratorWindingTemperature2(attribute,wtgs_id,current_time, his):#发电机绕组2温度
     # TODO-发电机绕组2温度
-    # 神经网络参数
-    argv_dict = weightBias(attribute)
-    # 时间设定
-    from_time_now = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-5)
-    to_time_now = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=5)
-    from_time_now = from_time_now.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_now = to_time_now.strftime("%Y-%m-%d %H:%M:%S")
-    from_time_30MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-900)
-    to_time_30MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=900)
-    from_time_30MIN = from_time_30MIN.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_30MIN = to_time_30MIN.strftime("%Y-%m-%d %H:%M:%S")
-    from_time_10MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-300)
-    to_time_10MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=300)
-    from_time_10MIN = from_time_10MIN.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_10MIN = to_time_10MIN.strftime("%Y-%m-%d %H:%M:%S")
-    from_time_1hour = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-300)
-    to_time_1hour = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=300)
-    from_time_1hour = from_time_1hour.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_1hour = to_time_1hour.strftime("%Y-%m-%d %H:%M:%S")
-    # 输入变量-齿轮箱油温：grgearboxoiltemperture
-    tag_golden_index = readTagIndex('grgearboxoiltemperture', wtgs_id)  # 查询标签点在golden中的id
-    grGearboxoilTempertureValue = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    grGearboxoilTempertureValue=50
-    # 输入变量-有功功率：grgridactivepower
-    tag_golden_index = readTagIndex('grgridactivepower', wtgs_id)  # 查询标签点在golden中的id
-    grGridActivePowerValue = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    # 输入变量-室外温度：groutdoortemperature
-    tag_golden_index = readTagIndex('groutdoortemperature', wtgs_id)  # 查询标签点在golden中的id
-    grOutdoorTemperatureValue = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    # 输入变量-空气密度：grairdensity
-    tag_golden_index = readTagIndex('grairdensity', wtgs_id)  # 查询标签点在golden中的id
-    grAirDensityValue = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    grAirDensityValue = 1.1
-    # 输入变量-30分钟平均功率：grgridactivepower
-    tag_golden_index = readTagIndex('grgridactivepower', wtgs_id)  # 查询标签点在golden中的id
-    grGridActivePowerValue_30MIN = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_30MIN, to_time_30MIN)
-    # 输入变量-10分钟平均功率：grgridactivepower
-    tag_golden_index = readTagIndex('grgridactivepower', wtgs_id)  # 查询标签点在golden中的id
-    grGridActivePowerValue_10MIN = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_10MIN, to_time_10MIN)
-    # 输入变量-本次机组运行时间：runtime
-    runtime = 36
-    # 输入变量-本次机组停机时间：halttime
-    halttime = 0
-    # 输入变量-发电机10分钟平均转速：grgeneratorspeed1
-    tag_golden_index = readTagIndex('grgeneratorspeed1', wtgs_id)  # 查询标签点在golden中的id
-    grGeneratorSpeed1Value_10MIN = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_10MIN, to_time_10MIN)
-    # 输入变量-1小时平均功率：grgridactivepower
-    tag_golden_index = readTagIndex('grgridactivepower', wtgs_id)  # 查询标签点在golden中的id
-    grGridActivePowerValue_1HOUR = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_1hour, to_time_1hour)
-    # 实际输出变量-齿轮箱后轴承温度：grgearboxgeneratorsidebearingtemperature
-    tag_golden_index = readTagIndex('grgeneratorwindingtemperature2', wtgs_id)  # 查询标签点在golden中的id
-    grGearboxGeneratorsideBearingTemperature_Now = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    argv_dict['input_vector'] = [grGearboxoilTempertureValue, grGridActivePowerValue, grOutdoorTemperatureValue,
-                                 grAirDensityValue, grGridActivePowerValue_30MIN, grGridActivePowerValue_10MIN,
-                                 runtime, halttime, grGeneratorSpeed1Value_10MIN, grGridActivePowerValue_1HOUR]
-    #print(argv_dict['input_vector'])
-    # if not None in argv_dict['input_vector']:
-    ANN = BP(argv_dict)
-    predict_value = ANN.output
-    if not grGearboxGeneratorsideBearingTemperature_Now:
-        grGearboxGeneratorsideBearingTemperature_Now = 50
-    if grGearboxGeneratorsideBearingTemperature_Now and predict_value:
-        if float(attribute['healthylevel0']) > float(attribute['healthylevel100']):
-            fromValue = float(attribute['healthylevel100'])
-            toValue = float(attribute['healthylevel0'])
+    if queryRunMode(wtgs_id, current_time) != 14:
+        return 1
+    else:  # 并网的条件下才看健康度
+        predict_value_list = []
+        actual_value_list = []
+        for delta in range(-30, 31):
+            base_time_loop = hisOrFurTime(current_time, delta, 0, 0)
+            # 神经网络参数
+            argv_dict = weightBias(attribute)
+            # 输入变量-运行模式：giwindturbineoperationmode
+            grRunMode = getIntInterpoValuesFromGolden3('giwindturbineoperationmode', wtgs_id,
+                                                       hisOrFurTime(base_time_loop, -1, 0, 0),
+                                                       hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-齿轮箱油温：grgearboxoiltemperture
+            grGearboxoilTempertureValue = getFloatInterpoValuesFromGolden2('grgearboxoiltemperture', wtgs_id,
+                                                                           hisOrFurTime(base_time_loop, -5, 0, 0),
+                                                                           hisOrFurTime(base_time_loop, 0, 0, 0),
+                                                                           his)
+            # 输入变量-有功功率：grgridactivepower
+            grGridActivePowerValue = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id,
+                                                                      hisOrFurTime(base_time_loop, -5, 0, 0),
+                                                                      hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-室外温度：groutdoortemperature
+            grOutdoorTemperatureValue = getFloatInterpoValuesFromGolden2('groutdoortemperature', wtgs_id,
+                                                                         hisOrFurTime(base_time_loop, -5, 0, 0),
+                                                                         hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-空气密度：grairdensity
+            grAirDensityValue = getFloatInterpoValuesFromGolden2('grairdensity', wtgs_id,
+                                                                 hisOrFurTime(base_time_loop, -5, 0, 0),
+                                                                 hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-30分钟平均功率：grgridactivepower
+            grGridActivePowerValue_30MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id,
+                                                                            hisOrFurTime(base_time_loop, -900, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, 900, 0, 0),
+                                                                            his)
+            # 输入变量-10分钟平均功率：grgridactivepower
+            grGridActivePowerValue_10MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id,
+                                                                            hisOrFurTime(base_time_loop, -300, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, 300, 0, 0),
+                                                                            his)
+            # 输入变量-本次机组运行时间：runtime
+            # 输入变量-本次机组停机时间：halttime
+            [runtime, halttime] = queryRunHaltTime(wtgs_id, base_time_loop)
+            # 输入变量-发电机10分钟平均转速：grgeneratorspeed1
+            grGeneratorSpeed1Value_10MIN = getFloatInterpoValuesFromGolden2('grgeneratorspeed1', wtgs_id,
+                                                                            hisOrFurTime(base_time_loop, -300, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, 300, 0, 0),
+                                                                            his)
+            # 输入变量-1小时平均功率：grgridactivepower
+            grGridActivePowerValue_1HOUR = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id,
+                                                                            hisOrFurTime(base_time_loop, -1800, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, 1800, 0, 0),
+                                                                            his)
+            # 实际输出变量-发电机绕组2温度：grgeneratorwindingtemperature2
+            grGeneratorWindingTemperature2 = getFloatInterpoValuesFromGolden2('grgeneratorwindingtemperature2', wtgs_id,
+                                                                              hisOrFurTime(base_time_loop, -5, 0, 0),
+                                                                              hisOrFurTime(base_time_loop, 0, 0, 0),
+                                                                              his)
+            actual_value_list.append(grGeneratorWindingTemperature2)
+            # 神经网络输入向量
+            argv_dict['input_vector'] = [grGearboxoilTempertureValue, grGridActivePowerValue, grOutdoorTemperatureValue,
+                                         grAirDensityValue, grGridActivePowerValue_30MIN, grGridActivePowerValue_10MIN,
+                                         runtime, halttime, grGeneratorSpeed1Value_10MIN, grGridActivePowerValue_1HOUR]
+            if None in argv_dict['input_vector'] or grGeneratorWindingTemperature2 is None or int(
+                    grRunMode) != 14:  # 空或非并网的时候不运算
+                pass
+            else:
+                ANN = BP(argv_dict)  # 采用神经网络
+                predict_value_list.append(ANN.output)  # 神经网络预期输出
+        if len(predict_value_list) > 0:
+            healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']),
+                                             abs(meanData(predict_value_list) - meanData(actual_value_list)))
         else:
-            fromValue = float(attribute['healthylevel0'])
-            toValue = float(attribute['healthylevel100'])
-        abs_value = abs(predict_value - grGearboxGeneratorsideBearingTemperature_Now)  # 两者差值的绝对值
-        if abs_value > toValue:
-            return 0
-        elif abs_value <= toValue and abs_value > fromValue:
-            return round((toValue - abs_value) / (toValue - fromValue), 4)
-        else:
-            return 1
-    else:  # 当前时间无存储值
-        loger.warning('grGeneratorWindingTemperature2' + ' ' + str(wtgs_id) + ' ' + current_time + " is empty!")
-        value_last_state = query_last_state(wtgs_id, current_time, 'grGeneratorWindingTemperature2', 'healthy_state_index')
-        if value_last_state == 0:
-            return 1
-        else:
-            return value_last_state
+            healthy_score=query_last_state(wtgs_id,current_time,'grGeneratorWindingTemperature2','healthy_state_index')
+        return healthy_score
 
-def grGeneratorWindingTemperature3(attribute,wtgs_id,current_time):#发电机绕组3温度
+def grGeneratorWindingTemperature3(attribute,wtgs_id,current_time, his):#发电机绕组3温度
     # TODO-发电机绕组3温度
-    # 神经网络参数
-    argv_dict = weightBias(attribute)
-    # 时间设定
-    from_time_now = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-5)
-    to_time_now = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=5)
-    from_time_now = from_time_now.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_now = to_time_now.strftime("%Y-%m-%d %H:%M:%S")
-    from_time_30MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-900)
-    to_time_30MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=900)
-    from_time_30MIN = from_time_30MIN.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_30MIN = to_time_30MIN.strftime("%Y-%m-%d %H:%M:%S")
-    from_time_10MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-300)
-    to_time_10MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=300)
-    from_time_10MIN = from_time_10MIN.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_10MIN = to_time_10MIN.strftime("%Y-%m-%d %H:%M:%S")
-    from_time_1hour = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-300)
-    to_time_1hour = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=300)
-    from_time_1hour = from_time_1hour.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_1hour = to_time_1hour.strftime("%Y-%m-%d %H:%M:%S")
-    # 输入变量-齿轮箱油温：grgearboxoiltemperture
-    tag_golden_index = readTagIndex('grgearboxoiltemperture', wtgs_id)  # 查询标签点在golden中的id
-    grGearboxoilTempertureValue = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    grGearboxoilTempertureValue = 50
-    # 输入变量-有功功率：grgridactivepower
-    tag_golden_index = readTagIndex('grgridactivepower', wtgs_id)  # 查询标签点在golden中的id
-    grGridActivePowerValue = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    # 输入变量-室外温度：groutdoortemperature
-    tag_golden_index = readTagIndex('groutdoortemperature', wtgs_id)  # 查询标签点在golden中的id
-    grOutdoorTemperatureValue = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    # 输入变量-空气密度：grairdensity
-    tag_golden_index = readTagIndex('grairdensity', wtgs_id)  # 查询标签点在golden中的id
-    grAirDensityValue = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    grAirDensityValue = 1.1
-    # 输入变量-30分钟平均功率：grgridactivepower
-    tag_golden_index = readTagIndex('grgridactivepower', wtgs_id)  # 查询标签点在golden中的id
-    grGridActivePowerValue_30MIN = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_30MIN, to_time_30MIN)
-    # 输入变量-10分钟平均功率：grgridactivepower
-    tag_golden_index = readTagIndex('grgridactivepower', wtgs_id)  # 查询标签点在golden中的id
-    grGridActivePowerValue_10MIN = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_10MIN, to_time_10MIN)
-    # 输入变量-本次机组运行时间：runtime
-    runtime = 36
-    # 输入变量-本次机组停机时间：halttime
-    halttime = 0
-    # 输入变量-发电机10分钟平均转速：grgeneratorspeed1
-    tag_golden_index = readTagIndex('grgeneratorspeed1', wtgs_id)  # 查询标签点在golden中的id
-    grGeneratorSpeed1Value_10MIN = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_10MIN, to_time_10MIN)
-    # 输入变量-1小时平均功率：grgridactivepower
-    tag_golden_index = readTagIndex('grgridactivepower', wtgs_id)  # 查询标签点在golden中的id
-    grGridActivePowerValue_1HOUR = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_1hour, to_time_1hour)
-    # 实际输出变量-齿轮箱后轴承温度：grgearboxgeneratorsidebearingtemperature
-    tag_golden_index = readTagIndex('grgeneratorwindingtemperature3', wtgs_id)  # 查询标签点在golden中的id
-    grGearboxGeneratorsideBearingTemperature_Now = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    argv_dict['input_vector'] = [grGearboxoilTempertureValue, grGridActivePowerValue, grOutdoorTemperatureValue,
-                                 grAirDensityValue, grGridActivePowerValue_30MIN, grGridActivePowerValue_10MIN,
-                                 runtime, halttime, grGeneratorSpeed1Value_10MIN, grGridActivePowerValue_1HOUR]
-    #print(argv_dict['input_vector'])
-    # if not None in argv_dict['input_vector']:
-    ANN = BP(argv_dict)
-    predict_value = ANN.output
-    if not grGearboxGeneratorsideBearingTemperature_Now:
-        grGearboxGeneratorsideBearingTemperature_Now = 50
-    if grGearboxGeneratorsideBearingTemperature_Now and predict_value:
-        if float(attribute['healthylevel0']) > float(attribute['healthylevel100']):
-            fromValue = float(attribute['healthylevel100'])
-            toValue = float(attribute['healthylevel0'])
+    if queryRunMode(wtgs_id, current_time) != 14:
+        return 1
+    else:  # 并网的条件下才看健康度
+        predict_value_list = []
+        actual_value_list = []
+        for delta in range(-30, 31):
+            base_time_loop = hisOrFurTime(current_time, delta, 0, 0)
+            # 神经网络参数
+            argv_dict = weightBias(attribute)
+            # 输入变量-运行模式：giwindturbineoperationmode
+            grRunMode = getIntInterpoValuesFromGolden3('giwindturbineoperationmode', wtgs_id,
+                                                       hisOrFurTime(base_time_loop, -1, 0, 0),
+                                                       hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-齿轮箱油温：grgearboxoiltemperture
+            grGearboxoilTempertureValue = getFloatInterpoValuesFromGolden2('grgearboxoiltemperture', wtgs_id,
+                                                                           hisOrFurTime(base_time_loop, -5, 0, 0),
+                                                                           hisOrFurTime(base_time_loop, 0, 0, 0),
+                                                                           his)
+            # 输入变量-有功功率：grgridactivepower
+            grGridActivePowerValue = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id,
+                                                                      hisOrFurTime(base_time_loop, -5, 0, 0),
+                                                                      hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-室外温度：groutdoortemperature
+            grOutdoorTemperatureValue = getFloatInterpoValuesFromGolden2('groutdoortemperature', wtgs_id,
+                                                                         hisOrFurTime(base_time_loop, -5, 0, 0),
+                                                                         hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-空气密度：grairdensity
+            grAirDensityValue = getFloatInterpoValuesFromGolden2('grairdensity', wtgs_id,
+                                                                 hisOrFurTime(base_time_loop, -5, 0, 0),
+                                                                 hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-30分钟平均功率：grgridactivepower
+            grGridActivePowerValue_30MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id,
+                                                                            hisOrFurTime(base_time_loop, -900, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, 900, 0, 0),
+                                                                            his)
+            # 输入变量-10分钟平均功率：grgridactivepower
+            grGridActivePowerValue_10MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id,
+                                                                            hisOrFurTime(base_time_loop, -300, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, 300, 0, 0),
+                                                                            his)
+            # 输入变量-本次机组运行时间：runtime
+            # 输入变量-本次机组停机时间：halttime
+            [runtime, halttime] = queryRunHaltTime(wtgs_id, base_time_loop)
+            # 输入变量-发电机10分钟平均转速：grgeneratorspeed1
+            grGeneratorSpeed1Value_10MIN = getFloatInterpoValuesFromGolden2('grgeneratorspeed1', wtgs_id,
+                                                                            hisOrFurTime(base_time_loop, -300, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, 300, 0, 0),
+                                                                            his)
+            # 输入变量-1小时平均功率：grgridactivepower
+            grGridActivePowerValue_1HOUR = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id,
+                                                                            hisOrFurTime(base_time_loop, -1800, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, 1800, 0, 0),
+                                                                            his)
+            # 实际输出变量-发电机绕组3温度：grgeneratorwindingtemperature3
+            grgeneratorwindingtemperature3 = getFloatInterpoValuesFromGolden2('grgeneratorwindingtemperature3', wtgs_id,
+                                                                              hisOrFurTime(base_time_loop, -5, 0, 0),
+                                                                              hisOrFurTime(base_time_loop, 0, 0, 0),
+                                                                              his)
+            actual_value_list.append(grgeneratorwindingtemperature3)
+            # 神经网络输入向量
+            argv_dict['input_vector'] = [grGearboxoilTempertureValue, grGridActivePowerValue, grOutdoorTemperatureValue,
+                                         grAirDensityValue, grGridActivePowerValue_30MIN, grGridActivePowerValue_10MIN,
+                                         runtime, halttime, grGeneratorSpeed1Value_10MIN, grGridActivePowerValue_1HOUR]
+            if None in argv_dict['input_vector'] or grgeneratorwindingtemperature3 is None or int(grRunMode) != 14:  # 空或非并网的时候不运算
+                pass
+            else:
+                ANN = BP(argv_dict)  # 采用神经网络
+                predict_value_list.append(ANN.output)  # 神经网络预期输出
+        if len(predict_value_list) > 0:
+            healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']),
+                                             abs(meanData(predict_value_list) - meanData(actual_value_list)))
         else:
-            fromValue = float(attribute['healthylevel0'])
-            toValue = float(attribute['healthylevel100'])
-        abs_value = abs(predict_value - grGearboxGeneratorsideBearingTemperature_Now)  # 两者差值的绝对值
-        if abs_value > toValue:
-            return 0
-        elif abs_value <= toValue and abs_value > fromValue:
-            return round((toValue - abs_value) / (toValue - fromValue), 4)
-        else:
-            return 1
-    else:  # 当前时间无存储值
-        loger.warning('grGeneratorWindingTemperature3' + ' ' + str(wtgs_id) + ' ' + current_time + " is empty!")
-        value_last_state = query_last_state(wtgs_id, current_time, 'grGeneratorWindingTemperature3', 'healthy_state_index')
-        if value_last_state == 0:
-            return 1
-        else:
-            return value_last_state
+            healthy_score=query_last_state(wtgs_id,current_time,'grGeneratorWindingTemperature3','healthy_state_index')
+        return healthy_score
 
-def grGeneratorWindingTemperature4(attribute,wtgs_id,current_time):#发电机绕组4温度
+def grGeneratorWindingTemperature4(attribute,wtgs_id,current_time, his):#发电机绕组4温度
     # TODO-发电机绕组4温度
-    # 神经网络参数
-    argv_dict = weightBias(attribute)
-    # 时间设定
-    from_time_now = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-5)
-    to_time_now = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=5)
-    from_time_now = from_time_now.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_now = to_time_now.strftime("%Y-%m-%d %H:%M:%S")
-    from_time_30MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-900)
-    to_time_30MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=900)
-    from_time_30MIN = from_time_30MIN.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_30MIN = to_time_30MIN.strftime("%Y-%m-%d %H:%M:%S")
-    from_time_10MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-300)
-    to_time_10MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=300)
-    from_time_10MIN = from_time_10MIN.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_10MIN = to_time_10MIN.strftime("%Y-%m-%d %H:%M:%S")
-    from_time_1hour = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-300)
-    to_time_1hour = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=300)
-    from_time_1hour = from_time_1hour.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_1hour = to_time_1hour.strftime("%Y-%m-%d %H:%M:%S")
-    # 输入变量-齿轮箱油温：grgearboxoiltemperture
-    tag_golden_index = readTagIndex('grgearboxoiltemperture', wtgs_id)  # 查询标签点在golden中的id
-    grGearboxoilTempertureValue = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    grGearboxoilTempertureValue = 50
-    # 输入变量-有功功率：grgridactivepower
-    tag_golden_index = readTagIndex('grgridactivepower', wtgs_id)  # 查询标签点在golden中的id
-    grGridActivePowerValue = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    # 输入变量-室外温度：groutdoortemperature
-    tag_golden_index = readTagIndex('groutdoortemperature', wtgs_id)  # 查询标签点在golden中的id
-    grOutdoorTemperatureValue = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    # 输入变量-空气密度：grairdensity
-    tag_golden_index = readTagIndex('grairdensity', wtgs_id)  # 查询标签点在golden中的id
-    grAirDensityValue = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    grAirDensityValue = 1.1
-    # 输入变量-30分钟平均功率：grgridactivepower
-    tag_golden_index = readTagIndex('grgridactivepower', wtgs_id)  # 查询标签点在golden中的id
-    grGridActivePowerValue_30MIN = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_30MIN, to_time_30MIN)
-    # 输入变量-10分钟平均功率：grgridactivepower
-    tag_golden_index = readTagIndex('grgridactivepower', wtgs_id)  # 查询标签点在golden中的id
-    grGridActivePowerValue_10MIN = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_10MIN, to_time_10MIN)
-    # 输入变量-本次机组运行时间：runtime
-    runtime = 36
-    # 输入变量-本次机组停机时间：halttime
-    halttime = 0
-    # 输入变量-发电机10分钟平均转速：grgeneratorspeed1
-    tag_golden_index = readTagIndex('grgeneratorspeed1', wtgs_id)  # 查询标签点在golden中的id
-    grGeneratorSpeed1Value_10MIN = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_10MIN, to_time_10MIN)
-    # 输入变量-1小时平均功率：grgridactivepower
-    tag_golden_index = readTagIndex('grgridactivepower', wtgs_id)  # 查询标签点在golden中的id
-    grGridActivePowerValue_1HOUR = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_1hour, to_time_1hour)
-    # 实际输出变量-齿轮箱后轴承温度：grgearboxgeneratorsidebearingtemperature
-    tag_golden_index = readTagIndex('grgeneratorwindingtemperature4', wtgs_id)  # 查询标签点在golden中的id
-    grGearboxGeneratorsideBearingTemperature_Now = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    argv_dict['input_vector'] = [grGearboxoilTempertureValue, grGridActivePowerValue, grOutdoorTemperatureValue,
-                                 grAirDensityValue, grGridActivePowerValue_30MIN, grGridActivePowerValue_10MIN,
-                                 runtime, halttime, grGeneratorSpeed1Value_10MIN, grGridActivePowerValue_1HOUR]
-    #print(argv_dict['input_vector'])
-    # if not None in argv_dict['input_vector']:
-    ANN = BP(argv_dict)
-    predict_value = ANN.output
-    if not grGearboxGeneratorsideBearingTemperature_Now:
-        grGearboxGeneratorsideBearingTemperature_Now = 50
-    if grGearboxGeneratorsideBearingTemperature_Now and predict_value:
-        if float(attribute['healthylevel0']) > float(attribute['healthylevel100']):
-            fromValue = float(attribute['healthylevel100'])
-            toValue = float(attribute['healthylevel0'])
+    if queryRunMode(wtgs_id, current_time) != 14:
+        return 1
+    else:  # 并网的条件下才看健康度
+        predict_value_list = []
+        actual_value_list = []
+        for delta in range(-30, 31):
+            base_time_loop = hisOrFurTime(current_time, delta, 0, 0)
+            # 神经网络参数
+            argv_dict = weightBias(attribute)
+            # 输入变量-运行模式：giwindturbineoperationmode
+            grRunMode = getIntInterpoValuesFromGolden3('giwindturbineoperationmode', wtgs_id,
+                                                       hisOrFurTime(base_time_loop, -1, 0, 0),
+                                                       hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-齿轮箱油温：grgearboxoiltemperture
+            grGearboxoilTempertureValue = getFloatInterpoValuesFromGolden2('grgearboxoiltemperture', wtgs_id,
+                                                                           hisOrFurTime(base_time_loop, -5, 0, 0),
+                                                                           hisOrFurTime(base_time_loop, 0, 0, 0),
+                                                                           his)
+            # 输入变量-有功功率：grgridactivepower
+            grGridActivePowerValue = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id,
+                                                                      hisOrFurTime(base_time_loop, -5, 0, 0),
+                                                                      hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-室外温度：groutdoortemperature
+            grOutdoorTemperatureValue = getFloatInterpoValuesFromGolden2('groutdoortemperature', wtgs_id,
+                                                                         hisOrFurTime(base_time_loop, -5, 0, 0),
+                                                                         hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-空气密度：grairdensity
+            grAirDensityValue = getFloatInterpoValuesFromGolden2('grairdensity', wtgs_id,
+                                                                 hisOrFurTime(base_time_loop, -5, 0, 0),
+                                                                 hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-30分钟平均功率：grgridactivepower
+            grGridActivePowerValue_30MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id,
+                                                                            hisOrFurTime(base_time_loop, -900, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, 900, 0, 0),
+                                                                            his)
+            # 输入变量-10分钟平均功率：grgridactivepower
+            grGridActivePowerValue_10MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id,
+                                                                            hisOrFurTime(base_time_loop, -300, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, 300, 0, 0),
+                                                                            his)
+            # 输入变量-本次机组运行时间：runtime
+            # 输入变量-本次机组停机时间：halttime
+            [runtime, halttime] = queryRunHaltTime(wtgs_id, base_time_loop)
+            # 输入变量-发电机10分钟平均转速：grgeneratorspeed1
+            grGeneratorSpeed1Value_10MIN = getFloatInterpoValuesFromGolden2('grgeneratorspeed1', wtgs_id,
+                                                                            hisOrFurTime(base_time_loop, -300, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, 300, 0, 0),
+                                                                            his)
+            # 输入变量-1小时平均功率：grgridactivepower
+            grGridActivePowerValue_1HOUR = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id,
+                                                                            hisOrFurTime(base_time_loop, -1800, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, 1800, 0, 0),
+                                                                            his)
+            # 实际输出变量-发电机绕组4温度：grgeneratorwindingtemperature4
+            grgeneratorwindingtemperature4 = getFloatInterpoValuesFromGolden2('grgeneratorwindingtemperature4', wtgs_id,
+                                                                              hisOrFurTime(base_time_loop, -5, 0, 0),
+                                                                              hisOrFurTime(base_time_loop, 0, 0, 0),
+                                                                              his)
+            actual_value_list.append(grgeneratorwindingtemperature4)
+            # 神经网络输入向量
+            argv_dict['input_vector'] = [grGearboxoilTempertureValue, grGridActivePowerValue, grOutdoorTemperatureValue,
+                                         grAirDensityValue, grGridActivePowerValue_30MIN, grGridActivePowerValue_10MIN,
+                                         runtime, halttime, grGeneratorSpeed1Value_10MIN, grGridActivePowerValue_1HOUR]
+            if None in argv_dict['input_vector'] or grgeneratorwindingtemperature4 is None or int(grRunMode) != 14:  # 空或非并网的时候不运算
+                pass
+            else:
+                ANN = BP(argv_dict)  # 采用神经网络
+                predict_value_list.append(ANN.output)  # 神经网络预期输出
+        if len(predict_value_list) > 0:
+            healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']),
+                                             abs(meanData(predict_value_list) - meanData(actual_value_list)))
         else:
-            fromValue = float(attribute['healthylevel0'])
-            toValue = float(attribute['healthylevel100'])
-        abs_value = abs(predict_value - grGearboxGeneratorsideBearingTemperature_Now)  # 两者差值的绝对值
-        if abs_value > toValue:
-            return 0
-        elif abs_value <= toValue and abs_value > fromValue:
-            return round((toValue - abs_value) / (toValue - fromValue), 4)
-        else:
-            return 1
-    else:  # 当前时间无存储值
-        loger.warning('grGeneratorWindingTemperature4' + ' ' + str(wtgs_id) + ' ' + current_time + " is empty!")
-        value_last_state = query_last_state(wtgs_id, current_time, 'grGeneratorWindingTemperature4', 'healthy_state_index')
-        if value_last_state == 0:
-            return 1
-        else:
-            return value_last_state
+            healthy_score=query_last_state(wtgs_id,current_time,'grGeneratorWindingTemperature4','healthy_state_index')
+        return healthy_score
 
-def grGeneratorWindingTemperature5(attribute,wtgs_id,current_time):#发电机绕组5温度
+def grGeneratorWindingTemperature5(attribute,wtgs_id,current_time, his):#发电机绕组5温度
     # TODO-发电机绕组5温度
-    # 神经网络参数
-    argv_dict = weightBias(attribute)
-    # 时间设定
-    from_time_now = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-5)
-    to_time_now = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=5)
-    from_time_now = from_time_now.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_now = to_time_now.strftime("%Y-%m-%d %H:%M:%S")
-    from_time_30MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-900)
-    to_time_30MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=900)
-    from_time_30MIN = from_time_30MIN.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_30MIN = to_time_30MIN.strftime("%Y-%m-%d %H:%M:%S")
-    from_time_10MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-300)
-    to_time_10MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=300)
-    from_time_10MIN = from_time_10MIN.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_10MIN = to_time_10MIN.strftime("%Y-%m-%d %H:%M:%S")
-    from_time_1hour = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-300)
-    to_time_1hour = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=300)
-    from_time_1hour = from_time_1hour.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_1hour = to_time_1hour.strftime("%Y-%m-%d %H:%M:%S")
-    # 输入变量-齿轮箱油温：grgearboxoiltemperture
-    tag_golden_index = readTagIndex('grgearboxoiltemperture', wtgs_id)  # 查询标签点在golden中的id
-    grGearboxoilTempertureValue = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    grGearboxoilTempertureValue = 50
-    # 输入变量-有功功率：grgridactivepower
-    tag_golden_index = readTagIndex('grgridactivepower', wtgs_id)  # 查询标签点在golden中的id
-    grGridActivePowerValue = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    # 输入变量-室外温度：groutdoortemperature
-    tag_golden_index = readTagIndex('groutdoortemperature', wtgs_id)  # 查询标签点在golden中的id
-    grOutdoorTemperatureValue = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    # 输入变量-空气密度：grairdensity
-    tag_golden_index = readTagIndex('grairdensity', wtgs_id)  # 查询标签点在golden中的id
-    grAirDensityValue = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    grAirDensityValue = 1.1
-    # 输入变量-30分钟平均功率：grgridactivepower
-    tag_golden_index = readTagIndex('grgridactivepower', wtgs_id)  # 查询标签点在golden中的id
-    grGridActivePowerValue_30MIN = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_30MIN, to_time_30MIN)
-    # 输入变量-10分钟平均功率：grgridactivepower
-    tag_golden_index = readTagIndex('grgridactivepower', wtgs_id)  # 查询标签点在golden中的id
-    grGridActivePowerValue_10MIN = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_10MIN, to_time_10MIN)
-    # 输入变量-本次机组运行时间：runtime
-    runtime = 36
-    # 输入变量-本次机组停机时间：halttime
-    halttime = 0
-    # 输入变量-发电机10分钟平均转速：grgeneratorspeed1
-    tag_golden_index = readTagIndex('grgeneratorspeed1', wtgs_id)  # 查询标签点在golden中的id
-    grGeneratorSpeed1Value_10MIN = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_10MIN, to_time_10MIN)
-    # 输入变量-1小时平均功率：grgridactivepower
-    tag_golden_index = readTagIndex('grgridactivepower', wtgs_id)  # 查询标签点在golden中的id
-    grGridActivePowerValue_1HOUR = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_1hour, to_time_1hour)
-    # 实际输出变量-齿轮箱后轴承温度：grgearboxgeneratorsidebearingtemperature
-    tag_golden_index = readTagIndex('grgeneratorwindingtemperature5', wtgs_id)  # 查询标签点在golden中的id
-    grGearboxGeneratorsideBearingTemperature_Now = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    argv_dict['input_vector'] = [grGearboxoilTempertureValue, grGridActivePowerValue, grOutdoorTemperatureValue,
-                                 grAirDensityValue, grGridActivePowerValue_30MIN, grGridActivePowerValue_10MIN,
-                                 runtime, halttime, grGeneratorSpeed1Value_10MIN, grGridActivePowerValue_1HOUR]
-    #print(argv_dict['input_vector'])
-    # if not None in argv_dict['input_vector']:
-    ANN = BP(argv_dict)
-    predict_value = ANN.output
-    if not grGearboxGeneratorsideBearingTemperature_Now:
-        grGearboxGeneratorsideBearingTemperature_Now = 50
-    if grGearboxGeneratorsideBearingTemperature_Now and predict_value:
-        if float(attribute['healthylevel0']) > float(attribute['healthylevel100']):
-            fromValue = float(attribute['healthylevel100'])
-            toValue = float(attribute['healthylevel0'])
+    if queryRunMode(wtgs_id, current_time) != 14:
+        return 1
+    else:  # 并网的条件下才看健康度
+        predict_value_list = []
+        actual_value_list = []
+        for delta in range(-30, 31):
+            base_time_loop = hisOrFurTime(current_time, delta, 0, 0)
+            # 神经网络参数
+            argv_dict = weightBias(attribute)
+            # 输入变量-运行模式：giwindturbineoperationmode
+            grRunMode = getIntInterpoValuesFromGolden3('giwindturbineoperationmode', wtgs_id,
+                                                       hisOrFurTime(base_time_loop, -1, 0, 0),
+                                                       hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-齿轮箱油温：grgearboxoiltemperture
+            grGearboxoilTempertureValue = getFloatInterpoValuesFromGolden2('grgearboxoiltemperture', wtgs_id,
+                                                                           hisOrFurTime(base_time_loop, -5, 0, 0),
+                                                                           hisOrFurTime(base_time_loop, 0, 0, 0),
+                                                                           his)
+            # 输入变量-有功功率：grgridactivepower
+            grGridActivePowerValue = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id,
+                                                                      hisOrFurTime(base_time_loop, -5, 0, 0),
+                                                                      hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-室外温度：groutdoortemperature
+            grOutdoorTemperatureValue = getFloatInterpoValuesFromGolden2('groutdoortemperature', wtgs_id,
+                                                                         hisOrFurTime(base_time_loop, -5, 0, 0),
+                                                                         hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-空气密度：grairdensity
+            grAirDensityValue = getFloatInterpoValuesFromGolden2('grairdensity', wtgs_id,
+                                                                 hisOrFurTime(base_time_loop, -5, 0, 0),
+                                                                 hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-30分钟平均功率：grgridactivepower
+            grGridActivePowerValue_30MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id,
+                                                                            hisOrFurTime(base_time_loop, -900, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, 900, 0, 0),
+                                                                            his)
+            # 输入变量-10分钟平均功率：grgridactivepower
+            grGridActivePowerValue_10MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id,
+                                                                            hisOrFurTime(base_time_loop, -300, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, 300, 0, 0),
+                                                                            his)
+            # 输入变量-本次机组运行时间：runtime
+            # 输入变量-本次机组停机时间：halttime
+            [runtime, halttime] = queryRunHaltTime(wtgs_id, base_time_loop)
+            # 输入变量-发电机10分钟平均转速：grgeneratorspeed1
+            grGeneratorSpeed1Value_10MIN = getFloatInterpoValuesFromGolden2('grgeneratorspeed1', wtgs_id,
+                                                                            hisOrFurTime(base_time_loop, -300, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, 300, 0, 0),
+                                                                            his)
+            # 输入变量-1小时平均功率：grgridactivepower
+            grGridActivePowerValue_1HOUR = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id,
+                                                                            hisOrFurTime(base_time_loop, -1800, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, 1800, 0, 0),
+                                                                            his)
+            # 实际输出变量-发电机绕组5温度：grgeneratorwindingtemperature5
+            grgeneratorwindingtemperature5 = getFloatInterpoValuesFromGolden2('grgeneratorwindingtemperature5', wtgs_id,
+                                                                              hisOrFurTime(base_time_loop, -5, 0, 0),
+                                                                              hisOrFurTime(base_time_loop, 0, 0, 0),
+                                                                              his)
+            actual_value_list.append(grgeneratorwindingtemperature5)
+            # 神经网络输入向量
+            argv_dict['input_vector'] = [grGearboxoilTempertureValue, grGridActivePowerValue, grOutdoorTemperatureValue,
+                                         grAirDensityValue, grGridActivePowerValue_30MIN, grGridActivePowerValue_10MIN,
+                                         runtime, halttime, grGeneratorSpeed1Value_10MIN, grGridActivePowerValue_1HOUR]
+            if None in argv_dict['input_vector'] or grgeneratorwindingtemperature5 is None or int(grRunMode) != 14:  # 空或非并网的时候不运算
+                pass
+            else:
+                ANN = BP(argv_dict)  # 采用神经网络
+                predict_value_list.append(ANN.output)  # 神经网络预期输出
+        if len(predict_value_list) > 0:
+            healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']),abs(meanData(predict_value_list) - meanData(actual_value_list)))
         else:
-            fromValue = float(attribute['healthylevel0'])
-            toValue = float(attribute['healthylevel100'])
-        abs_value = abs(predict_value - grGearboxGeneratorsideBearingTemperature_Now)  # 两者差值的绝对值
-        if abs_value > toValue:
-            return 0
-        elif abs_value <= toValue and abs_value > fromValue:
-            return round((toValue - abs_value) / (toValue - fromValue), 4)
-        else:
-            return 1
-    else:  # 当前时间无存储值
-        loger.warning('grGeneratorWindingTemperature5' + ' ' + str(wtgs_id) + ' ' + current_time + " is empty!")
-        value_last_state = query_last_state(wtgs_id, current_time, 'grGeneratorWindingTemperature5', 'healthy_state_index')
-        if value_last_state == 0:
-            return 1
-        else:
-            return value_last_state
+            healthy_score=query_last_state(wtgs_id,current_time,'grGeneratorWindingTemperature5','healthy_state_index')
+        return healthy_score
 
-def grGeneratorWindingTemperature6(attribute,wtgs_id,current_time):#发电机绕组6温度
+def grGeneratorWindingTemperature6(attribute,wtgs_id,current_time, his):#发电机绕组6温度
     # TODO-发电机绕组6温度
-    # 神经网络参数
-    argv_dict = weightBias(attribute)
-    # 时间设定
-    from_time_now = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-5)
-    to_time_now = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=5)
-    from_time_now = from_time_now.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_now = to_time_now.strftime("%Y-%m-%d %H:%M:%S")
-    from_time_30MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-900)
-    to_time_30MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=900)
-    from_time_30MIN = from_time_30MIN.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_30MIN = to_time_30MIN.strftime("%Y-%m-%d %H:%M:%S")
-    from_time_10MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-300)
-    to_time_10MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=300)
-    from_time_10MIN = from_time_10MIN.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_10MIN = to_time_10MIN.strftime("%Y-%m-%d %H:%M:%S")
-    from_time_1hour = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-300)
-    to_time_1hour = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=300)
-    from_time_1hour = from_time_1hour.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_1hour = to_time_1hour.strftime("%Y-%m-%d %H:%M:%S")
-    # 输入变量-齿轮箱油温：grgearboxoiltemperture
-    tag_golden_index = readTagIndex('grgearboxoiltemperture', wtgs_id)  # 查询标签点在golden中的id
-    grGearboxoilTempertureValue = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    grGearboxoilTempertureValue = 50
-    # 输入变量-有功功率：grgridactivepower
-    tag_golden_index = readTagIndex('grgridactivepower', wtgs_id)  # 查询标签点在golden中的id
-    grGridActivePowerValue = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    # 输入变量-室外温度：groutdoortemperature
-    tag_golden_index = readTagIndex('groutdoortemperature', wtgs_id)  # 查询标签点在golden中的id
-    grOutdoorTemperatureValue = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    # 输入变量-空气密度：grairdensity
-    tag_golden_index = readTagIndex('grairdensity', wtgs_id)  # 查询标签点在golden中的id
-    grAirDensityValue = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    grAirDensityValue = 1.1
-    # 输入变量-30分钟平均功率：grgridactivepower
-    tag_golden_index = readTagIndex('grgridactivepower', wtgs_id)  # 查询标签点在golden中的id
-    grGridActivePowerValue_30MIN = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_30MIN, to_time_30MIN)
-    # 输入变量-10分钟平均功率：grgridactivepower
-    tag_golden_index = readTagIndex('grgridactivepower', wtgs_id)  # 查询标签点在golden中的id
-    grGridActivePowerValue_10MIN = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_10MIN, to_time_10MIN)
-    # 输入变量-本次机组运行时间：runtime
-    runtime = 36
-    # 输入变量-本次机组停机时间：halttime
-    halttime = 0
-    # 输入变量-发电机10分钟平均转速：grgeneratorspeed1
-    tag_golden_index = readTagIndex('grgeneratorspeed1', wtgs_id)  # 查询标签点在golden中的id
-    grGeneratorSpeed1Value_10MIN = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_10MIN, to_time_10MIN)
-    # 输入变量-1小时平均功率：grgridactivepower
-    tag_golden_index = readTagIndex('grgridactivepower', wtgs_id)  # 查询标签点在golden中的id
-    grGridActivePowerValue_1HOUR = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_1hour, to_time_1hour)
-    # 实际输出变量-齿轮箱后轴承温度：grgearboxgeneratorsidebearingtemperature
-    tag_golden_index = readTagIndex('grgeneratorwindingtemperature6', wtgs_id)  # 查询标签点在golden中的id
-    grGearboxGeneratorsideBearingTemperature_Now = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    argv_dict['input_vector'] = [grGearboxoilTempertureValue, grGridActivePowerValue, grOutdoorTemperatureValue,
-                                 grAirDensityValue, grGridActivePowerValue_30MIN, grGridActivePowerValue_10MIN,
-                                 runtime, halttime, grGeneratorSpeed1Value_10MIN, grGridActivePowerValue_1HOUR]
-    #print(argv_dict['input_vector'])
-    # if not None in argv_dict['input_vector']:
-    ANN = BP(argv_dict)
-    predict_value = ANN.output
-    if not grGearboxGeneratorsideBearingTemperature_Now:
-        grGearboxGeneratorsideBearingTemperature_Now = 50
-    if grGearboxGeneratorsideBearingTemperature_Now and predict_value:
-        if float(attribute['healthylevel0']) > float(attribute['healthylevel100']):
-            fromValue = float(attribute['healthylevel100'])
-            toValue = float(attribute['healthylevel0'])
+    if queryRunMode(wtgs_id, current_time) != 14:
+        return 1
+    else:  # 并网的条件下才看健康度
+        predict_value_list = []
+        actual_value_list = []
+        for delta in range(-30, 31):
+            base_time_loop = hisOrFurTime(current_time, delta, 0, 0)
+            # 神经网络参数
+            argv_dict = weightBias(attribute)
+            # 输入变量-运行模式：giwindturbineoperationmode
+            grRunMode = getIntInterpoValuesFromGolden3('giwindturbineoperationmode', wtgs_id,
+                                                       hisOrFurTime(base_time_loop, -1, 0, 0),
+                                                       hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-齿轮箱油温：grgearboxoiltemperture
+            grGearboxoilTempertureValue = getFloatInterpoValuesFromGolden2('grgearboxoiltemperture', wtgs_id,
+                                                                           hisOrFurTime(base_time_loop, -5, 0, 0),
+                                                                           hisOrFurTime(base_time_loop, 0, 0, 0),
+                                                                           his)
+            # 输入变量-有功功率：grgridactivepower
+            grGridActivePowerValue = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id,
+                                                                      hisOrFurTime(base_time_loop, -5, 0, 0),
+                                                                      hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-室外温度：groutdoortemperature
+            grOutdoorTemperatureValue = getFloatInterpoValuesFromGolden2('groutdoortemperature', wtgs_id,
+                                                                         hisOrFurTime(base_time_loop, -5, 0, 0),
+                                                                         hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-空气密度：grairdensity
+            grAirDensityValue = getFloatInterpoValuesFromGolden2('grairdensity', wtgs_id,
+                                                                 hisOrFurTime(base_time_loop, -5, 0, 0),
+                                                                 hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-30分钟平均功率：grgridactivepower
+            grGridActivePowerValue_30MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id,
+                                                                            hisOrFurTime(base_time_loop, -900, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, 900, 0, 0),
+                                                                            his)
+            # 输入变量-10分钟平均功率：grgridactivepower
+            grGridActivePowerValue_10MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id,
+                                                                            hisOrFurTime(base_time_loop, -300, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, 300, 0, 0),
+                                                                            his)
+            # 输入变量-本次机组运行时间：runtime
+            # 输入变量-本次机组停机时间：halttime
+            [runtime, halttime] = queryRunHaltTime(wtgs_id, base_time_loop)
+            # 输入变量-发电机10分钟平均转速：grgeneratorspeed1
+            grGeneratorSpeed1Value_10MIN = getFloatInterpoValuesFromGolden2('grgeneratorspeed1', wtgs_id,
+                                                                            hisOrFurTime(base_time_loop, -300, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, 300, 0, 0),
+                                                                            his)
+            # 输入变量-1小时平均功率：grgridactivepower
+            grGridActivePowerValue_1HOUR = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id,
+                                                                            hisOrFurTime(base_time_loop, -1800, 0, 0),
+                                                                            hisOrFurTime(base_time_loop, 1800, 0, 0),
+                                                                            his)
+            # 实际输出变量-发电机绕组6温度：grgeneratorwindingtemperature6
+            grgeneratorwindingtemperature6 = getFloatInterpoValuesFromGolden2('grgeneratorwindingtemperature6', wtgs_id,
+                                                                              hisOrFurTime(base_time_loop, -5, 0, 0),
+                                                                              hisOrFurTime(base_time_loop, 0, 0, 0),
+                                                                              his)
+            actual_value_list.append(grgeneratorwindingtemperature6)
+            # 神经网络输入向量
+            argv_dict['input_vector'] = [grGearboxoilTempertureValue, grGridActivePowerValue, grOutdoorTemperatureValue,
+                                         grAirDensityValue, grGridActivePowerValue_30MIN, grGridActivePowerValue_10MIN,
+                                         runtime, halttime, grGeneratorSpeed1Value_10MIN, grGridActivePowerValue_1HOUR]
+            if None in argv_dict['input_vector'] or grgeneratorwindingtemperature6 is None or int(
+                    grRunMode) != 14:  # 空或非并网的时候不运算
+                pass
+            else:
+                ANN = BP(argv_dict)  # 采用神经网络
+                predict_value_list.append(ANN.output)  # 神经网络预期输出
+        if len(predict_value_list) > 0:
+            healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']),abs(meanData(predict_value_list) - meanData(actual_value_list)))
         else:
-            fromValue = float(attribute['healthylevel0'])
-            toValue = float(attribute['healthylevel100'])
-        abs_value = abs(predict_value - grGearboxGeneratorsideBearingTemperature_Now)  # 两者差值的绝对值
-        if abs_value > toValue:
-            return 0
-        elif abs_value <= toValue and abs_value > fromValue:
-            return round((toValue - abs_value) / (toValue - fromValue), 4)
-        else:
-            return 1
-    else:  # 当前时间无存储值
-        loger.warning('grGeneratorWindingTemperature6' + ' ' + str(wtgs_id) + ' ' + current_time + " is empty!")
-        value_last_state = query_last_state(wtgs_id, current_time, 'grGeneratorWindingTemperature6', 'healthy_state_index')
-        if value_last_state == 0:
-            return 1
-        else:
-            return value_last_state
+            healthy_score=query_last_state(wtgs_id,current_time,'grGeneratorWindingTemperature6','healthy_state_index')
+        return healthy_score
 
-def grGeneratorDEBearingTemperature(attribute,wtgs_id,current_time):#发电机齿轮箱侧轴承估计温度
-    # TODO-发电机齿轮箱侧轴承估计温度
-    # 神经网络参数
-    argv_dict = weightBias(attribute)
-    # 时间设定
-    from_time_1hour_ago = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-5) + timedelta(hours=-1)
-    to_time_1hour_ago = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=5) + timedelta(hours=-1)
-    from_time_1hour_ago = from_time_1hour_ago.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_1hour_ago = to_time_1hour_ago.strftime("%Y-%m-%d %H:%M:%S")
-    from_time_now = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-5)
-    to_time_now = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=5)
-    from_time_now = from_time_now.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_now = to_time_now.strftime("%Y-%m-%d %H:%M:%S")
-    from_time_30MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-900)
-    to_time_30MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=900)
-    from_time_30MIN = from_time_30MIN.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_30MIN = to_time_30MIN.strftime("%Y-%m-%d %H:%M:%S")
-    from_time_10MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-300)
-    to_time_10MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=300)
-    from_time_10MIN = from_time_10MIN.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_10MIN = to_time_10MIN.strftime("%Y-%m-%d %H:%M:%S")
-    from_time_1hour = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-300)
-    to_time_1hour = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=300)
-    from_time_1hour = from_time_1hour.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_1hour = to_time_1hour.strftime("%Y-%m-%d %H:%M:%S")
-    # 输入变量-齿轮箱油温：grgearboxoiltemperture
-    tag_golden_index = readTagIndex('grgearboxoiltemperture', wtgs_id)  # 查询标签点在golden中的id
-    grGearboxoilTempertureValue = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    grGearboxoilTempertureValue = 50
-    # 输入变量-1小时前的发电机前轴承温度：grgeneratorgearboxsidebearingtemperature
-    tag_golden_index = readTagIndex('grgeneratorgearboxsidebearingtemperature', wtgs_id)  # 查询标签点在golden中的id
-    grGeneratorGearboxsideBearingTemperatureValue_1HOURAgo = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_1hour_ago, to_time_1hour_ago)
-    grGeneratorGearboxsideBearingTemperatureValue_1HOURAgo=50
-    # 输入变量-有功功率：grgridactivepower
-    tag_golden_index = readTagIndex('grgridactivepower', wtgs_id)  # 查询标签点在golden中的id
-    grGridActivePowerValue = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    # 输入变量-室外温度：groutdoortemperature
-    tag_golden_index = readTagIndex('groutdoortemperature', wtgs_id)  # 查询标签点在golden中的id
-    grOutdoorTemperatureValue = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    # 输入变量-30分钟平均功率：grgridactivepower
-    tag_golden_index = readTagIndex('grgridactivepower', wtgs_id)  # 查询标签点在golden中的id
-    grGridActivePowerValue_30MIN = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_30MIN, to_time_30MIN)
-    # 输入变量-10分钟平均功率：grgridactivepower
-    tag_golden_index = readTagIndex('grgridactivepower', wtgs_id)  # 查询标签点在golden中的id
-    grGridActivePowerValue_10MIN = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_10MIN, to_time_10MIN)
-    # 输入变量-本次机组运行时间：runtime
-    runtime = 36
-    # 输入变量-本次机组停机时间：halttime
-    halttime = 0
-    # 输入变量-发电机10分钟平均转速：grgeneratorspeed1
-    tag_golden_index = readTagIndex('grgeneratorspeed1', wtgs_id)  # 查询标签点在golden中的id
-    grGeneratorSpeed1Value_10MIN = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_10MIN, to_time_10MIN)
-    # 输入变量-1小时平均功率：grgridactivepower
-    tag_golden_index = readTagIndex('grgridactivepower', wtgs_id)  # 查询标签点在golden中的id
-    grGridActivePowerValue_1HOUR = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_1hour, to_time_1hour)
-    # 实际输出变量-发电机前轴承温度：grgearboxgeneratorsidebearingtemperature
-    tag_golden_index = readTagIndex('grgeneratorgearboxsidebearingtemperature', wtgs_id)  # 查询标签点在golden中的id
-    grGeneratorGearboxsideBearingTemperature_Now = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    argv_dict['input_vector'] = [grGearboxoilTempertureValue,grGeneratorGearboxsideBearingTemperatureValue_1HOURAgo,
-                                 grGridActivePowerValue, grOutdoorTemperatureValue, grGridActivePowerValue_30MIN, grGridActivePowerValue_10MIN,
-                                 runtime, halttime, grGeneratorSpeed1Value_10MIN, grGridActivePowerValue_1HOUR]
-    #print(argv_dict['input_vector'])
-    # if not None in argv_dict['input_vector']:
-    ANN = BP(argv_dict)
-    predict_value = ANN.output
-    if not grGeneratorGearboxsideBearingTemperature_Now:
-        grGearboxGeneratorsideBearingTemperature_Now = 50
-    if grGeneratorGearboxsideBearingTemperature_Now and predict_value:
-        if float(attribute['healthylevel0']) > float(attribute['healthylevel100']):
-            fromValue = float(attribute['healthylevel100'])
-            toValue = float(attribute['healthylevel0'])
+def grGeneratorDEBearingTemperature(attribute,wtgs_id,current_time,his):#发电机齿轮箱侧轴承估计温度
+    # TODO 发电机齿轮箱侧轴承估计温度
+    if queryRunMode(wtgs_id, current_time) != 14:
+        return 1
+    else:  # 并网的条件下才看健康度
+        predict_value_list = []
+        actual_value_list = []
+        for delta in range(-30, 31):
+            base_time_loop = hisOrFurTime(current_time, delta, 0, 0)
+            # 神经网络参数
+            argv_dict = weightBias(attribute)
+            # 输入变量-运行模式：giwindturbineoperationmode
+            grRunMode = getIntInterpoValuesFromGolden3('giwindturbineoperationmode', wtgs_id, hisOrFurTime(base_time_loop, -1, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-齿轮箱油温：grgearboxoiltemperture
+            grGearboxoilTempertureValue = getFloatInterpoValuesFromGolden2('grgearboxoiltemperture', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-1小时前的发电机前轴承温度：grgeneratorgearboxsidebearingtemperature
+            grGeneratorGearboxsideBearingTemperatureValue_1HOURAgo = getFloatInterpoValuesFromGolden2('grgeneratorgearboxsidebearingtemperature', wtgs_id, hisOrFurTime(base_time_loop, -5, -1, 0),hisOrFurTime(base_time_loop, 5, -1, 0), his)
+            # 输入变量-有功功率：grgridactivepower
+            grGridActivePowerValue = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-室外温度：groutdoortemperature
+            grOutdoorTemperatureValue = getFloatInterpoValuesFromGolden2('groutdoortemperature', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-30分钟平均功率：grgridactivepower
+            grGridActivePowerValue_30MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id, hisOrFurTime(base_time_loop, -900, 0, 0),hisOrFurTime(base_time_loop, 900, 0, 0), his)
+            # 输入变量-10分钟平均功率：grgridactivepower
+            grGridActivePowerValue_10MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id, hisOrFurTime(base_time_loop, -300, 0, 0),hisOrFurTime(base_time_loop, 300, 0, 0), his)
+            # 输入变量-本次机组运行时间：runtime
+            # 输入变量-本次机组停机时间：halttime
+            [runtime, halttime] = queryRunHaltTime(wtgs_id, base_time_loop)
+            # 输入变量-发电机10分钟平均转速：grgeneratorspeed1
+            grGeneratorSpeed1Value_10MIN = getFloatInterpoValuesFromGolden2('grgeneratorspeed1', wtgs_id, hisOrFurTime(base_time_loop, -300, 0, 0),hisOrFurTime(base_time_loop, 300, 0, 0), his)
+            # 输入变量-1小时平均功率：grgridactivepower
+            grGridActivePowerValue_1HOUR = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id, hisOrFurTime(base_time_loop, -1800, 0, 0),hisOrFurTime(base_time_loop, 1800, 0, 0), his)
+            # 实际输出变量-发电机前轴承温度：grgearboxgeneratorsidebearingtemperature
+            grGeneratorGearboxsideBearingTemperature = getFloatInterpoValuesFromGolden2('grgeneratorgearboxsidebearingtemperature', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            actual_value_list.append(grGeneratorGearboxsideBearingTemperature)
+            # 神经网络输入变量
+            argv_dict['input_vector'] = [grGearboxoilTempertureValue,grGeneratorGearboxsideBearingTemperatureValue_1HOURAgo,
+                                         grGridActivePowerValue, grOutdoorTemperatureValue, grGridActivePowerValue_30MIN, grGridActivePowerValue_10MIN,
+                                         runtime, halttime, grGeneratorSpeed1Value_10MIN, grGridActivePowerValue_1HOUR]
+            if None in argv_dict['input_vector'] or grGeneratorGearboxsideBearingTemperature is None or int(grRunMode) != 14:  # 空或非并网的时候不运算
+                pass
+            else:
+                ANN = BP(argv_dict)  # 采用神经网络
+                predict_value_list.append(ANN.output)  # 神经网络预期输出
+        if len(predict_value_list) > 0:
+            healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']),abs(meanData(predict_value_list) - meanData(actual_value_list)))
         else:
-            fromValue = float(attribute['healthylevel0'])
-            toValue = float(attribute['healthylevel100'])
-        abs_value = abs(predict_value - grGeneratorGearboxsideBearingTemperature_Now)  # 两者差值的绝对值
-        if abs_value > toValue:
-            return 0
-        elif abs_value <= toValue and abs_value > fromValue:
-            return round((toValue - abs_value) / (toValue - fromValue), 4)
-        else:
-            return 1
-    else:  # 当前时间无存储值
-        loger.warning('grGeneratorGearboxsideBearingTemperature' + ' ' + str(wtgs_id) + ' ' + current_time + " is empty!")
-        value_last_state = query_last_state(wtgs_id, current_time, 'grGeneratorDEBearingTemperature', 'healthy_state_index')
-        if value_last_state == 0:
-            return 1
-        else:
-            return value_last_state
+            healthy_score=query_last_state(wtgs_id,current_time,'grGeneratorDEBearingTemperature','healthy_state_index')
+        return healthy_score
 
-def grGeneratorNDEBearingTemperature(attribute,wtgs_id,current_time):#发电机机舱侧轴承估计温度
-    # TODO-发电机齿轮箱侧轴承估计温度
-    # 神经网络参数
-    argv_dict = weightBias(attribute)
-    # 时间设定
-    from_time_1hour_ago = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-5) + timedelta(
-        hours=-1)
-    to_time_1hour_ago = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=5) + timedelta(
-        hours=-1)
-    from_time_1hour_ago = from_time_1hour_ago.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_1hour_ago = to_time_1hour_ago.strftime("%Y-%m-%d %H:%M:%S")
-    from_time_now = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-5)
-    to_time_now = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=5)
-    from_time_now = from_time_now.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_now = to_time_now.strftime("%Y-%m-%d %H:%M:%S")
-    from_time_30MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-900)
-    to_time_30MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=900)
-    from_time_30MIN = from_time_30MIN.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_30MIN = to_time_30MIN.strftime("%Y-%m-%d %H:%M:%S")
-    from_time_10MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-300)
-    to_time_10MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=300)
-    from_time_10MIN = from_time_10MIN.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_10MIN = to_time_10MIN.strftime("%Y-%m-%d %H:%M:%S")
-    from_time_1hour = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-300)
-    to_time_1hour = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=300)
-    from_time_1hour = from_time_1hour.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_1hour = to_time_1hour.strftime("%Y-%m-%d %H:%M:%S")
-    # 输入变量-齿轮箱油温：grgearboxoiltemperture
-    tag_golden_index = readTagIndex('grgearboxoiltemperture', wtgs_id)  # 查询标签点在golden中的id
-    grGearboxoilTempertureValue = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    grGearboxoilTempertureValue = 50
-    # 输入变量-1小时前的发电机前轴承温度：grgeneratorgearboxsidebearingtemperature
-    tag_golden_index = readTagIndex('grgeneratornacellesidebearingtemperature', wtgs_id)  # 查询标签点在golden中的id
-    grGeneratorGearboxsideBearingTemperatureValue_1HOURAgo = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_1hour_ago,to_time_1hour_ago)
-    grGeneratorGearboxsideBearingTemperatureValue_1HOURAgo=50
-    # 输入变量-有功功率：grgridactivepower
-    tag_golden_index = readTagIndex('grgridactivepower', wtgs_id)  # 查询标签点在golden中的id
-    grGridActivePowerValue = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    # 输入变量-室外温度：groutdoortemperature
-    tag_golden_index = readTagIndex('groutdoortemperature', wtgs_id)  # 查询标签点在golden中的id
-    grOutdoorTemperatureValue = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    # 输入变量-30分钟平均功率：grgridactivepower
-    tag_golden_index = readTagIndex('grgridactivepower', wtgs_id)  # 查询标签点在golden中的id
-    grGridActivePowerValue_30MIN = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_30MIN, to_time_30MIN)
-    # 输入变量-10分钟平均功率：grgridactivepower
-    tag_golden_index = readTagIndex('grgridactivepower', wtgs_id)  # 查询标签点在golden中的id
-    grGridActivePowerValue_10MIN = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_10MIN, to_time_10MIN)
-    # 输入变量-本次机组运行时间：runtime
-    runtime = 36
-    # 输入变量-本次机组停机时间：halttime
-    halttime = 0
-    # 输入变量-发电机10分钟平均转速：grgeneratorspeed1
-    tag_golden_index = readTagIndex('grgeneratorspeed1', wtgs_id)  # 查询标签点在golden中的id
-    grGeneratorSpeed1Value_10MIN = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_10MIN, to_time_10MIN)
-    # 输入变量-1小时平均功率：grgridactivepower
-    tag_golden_index = readTagIndex('grgridactivepower', wtgs_id)  # 查询标签点在golden中的id
-    grGridActivePowerValue_1HOUR = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_1hour, to_time_1hour)
-    # 实际输出变量-发电机后轴承温度：grgearboxgeneratorsidebearingtemperature
-    tag_golden_index = readTagIndex('grgeneratornacellesidebearingtemperature', wtgs_id)  # 查询标签点在golden中的id
-    grGeneratorNacellesideBearingTemperature_Now = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    argv_dict['input_vector'] = [grGearboxoilTempertureValue, grGeneratorGearboxsideBearingTemperatureValue_1HOURAgo,
-                                 grGridActivePowerValue, grOutdoorTemperatureValue, grGridActivePowerValue_30MIN,
-                                 grGridActivePowerValue_10MIN,
-                                 runtime, halttime, grGeneratorSpeed1Value_10MIN, grGridActivePowerValue_1HOUR]
-    #print(argv_dict['input_vector'])
-    # if not None in argv_dict['input_vector']:
-    ANN = BP(argv_dict)
-    predict_value = ANN.output
-    if not grGeneratorNacellesideBearingTemperature_Now:
-        grGeneratorNacellesideBearingTemperature_Now = 50
-    if grGeneratorNacellesideBearingTemperature_Now and predict_value:
-        if float(attribute['healthylevel0']) > float(attribute['healthylevel100']):
-            fromValue = float(attribute['healthylevel100'])
-            toValue = float(attribute['healthylevel0'])
+def grGeneratorNDEBearingTemperature(attribute,wtgs_id,current_time,his):#发电机机舱侧轴承估计温度
+    # TODO-发电机机舱侧轴承估计温度
+    if queryRunMode(wtgs_id, current_time) != 14:
+        return 1
+    else:  # 并网的条件下才看健康度
+        predict_value_list = []
+        actual_value_list = []
+        for delta in range(-30, 31):
+            base_time_loop = hisOrFurTime(current_time, delta, 0, 0)
+            # 神经网络参数
+            argv_dict = weightBias(attribute)
+            # 输入变量-运行模式：giwindturbineoperationmode
+            grRunMode = getIntInterpoValuesFromGolden3('giwindturbineoperationmode', wtgs_id, hisOrFurTime(base_time_loop, -1, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-齿轮箱油温：grgearboxoiltemperture
+            grGearboxoilTempertureValue = getFloatInterpoValuesFromGolden2('grgearboxoiltemperture', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-1小时前的发电机前轴承温度：grgeneratorgearboxsidebearingtemperature
+            grGeneratorGearboxsideBearingTemperatureValue_1HOURAgo = getFloatInterpoValuesFromGolden2('grgeneratornacellesidebearingtemperature', wtgs_id, hisOrFurTime(base_time_loop, -5, -1, 0),hisOrFurTime(base_time_loop, 5, -1, 0), his)
+            # 输入变量-有功功率：grgridactivepower
+            grGridActivePowerValue = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-室外温度：groutdoortemperature
+            grOutdoorTemperatureValue = getFloatInterpoValuesFromGolden2('groutdoortemperature', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-30分钟平均功率：grgridactivepower
+            grGridActivePowerValue_30MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id, hisOrFurTime(base_time_loop, -900, 0, 0),hisOrFurTime(base_time_loop, 900, 0, 0), his)
+            # 输入变量-10分钟平均功率：grgridactivepower
+            grGridActivePowerValue_10MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id, hisOrFurTime(base_time_loop, -300, 0, 0),hisOrFurTime(base_time_loop, 300, 0, 0), his)
+            # 输入变量-本次机组运行时间：runtime
+            # 输入变量-本次机组停机时间：halttime
+            [runtime, halttime] = queryRunHaltTime(wtgs_id, base_time_loop)
+            # 输入变量-发电机10分钟平均转速：grgeneratorspeed1
+            grGeneratorSpeed1Value_10MIN = getFloatInterpoValuesFromGolden2('grgeneratorspeed1', wtgs_id, hisOrFurTime(base_time_loop, -300, 0, 0),hisOrFurTime(base_time_loop, 300, 0, 0), his)
+            # 输入变量-1小时平均功率：grgridactivepower
+            grGridActivePowerValue_1HOUR = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id, hisOrFurTime(base_time_loop, -1800, 0, 0),hisOrFurTime(base_time_loop, 1800, 0, 0), his)
+            # 实际输出变量-发电机后轴承温度：grgearboxgeneratorsidebearingtemperature
+            grGeneratorNacellesideBearingTemperature = getFloatInterpoValuesFromGolden2('grgeneratornacellesidebearingtemperature', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            actual_value_list.append(grGeneratorNacellesideBearingTemperature)
+            # 神经网络输入变量
+            argv_dict['input_vector'] = [grGearboxoilTempertureValue, grGeneratorGearboxsideBearingTemperatureValue_1HOURAgo,
+                                         grGridActivePowerValue, grOutdoorTemperatureValue, grGridActivePowerValue_30MIN,
+                                         grGridActivePowerValue_10MIN,runtime, halttime, grGeneratorSpeed1Value_10MIN, grGridActivePowerValue_1HOUR]
+            if None in argv_dict['input_vector'] or grGeneratorNacellesideBearingTemperature is None or int(grRunMode) != 14:  # 空或非并网的时候不运算
+                pass
+            else:
+                ANN = BP(argv_dict)  # 采用神经网络
+                predict_value_list.append(ANN.output)  # 神经网络预期输出
+        if len(predict_value_list) > 0:
+            healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']),abs(meanData(predict_value_list) - meanData(actual_value_list)))
         else:
-            fromValue = float(attribute['healthylevel0'])
-            toValue = float(attribute['healthylevel100'])
-        abs_value = abs(predict_value - grGeneratorNacellesideBearingTemperature_Now)  # 两者差值的绝对值
-        if abs_value > toValue:
-            return 0
-        elif abs_value <= toValue and abs_value > fromValue:
-            return round((toValue - abs_value) / (toValue - fromValue), 4)
-        else:
-            return 1
-    else:  # 当前时间无存储值
-        loger.warning('grGeneratorNacellesideBearingTemperature' + ' ' + str(wtgs_id) + ' ' + current_time + " is empty!")
-        value_last_state = query_last_state(wtgs_id, current_time, 'grGeneratorNDEBearingTemperature', 'healthy_state_index')
-        if value_last_state == 0:
-            return 1
-        else:
-            return value_last_state
+            healthy_score=query_last_state(wtgs_id,current_time,'grGeneratorNDEBearingTemperature','healthy_state_index')
+        return healthy_score
 
 def grGenerator(wtgs_id,current_time,para_value_dict):# 发电机健康度
-    # TODO-发电机齿轮箱侧轴承估计温度
+    # TODO-发电机健康度
     flag = 0
     value_list = []
     for para,attr in para_value_dict.items():
@@ -1150,258 +1008,131 @@ def grGearboxMotorHealthyLevel(wtgs_id,current_time,para_value_dict):#齿轮箱�
         else:
             return value_last_state
 
-def grGearboxOilPressureA2(attribute,wtgs_id,current_time):#齿轮箱A2压力
+def grGearboxOilPressureA2(attribute,wtgs_id,current_time,his):#齿轮箱A2压力
     # TODO-齿轮箱A2压力
-    # 神经网络参数
-    argv_dict = weightBias(attribute)
-    # 时间设定
-    from_time_1hour_ago = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-5) + timedelta(
-        hours=-1)
-    to_time_1hour_ago = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=5) + timedelta(
-        hours=-1)
-    from_time_1hour_ago = from_time_1hour_ago.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_1hour_ago = to_time_1hour_ago.strftime("%Y-%m-%d %H:%M:%S")
-    from_time_now = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-5)
-    to_time_now = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=5)
-    from_time_now = from_time_now.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_now = to_time_now.strftime("%Y-%m-%d %H:%M:%S")
-    from_time_30MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-900)
-    to_time_30MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=900)
-    from_time_30MIN = from_time_30MIN.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_30MIN = to_time_30MIN.strftime("%Y-%m-%d %H:%M:%S")
-    from_time_10MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-300)
-    to_time_10MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=300)
-    from_time_10MIN = from_time_10MIN.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_10MIN = to_time_10MIN.strftime("%Y-%m-%d %H:%M:%S")
-    from_time_1hour = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-1800)
-    to_time_1hour = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=1800)
-    from_time_1hour = from_time_1hour.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_1hour = to_time_1hour.strftime("%Y-%m-%d %H:%M:%S")
-    # 输入变量-齿轮箱油温：grgearboxoiltemperture
-    tag_golden_index = readTagIndex('grgearboxoiltemperture', wtgs_id)  # 查询标签点在golden中的id
-    grGearboxoilTempertureValue = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    grGearboxoilTempertureValue = 50
-    # 输入变量-发电机前轴承温度：grgeneratorgearboxsidebearingtemperature
-    tag_golden_index = readTagIndex('grgeneratornacellesidebearingtemperature', wtgs_id)  # 查询标签点在golden中的id
-    grGeneratorGearboxsideBearingTemperatureValue = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now,to_time_now)
-    grGeneratorGearboxsideBearingTemperatureValue = 50
-    # 输入变量-齿轮箱油泵1高速：gbgearboxpumphighspeedon1
-    tag_golden_index = readTagIndex('gbgearboxpumphighspeedon1', wtgs_id)  # 查询标签点在golden中的id
-    gbGearboxPumpHighSpeedon1 = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    gbGearboxPumpHighSpeedon1=1
-    # 输入变量-齿轮箱油泵2高速：gbgearboxpumphighspeedon2
-    tag_golden_index = readTagIndex('gbgearboxpumphighspeedon2', wtgs_id)  # 查询标签点在golden中的id
-    gbGearboxPumpHighSpeedon2 = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    gbGearboxPumpHighSpeedon2=0
-    # 输入变量-齿轮箱油泵1低速：gbgearboxpumplowerspeedon1
-    tag_golden_index = readTagIndex('gbgearboxpumplowerspeedon1', wtgs_id)  # 查询标签点在golden中的id
-    gbGearboxPumpLowerSpeedOn1 = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    gbGearboxPumpLowerSpeedOn1=1
-    # 输入变量-齿轮箱油泵2低速：gbgearboxpumphighspeedon1
-    tag_golden_index = readTagIndex('gbgearboxpumplowerspeedon2', wtgs_id)  # 查询标签点在golden中的id
-    gbGearboxPumpLowerSpeedOn2 = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    gbGearboxPumpLowerSpeedOn2=0
-    # 实际输出变量-齿轮箱A2压力：grgearboxoilpressurea2
-    tag_golden_index = readTagIndex('grgearboxoilpressurea2', wtgs_id)  # 查询标签点在golden中的id
-    grGearboxOilPressureA2 = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    argv_dict['input_vector'] = [grGearboxoilTempertureValue, grGeneratorGearboxsideBearingTemperatureValue,
-                                 gbGearboxPumpHighSpeedon1, gbGearboxPumpHighSpeedon2, gbGearboxPumpLowerSpeedOn1,
-                                 gbGearboxPumpLowerSpeedOn2]
-    #print(argv_dict['input_vector'])
-    # if not None in argv_dict['input_vector']:
-    ANN = BP(argv_dict)
-    predict_value = ANN.output
-    if not grGearboxOilPressureA2:
-        grGearboxOilPressureA2 = 0.5
-    if grGearboxOilPressureA2 and predict_value:
-        if float(attribute['healthylevel0']) > float(attribute['healthylevel100']):
-            fromValue = float(attribute['healthylevel100'])
-            toValue = float(attribute['healthylevel0'])
+    if queryRunMode(wtgs_id, current_time) != 14:
+        return 1
+    else:  # 并网的条件下才看健康度
+        predict_value_list = []
+        actual_value_list = []
+        for delta in range(-30, 31):
+            base_time_loop = hisOrFurTime(current_time, delta, 0, 0)
+            # 神经网络参数
+            argv_dict = weightBias(attribute)
+            # 输入变量-运行模式：giwindturbineoperationmode
+            grRunMode = getIntInterpoValuesFromGolden3('giwindturbineoperationmode', wtgs_id, hisOrFurTime(base_time_loop, -1, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-齿轮箱油温：grgearboxoiltemperture
+            grGearboxoilTempertureValue = getFloatInterpoValuesFromGolden2("grgearboxoiltemperture", wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-齿轮箱前轴承温度：grgearboxhubsidebearingtemperature
+            grgearboxhubsidebearingtemperature = getFloatInterpoValuesFromGolden2('grgearboxhubsidebearingtemperature', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-齿轮箱油泵1高速：gbgearboxpumphighspeedon1
+            gbGearboxPumpHighSpeedon1 = getIntInterpoValuesFromGolden3('gbgearboxpumphighspeedon1', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-齿轮箱油泵2高速：gbgearboxpumphighspeedon2
+            gbGearboxPumpHighSpeedon2 = getIntInterpoValuesFromGolden3('gbgearboxpumphighspeedon2', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-齿轮箱油泵1低速：gbgearboxpumplowerspeedon1
+            gbGearboxPumpLowerSpeedOn1 = getIntInterpoValuesFromGolden3('gbgearboxpumplowerspeedon1', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-齿轮箱油泵2低速：gbgearboxpumphighspeedon1
+            gbGearboxPumpLowerSpeedOn2 = getIntInterpoValuesFromGolden3('gbgearboxpumplowerspeedon2', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 实际输出变量-齿轮箱A2压力：grgearboxoilpressurea2
+            grGearboxOilPressureA2 = getFloatInterpoValuesFromGolden2('grgearboxoilpressurea2', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            actual_value_list.append(grGearboxOilPressureA2)
+            #神经网络输入向量
+            argv_dict['input_vector'] = [grGearboxoilTempertureValue, grgearboxhubsidebearingtemperature,
+                                         gbGearboxPumpHighSpeedon1, gbGearboxPumpHighSpeedon2, gbGearboxPumpLowerSpeedOn1,gbGearboxPumpLowerSpeedOn2]
+            if None in argv_dict['input_vector'] or grGearboxOilPressureA2 is None or int(grRunMode) != 14:  # 空或非并网的时候不运算
+                pass
+            elif gbGearboxPumpHighSpeedon1==1 and gbGearboxPumpHighSpeedon2==1:
+                ANN = BP(argv_dict)  # 采用神经网络
+                predict_value_list.append(ANN.output)  # 神经网络预期输出
+        if len(predict_value_list) > 0:
+            healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']),abs(meanData(predict_value_list)-meanData(actual_value_list)))
         else:
-            fromValue = float(attribute['healthylevel0'])
-            toValue = float(attribute['healthylevel100'])
-        abs_value = abs(predict_value - grGearboxOilPressureA2)  # 两者差值的绝对值
-        if abs_value > toValue:
-            return 0
-        elif abs_value <= toValue and abs_value > fromValue:
-            return round((toValue - abs_value) / (toValue - fromValue), 4)
-        else:
-            return 1
-    else:  # 当前时间无存储值
-        loger.warning('grGearboxOilPressureA2' + ' ' + str(wtgs_id) + ' ' + current_time + " is empty!")
-        value_last_state = query_last_state(wtgs_id, current_time, 'grGearboxOilPressureA2', 'healthy_state_index')
-        if value_last_state == 0:
-            return 1
-        else:
-            return value_last_state
+            healthy_score=query_last_state(wtgs_id,current_time,'grGearboxOilPressureA2','healthy_state_index')
+        return healthy_score
 
-def grGearboxOilPressureA3(attribute,wtgs_id,current_time):#齿轮箱A3压力
+def grGearboxOilPressureA3(attribute,wtgs_id,current_time,his):#齿轮箱A3压力
     # TODO-齿轮箱A3压力
-    # 神经网络参数
-    argv_dict = weightBias(attribute)
-    # 时间设定
-    from_time_1hour_ago = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-5) + timedelta(
-        hours=-1)
-    to_time_1hour_ago = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=5) + timedelta(
-        hours=-1)
-    from_time_1hour_ago = from_time_1hour_ago.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_1hour_ago = to_time_1hour_ago.strftime("%Y-%m-%d %H:%M:%S")
-    from_time_now = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-5)
-    to_time_now = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=5)
-    from_time_now = from_time_now.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_now = to_time_now.strftime("%Y-%m-%d %H:%M:%S")
-    from_time_30MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-900)
-    to_time_30MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=900)
-    from_time_30MIN = from_time_30MIN.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_30MIN = to_time_30MIN.strftime("%Y-%m-%d %H:%M:%S")
-    from_time_10MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-300)
-    to_time_10MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=300)
-    from_time_10MIN = from_time_10MIN.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_10MIN = to_time_10MIN.strftime("%Y-%m-%d %H:%M:%S")
-    from_time_1hour = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-1800)
-    to_time_1hour = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=1800)
-    from_time_1hour = from_time_1hour.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_1hour = to_time_1hour.strftime("%Y-%m-%d %H:%M:%S")
-    # 输入变量-齿轮箱油温：grgearboxoiltemperture
-    tag_golden_index = readTagIndex('grgearboxoiltemperture', wtgs_id)  # 查询标签点在golden中的id
-    grGearboxoilTempertureValue = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    grGearboxoilTempertureValue = 50
-    # 输入变量-发电机前轴承温度：grgeneratorgearboxsidebearingtemperature
-    tag_golden_index = readTagIndex('grgeneratornacellesidebearingtemperature', wtgs_id)  # 查询标签点在golden中的id
-    grGeneratorGearboxsideBearingTemperatureValue = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now,to_time_now)
-    grGeneratorGearboxsideBearingTemperatureValue = 50
-    # 输入变量-齿轮箱油泵1高速：gbgearboxpumphighspeedon1
-    tag_golden_index = readTagIndex('gbgearboxpumphighspeedon1', wtgs_id)  # 查询标签点在golden中的id
-    gbGearboxPumpHighSpeedon1 = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    gbGearboxPumpHighSpeedon1=1
-    # 输入变量-齿轮箱油泵2高速：gbgearboxpumphighspeedon2
-    tag_golden_index = readTagIndex('gbgearboxpumphighspeedon2', wtgs_id)  # 查询标签点在golden中的id
-    gbGearboxPumpHighSpeedon2 = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    gbGearboxPumpHighSpeedon2=0
-    # 输入变量-齿轮箱油泵1低速：gbgearboxpumplowerspeedon1
-    tag_golden_index = readTagIndex('gbgearboxpumplowerspeedon1', wtgs_id)  # 查询标签点在golden中的id
-    gbGearboxPumpLowerSpeedOn1 = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    gbGearboxPumpLowerSpeedOn1=1
-    # 输入变量-齿轮箱油泵2低速：gbgearboxpumphighspeedon1
-    tag_golden_index = readTagIndex('gbgearboxpumplowerspeedon2', wtgs_id)  # 查询标签点在golden中的id
-    gbGearboxPumpLowerSpeedOn2 = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    gbGearboxPumpLowerSpeedOn2=0
-    # 实际输出变量-齿轮箱A3压力：grgearboxoilpressurea3
-    tag_golden_index = readTagIndex('grgearboxoilpressurea3', wtgs_id)  # 查询标签点在golden中的id
-    grGearboxOilPressureA3 = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    argv_dict['input_vector'] = [grGearboxoilTempertureValue, grGeneratorGearboxsideBearingTemperatureValue,
-                                 gbGearboxPumpHighSpeedon1, gbGearboxPumpHighSpeedon2, gbGearboxPumpLowerSpeedOn1,
-                                 gbGearboxPumpLowerSpeedOn2]
-    #print(argv_dict['input_vector'])
-    # if not None in argv_dict['input_vector']:
-    ANN = BP(argv_dict)
-    predict_value = ANN.output
-    if not grGearboxOilPressureA3:
-        grGearboxOilPressureA3 = 0.5
-    if grGearboxOilPressureA3 and predict_value:
-        if float(attribute['healthylevel0']) > float(attribute['healthylevel100']):
-            fromValue = float(attribute['healthylevel100'])
-            toValue = float(attribute['healthylevel0'])
+    if queryRunMode(wtgs_id, current_time) != 14:
+        return 1
+    else:  # 并网的条件下才看健康度
+        predict_value_list = []
+        actual_value_list = []
+        for delta in range(-30, 31):
+            base_time_loop = hisOrFurTime(current_time, delta, 0, 0)
+            # 神经网络参数
+            argv_dict = weightBias(attribute)
+            # 输入变量-运行模式：giwindturbineoperationmode
+            grRunMode = getIntInterpoValuesFromGolden3('giwindturbineoperationmode', wtgs_id, hisOrFurTime(base_time_loop, -1, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-齿轮箱油温：grgearboxoiltemperture
+            grGearboxoilTempertureValue = getFloatInterpoValuesFromGolden2("grgearboxoiltemperture", wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-齿轮箱前轴承温度：grgearboxhubsidebearingtemperature
+            grgearboxhubsidebearingtemperature = getFloatInterpoValuesFromGolden2('grgearboxhubsidebearingtemperature', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-齿轮箱油泵1高速：gbgearboxpumphighspeedon1
+            gbGearboxPumpHighSpeedon1 = getIntInterpoValuesFromGolden3('gbgearboxpumphighspeedon1', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-齿轮箱油泵2高速：gbgearboxpumphighspeedon2
+            gbGearboxPumpHighSpeedon2 = getIntInterpoValuesFromGolden3('gbgearboxpumphighspeedon2', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-齿轮箱油泵1低速：gbgearboxpumplowerspeedon1
+            gbGearboxPumpLowerSpeedOn1 = getIntInterpoValuesFromGolden3('gbgearboxpumplowerspeedon1', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-齿轮箱油泵2低速：gbgearboxpumphighspeedon1
+            gbGearboxPumpLowerSpeedOn2 = getIntInterpoValuesFromGolden3('gbgearboxpumplowerspeedon2', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 实际输出变量-齿轮箱A3压力：grgearboxoilpressurea3
+            grGearboxOilPressureA3 = getFloatInterpoValuesFromGolden2('grgearboxoilpressurea3', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            actual_value_list.append(grGearboxOilPressureA3)
+            #神经网络输入向量
+            argv_dict['input_vector'] = [grGearboxoilTempertureValue, grgearboxhubsidebearingtemperature,
+                                         gbGearboxPumpHighSpeedon1, gbGearboxPumpHighSpeedon2, gbGearboxPumpLowerSpeedOn1,gbGearboxPumpLowerSpeedOn2]
+            if None in argv_dict['input_vector'] or grGearboxOilPressureA3 is None or int(grRunMode) != 14:  # 空或非并网的时候不运算
+                pass
+            elif gbGearboxPumpHighSpeedon1 == 1 and gbGearboxPumpHighSpeedon2 == 1:
+                ANN = BP(argv_dict)  # 采用神经网络
+                predict_value_list.append(ANN.output)  # 神经网络预期输出
+        if len(predict_value_list) > 0:
+            healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']),abs(meanData(predict_value_list) - meanData(actual_value_list)))
         else:
-            fromValue = float(attribute['healthylevel0'])
-            toValue = float(attribute['healthylevel100'])
-        abs_value = abs(predict_value - grGearboxOilPressureA3)  # 两者差值的绝对值
-        if abs_value > toValue:
-            return 0
-        elif abs_value <= toValue and abs_value > fromValue:
-            return round((toValue - abs_value) / (toValue - fromValue), 4)
-        else:
-            return 1
-    else:  # 当前时间无存储值
-        loger.warning('grGearboxOilPressureA3' + ' ' + str(wtgs_id) + ' ' + current_time + " is empty!")
-        value_last_state = query_last_state(wtgs_id, current_time, 'grGearboxOilPressureA3', 'healthy_state_index')
-        if value_last_state == 0:
-            return 1
-        else:
-            return value_last_state
+            healthy_score=query_last_state(wtgs_id,current_time,'grGearboxOilPressureA3','healthy_state_index')
+        return healthy_score
 
-def grGearboxOilPressureA4(attribute,wtgs_id,current_time):#齿轮箱A4压力
+def grGearboxOilPressureA4(attribute,wtgs_id,current_time,his):#齿轮箱A4压力
     # TODO-齿轮箱A4压力
-    # 神经网络参数
-    argv_dict = weightBias(attribute)
-    # 时间设定
-    from_time_1hour_ago = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-5) + timedelta(hours=-1)
-    to_time_1hour_ago = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=5) + timedelta(hours=-1)
-    from_time_1hour_ago = from_time_1hour_ago.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_1hour_ago = to_time_1hour_ago.strftime("%Y-%m-%d %H:%M:%S")
-    from_time_now = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-5)
-    to_time_now = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=5)
-    from_time_now = from_time_now.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_now = to_time_now.strftime("%Y-%m-%d %H:%M:%S")
-    from_time_30MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-900)
-    to_time_30MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=900)
-    from_time_30MIN = from_time_30MIN.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_30MIN = to_time_30MIN.strftime("%Y-%m-%d %H:%M:%S")
-    from_time_10MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-300)
-    to_time_10MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=300)
-    from_time_10MIN = from_time_10MIN.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_10MIN = to_time_10MIN.strftime("%Y-%m-%d %H:%M:%S")
-    from_time_1hour = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-1800)
-    to_time_1hour = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=1800)
-    from_time_1hour = from_time_1hour.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_1hour = to_time_1hour.strftime("%Y-%m-%d %H:%M:%S")
-    # 输入变量-齿轮箱油温：grgearboxoiltemperture
-    tag_golden_index = readTagIndex('grgearboxoiltemperture', wtgs_id)  # 查询标签点在golden中的id
-    grGearboxoilTempertureValue = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    grGearboxoilTempertureValue = 50
-    # 输入变量-发电机前轴承温度：grgeneratorgearboxsidebearingtemperature
-    tag_golden_index = readTagIndex('grgeneratornacellesidebearingtemperature', wtgs_id)  # 查询标签点在golden中的id
-    grGeneratorGearboxsideBearingTemperatureValue = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now,to_time_now)
-    grGeneratorGearboxsideBearingTemperatureValue = 50
-    # 输入变量-齿轮箱油泵1高速：gbgearboxpumphighspeedon1
-    tag_golden_index = readTagIndex('gbgearboxpumphighspeedon1', wtgs_id)  # 查询标签点在golden中的id
-    gbGearboxPumpHighSpeedon1 = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    gbGearboxPumpHighSpeedon1=1
-    # 输入变量-齿轮箱油泵2高速：gbgearboxpumphighspeedon2
-    tag_golden_index = readTagIndex('gbgearboxpumphighspeedon2', wtgs_id)  # 查询标签点在golden中的id
-    gbGearboxPumpHighSpeedon2 = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    gbGearboxPumpHighSpeedon2=0
-    # 输入变量-齿轮箱油泵1低速：gbgearboxpumplowerspeedon1
-    tag_golden_index = readTagIndex('gbgearboxpumplowerspeedon1', wtgs_id)  # 查询标签点在golden中的id
-    gbGearboxPumpLowerSpeedOn1 = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    gbGearboxPumpLowerSpeedOn1=1
-    # 输入变量-齿轮箱油泵2低速：gbgearboxpumphighspeedon1
-    tag_golden_index = readTagIndex('gbgearboxpumplowerspeedon2', wtgs_id)  # 查询标签点在golden中的id
-    gbGearboxPumpLowerSpeedOn2 = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    gbGearboxPumpLowerSpeedOn2=0
-    # 实际输出变量-齿轮箱A4压力：grgearboxoilpressurea4
-    tag_golden_index = readTagIndex('grgearboxoilpressurea4', wtgs_id)  # 查询标签点在golden中的id
-    grGearboxOilPressureA4 = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    argv_dict['input_vector'] = [grGearboxoilTempertureValue, grGeneratorGearboxsideBearingTemperatureValue,
-                                 gbGearboxPumpHighSpeedon1, gbGearboxPumpHighSpeedon2, gbGearboxPumpLowerSpeedOn1,
-                                 gbGearboxPumpLowerSpeedOn2]
-    #print(argv_dict['input_vector'])
-    # if not None in argv_dict['input_vector']:
-    ANN = BP(argv_dict)
-    predict_value = ANN.output
-    if not grGearboxOilPressureA4:
-        grGearboxOilPressureA4 = 0.5
-    if grGearboxOilPressureA3 and predict_value:
-        if float(attribute['healthylevel0']) > float(attribute['healthylevel100']):
-            fromValue = float(attribute['healthylevel100'])
-            toValue = float(attribute['healthylevel0'])
+    if queryRunMode(wtgs_id, current_time) != 14:
+        return 1
+    else:  # 并网的条件下才看健康度
+        predict_value_list = []
+        actual_value_list = []
+        for delta in range(-30, 31):
+            base_time_loop = hisOrFurTime(current_time, delta, 0, 0)
+            # 神经网络参数
+            argv_dict = weightBias(attribute)
+            # 输入变量-运行模式：giwindturbineoperationmode
+            grRunMode = getIntInterpoValuesFromGolden3('giwindturbineoperationmode', wtgs_id, hisOrFurTime(base_time_loop, -1, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-齿轮箱油温：grgearboxoiltemperture
+            grGearboxoilTempertureValue = getFloatInterpoValuesFromGolden2("grgearboxoiltemperture", wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-齿轮箱前轴承温度：grgearboxhubsidebearingtemperature
+            grgearboxhubsidebearingtemperature = getFloatInterpoValuesFromGolden2('grgearboxhubsidebearingtemperature', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-齿轮箱油泵1高速：gbgearboxpumphighspeedon1
+            gbGearboxPumpHighSpeedon1 = getIntInterpoValuesFromGolden3('gbgearboxpumphighspeedon1', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-齿轮箱油泵2高速：gbgearboxpumphighspeedon2
+            gbGearboxPumpHighSpeedon2 = getIntInterpoValuesFromGolden3('gbgearboxpumphighspeedon2', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-齿轮箱油泵1低速：gbgearboxpumplowerspeedon1
+            gbGearboxPumpLowerSpeedOn1 = getIntInterpoValuesFromGolden3('gbgearboxpumplowerspeedon1', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-齿轮箱油泵2低速：gbgearboxpumphighspeedon1
+            gbGearboxPumpLowerSpeedOn2 = getIntInterpoValuesFromGolden3('gbgearboxpumplowerspeedon2', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 实际输出变量-齿轮箱A4压力：grgearboxoilpressurea4
+            grGearboxOilPressureA4 = getFloatInterpoValuesFromGolden2('grgearboxoilpressurea4', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            actual_value_list.append(grGearboxOilPressureA4)
+            #神经网络输入向量
+            argv_dict['input_vector'] = [grGearboxoilTempertureValue, grgearboxhubsidebearingtemperature,
+                                         gbGearboxPumpHighSpeedon1, gbGearboxPumpHighSpeedon2, gbGearboxPumpLowerSpeedOn1,gbGearboxPumpLowerSpeedOn2]
+            if None in argv_dict['input_vector'] or grGearboxOilPressureA4 is None or int(grRunMode) != 14:  # 空或非并网的时候不运算
+                pass
+            elif gbGearboxPumpHighSpeedon1 == 1 and gbGearboxPumpHighSpeedon2 == 1:
+                ANN = BP(argv_dict)  # 采用神经网络
+                predict_value_list.append(ANN.output)  # 神经网络预期输出
+        if len(predict_value_list) > 0:
+            healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']),abs(meanData(predict_value_list) - meanData(actual_value_list)))
         else:
-            fromValue = float(attribute['healthylevel0'])
-            toValue = float(attribute['healthylevel100'])
-        abs_value = abs(predict_value - grGearboxOilPressureA4)  # 两者差值的绝对值
-        if abs_value > toValue:
-            return 0
-        elif abs_value <= toValue and abs_value > fromValue:
-            return round((toValue - abs_value) / (toValue - fromValue), 4)
-        else:
-            return 1
-    else:  # 当前时间无存储值
-        loger.warning('grGearboxOilPressureA4' + ' ' + str(wtgs_id) + ' ' + current_time + " is empty!")
-        value_last_state = query_last_state(wtgs_id, current_time, 'grGearboxOilPressureA4', 'healthy_state_index')
-        if value_last_state == 0:
-            return 1
-        else:
-            return value_last_state
+            healthy_score=query_last_state(wtgs_id,current_time,'grGearboxOilPressureA4','healthy_state_index')
+        return healthy_score
 
 def grGearboxLubricationPumpHealthyLevel(wtgs_id,current_time,para_value_dict):#齿轮箱润滑泵健康度
     # TODO-齿轮箱润滑泵健康度
@@ -1423,7 +1154,7 @@ def grGearboxLubricationPumpHealthyLevel(wtgs_id,current_time,para_value_dict):#
             return value_last_state
 
 def grGearboxMainPumpFilter1ErrorTemperature(index, fromValue, toValue, wtgs_id,from_time_now,current_time,to_time,his):#齿轮箱主泵滤芯1堵塞时温度
-    # TODO-TESTED-齿轮箱主泵滤芯1堵塞时温度-强制设为1，后续加堵塞信号
+    # TODO-TESTED-齿轮箱主泵滤芯1堵塞时温度-强制设为1, 后续加堵塞信号
     # res = descend(index, fromValue, toValue, wtgs_id,from_time_now,current_time,to_time,his)
     # if res==0 or res is None:
     #     return 1
@@ -1434,7 +1165,7 @@ def grGearboxMainPumpFilter1ErrorTemperature(index, fromValue, toValue, wtgs_id,
     return 1
 
 def grGearboxMainPumpFilter2ErrorTemperature(index, fromValue, toValue, wtgs_id,from_time_now,current_time,to_time,his):#齿轮箱主泵滤芯2堵塞时温度
-    # TODO-TESTED-齿轮箱主泵滤芯2堵塞时温度-强制设为1，后续加堵塞信号
+    # TODO-TESTED-齿轮箱主泵滤芯2堵塞时温度-强制设为1, 后续加堵塞信号
     # res = descend(index, fromValue, toValue, wtgs_id,from_time_now,current_time,to_time,his)
     # if res==0 or res is None:
     #     return 1
@@ -1480,103 +1211,62 @@ def grGearboxOilCoolerMotorOperationTime(index, fromValue, toValue, wtgs_id,from
     else:
         return res
 
-def grGearboxOilTemperature(attribute,wtgs_id,current_time):#散热器本体健康度-齿轮箱油温反应
-    # TODO-散热器本体健康度-齿轮箱油温反应
-    # 神经网络参数
-    argv_dict = weightBias(attribute)
-    # 时间设定
-    from_time_now = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-5)
-    to_time_now = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=5)
-    from_time_now = from_time_now.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_now = to_time_now.strftime("%Y-%m-%d %H:%M:%S")
-    from_time_1hour = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-1800)
-    to_time_1hour = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=1800)
-    from_time_1hour = from_time_1hour.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_1hour = to_time_1hour.strftime("%Y-%m-%d %H:%M:%S")
-    from_time_30MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-900)
-    to_time_30MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=900)
-    from_time_30MIN = from_time_30MIN.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_30MIN = to_time_30MIN.strftime("%Y-%m-%d %H:%M:%S")
-    from_time_10MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-300)
-    to_time_10MIN = datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=300)
-    from_time_10MIN = from_time_10MIN.strftime("%Y-%m-%d %H:%M:%S")
-    to_time_10MIN = to_time_10MIN.strftime("%Y-%m-%d %H:%M:%S")
-    # 输入变量-室外温度：groutdoortemperature
-    tag_golden_index = readTagIndex('groutdoortemperature', wtgs_id)  # 查询标签点在golden中的id
-    grOutdoorTemperatureValue = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    # 输入变量-齿轮箱油冷风扇启动信号：gbgearboxoilfanon
-    tag_golden_index = readTagIndex('gbgearboxoilfanon', wtgs_id)  # 查询标签点在golden中的id
-    gbGearboxOilFanonValue = gbGearboxOilFanOn(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    gbGearboxOilFanonValue=1
-    # 输入变量-齿轮箱主轴承温度：grgearboxmainbearingtemperature
-    tag_golden_index = readTagIndex('grgearboxmainbearingtemperature', wtgs_id)  # 查询标签点在golden中的id
-    grGearboxMainBearingTemperatureValue = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    grGearboxMainBearingTemperatureValue=50
-    # 输入变量-齿轮箱后轴承温度：grgearboxgeneratorsidebearingtemperature
-    tag_golden_index = readTagIndex('grgearboxgeneratorsidebearingtemperature', wtgs_id)  # 查询标签点在golden中的id
-    grGearboxGeneratorSideBearingTemperatureValue = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    grGearboxGeneratorSideBearingTemperatureValue=50
-    # 输入变量-齿轮箱前轴承温度：grgearboxhubsidebearingtemperature
-    tag_golden_index = readTagIndex('grgearboxhubsidebearingtemperature', wtgs_id)  # 查询标签点在golden中的id
-    grGearboxHubsideBearingTemperatureValue = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    grGearboxHubsideBearingTemperatureValue=50
-    # 输入变量-30分钟平均功率：grgridactivepower
-    tag_golden_index = readTagIndex('grgridactivepower', wtgs_id)  # 查询标签点在golden中的id
-    grGridActivePowerValue_30MIN = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_30MIN, to_time_30MIN)
-    # 输入变量-10分钟平均功率：grgridactivepower
-    tag_golden_index = readTagIndex('grgridactivepower', wtgs_id)  # 查询标签点在golden中的id
-    grGridActivePowerValue_10MIN = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_10MIN, to_time_10MIN)
-    # 输入变量-油冷风扇60分钟的启动次数：gbgearboxoilfanon
-    tag_golden_index = readTagIndex('gbgearboxoilfanon', wtgs_id)  # 查询标签点在golden中的id
-    gbGearboxOilFanOn_1hour = gbGearboxOilFanOn(tag_golden_index, wtgs_id, from_time_1hour, to_time_1hour)
-    gbGearboxOilFanOn_1hour=10
-    # 输入变量-本次机组运行时间：runtime
-    runtime = 36
-    # 输入变量-本次机组停机时间：halttime
-    halttime = 0
-    # 输入变量-发电机10分钟平均转速：grgeneratorspeed1
-    tag_golden_index = readTagIndex('grgeneratorspeed1', wtgs_id)  # 查询标签点在golden中的id
-    grGeneratorSpeed1Value_10MIN = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_10MIN, to_time_10MIN)
-    # 输入变量-10分钟平均风速：grwindspeed
-    tag_golden_index = readTagIndex('grwindspeed', wtgs_id)  # 查询标签点在golden中的id
-    grWindSpeedValue_10MIN = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_10MIN, to_time_10MIN)
-    # 输入变量-10分钟平均油位：grgearboxoillevel
-    tag_golden_index = readTagIndex('grgearboxoillevel', wtgs_id)  # 查询标签点在golden中的id
-    grGearboxOilLevel_10MIN = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_10MIN, to_time_10MIN)
-    # 实际输出变量-齿轮箱油温：grgearboxoiltemperture
-    tag_golden_index = readTagIndex('grgearboxoiltemperture', wtgs_id)  # 查询标签点在golden中的id
-    grGearboxOilTemperture = getFloatInterpoValuesFromGolden2(tag_golden_index, wtgs_id, from_time_now, to_time_now)
-    argv_dict['input_vector'] = [grOutdoorTemperatureValue, gbGearboxOilFanonValue, grGearboxMainBearingTemperatureValue,
-                                 grGearboxGeneratorSideBearingTemperatureValue,grGearboxHubsideBearingTemperatureValue,
-                                 grGridActivePowerValue_30MIN, grGridActivePowerValue_10MIN, gbGearboxOilFanOn_1hour, runtime,
-                                 halttime, grGeneratorSpeed1Value_10MIN,grWindSpeedValue_10MIN,grGearboxOilLevel_10MIN]
-    #print('aa',argv_dict['input_vector'])
-    # if not None in argv_dict['input_vector']:
-    ANN = BP(argv_dict)
-    predict_value = ANN.output
-    if not grGearboxOilTemperture:
-        grGearboxOilTemperture = 50
-    if grGearboxOilTemperture and predict_value:
-        if float(attribute['healthylevel0']) > float(attribute['healthylevel100']):
-            fromValue = float(attribute['healthylevel100'])
-            toValue = float(attribute['healthylevel0'])
+def grGearboxOilTemperature(attribute,wtgs_id,current_time,his):#齿轮箱油温
+    # TODO-齿轮箱油温
+    if queryRunMode(wtgs_id, current_time) != 14:
+        return 1
+    else:  # 并网的条件下才看健康度
+        predict_value_list = []
+        actual_value_list = []
+        for delta in range(-30, 31):
+            base_time_loop = hisOrFurTime(current_time, delta, 0, 0)
+            # 神经网络参数
+            argv_dict = weightBias(attribute)
+            # 输入变量-运行模式：giwindturbineoperationmode
+            grRunMode = getIntInterpoValuesFromGolden3('giwindturbineoperationmode', wtgs_id, hisOrFurTime(base_time_loop, -1, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-室外温度：groutdoortemperature
+            grOutdoorTemperatureValue = getFloatInterpoValuesFromGolden2('groutdoortemperature', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-齿轮箱油冷风扇启动信号：gbgearboxoilfanon
+            gbGearboxOilFanonValue = getIntInterpoValuesFromGolden3('gbgearboxoilfanon', wtgs_id, hisOrFurTime(base_time_loop, -1, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-齿轮箱主轴承温度：grgearboxmainbearingtemperature
+            grGearboxMainBearingTemperatureValue = getFloatInterpoValuesFromGolden2('grgearboxmainbearingtemperature', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-齿轮箱后轴承温度：grgearboxgeneratorsidebearingtemperature
+            grGearboxGeneratorSideBearingTemperatureValue = getFloatInterpoValuesFromGolden2('grgearboxgeneratorsidebearingtemperature', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-齿轮箱前轴承温度：grgearboxhubsidebearingtemperature
+            grGearboxHubsideBearingTemperatureValue = getFloatInterpoValuesFromGolden2('grgearboxhubsidebearingtemperature', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-30分钟平均功率：grgridactivepower
+            grGridActivePowerValue_30MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id, hisOrFurTime(base_time_loop, -900, 0, 0),hisOrFurTime(base_time_loop, 900, 0, 0), his)
+            # 输入变量-10分钟平均功率：grgridactivepower
+            grGridActivePowerValue_10MIN = getFloatInterpoValuesFromGolden2('grgridactivepower', wtgs_id, hisOrFurTime(base_time_loop, -300, 0, 0),hisOrFurTime(base_time_loop, 300, 0, 0), his)
+            # 输入变量-油冷风扇60分钟的启动次数：gbgearboxoilfanon
+            gbGearboxOilFanOn_1hour = gbGearboxOilFanOn('gbgearboxoilfanon', wtgs_id, hisOrFurTime(base_time_loop, -3600, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-本次机组运行时间：runtime
+            # 输入变量-本次机组停机时间：halttime
+            [runtime, halttime] = queryRunHaltTime(wtgs_id, base_time_loop)
+            # 输入变量-发电机10分钟平均转速：grgeneratorspeed1
+            grGeneratorSpeed1Value_10MIN = getFloatInterpoValuesFromGolden2('grgeneratorspeed1', wtgs_id, hisOrFurTime(base_time_loop, -600, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-10分钟平均风速：grwindspeed
+            grWindSpeedValue_10MIN = getFloatInterpoValuesFromGolden2('grwindspeed', wtgs_id, hisOrFurTime(base_time_loop, -600, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 输入变量-10分钟平均油位：grgearboxoillevel
+            grGearboxOilLevel_10MIN = getFloatInterpoValuesFromGolden2('grgearboxoillevel', wtgs_id, hisOrFurTime(base_time_loop, -600, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            # 实际输出变量-齿轮箱油温：grgearboxoiltemperture
+            grGearboxOilTemperture = getFloatInterpoValuesFromGolden2('grgearboxoiltemperture', wtgs_id, hisOrFurTime(base_time_loop, -5, 0, 0),hisOrFurTime(base_time_loop, 0, 0, 0), his)
+            actual_value_list.append(grGearboxOilTemperture)
+            #神经网络输入变量
+            argv_dict['input_vector'] = [grOutdoorTemperatureValue, gbGearboxOilFanonValue, grGearboxMainBearingTemperatureValue,
+                                         grGearboxGeneratorSideBearingTemperatureValue,grGearboxHubsideBearingTemperatureValue,
+                                         grGridActivePowerValue_30MIN, grGridActivePowerValue_10MIN, gbGearboxOilFanOn_1hour, runtime,
+                                         halttime, grGeneratorSpeed1Value_10MIN,grWindSpeedValue_10MIN,grGearboxOilLevel_10MIN]
+            if None in argv_dict['input_vector'] or grGearboxOilTemperture is None or int(grRunMode) != 14:  # 空或非并网的时候不运算
+                pass
+            elif gbGearboxOilFanonValue==1: # 散热风扇开启
+                ANN = BP(argv_dict)  # 采用神经网络
+                predict_value_list.append(ANN.output)  # 神经网络预期输出
+        if len(predict_value_list) > 0:
+            healthy_score = ANNLinearDescend(float(attribute['healthylevel0']), float(attribute['healthylevel100']),abs(meanData(predict_value_list) - meanData(actual_value_list)))
         else:
-            fromValue = float(attribute['healthylevel0'])
-            toValue = float(attribute['healthylevel100'])
-        abs_value = abs(predict_value - grGearboxOilTemperture)  # 两者差值的绝对值
-        if abs_value > toValue:
-            return 0
-        elif abs_value <= toValue and abs_value > fromValue:
-            return round((toValue - abs_value) / (toValue - fromValue), 4)
-        else:
-            return 1
-    else:  # 当前时间无存储值
-        loger.warning('grgearboxoiltemperture' + ' ' + str(wtgs_id) + ' ' + current_time + " is empty!")
-        value_last_state = query_last_state(wtgs_id, current_time, 'grGearboxOilTemperature', 'healthy_state_index')
-        if value_last_state == 0:
-            return 1
-        else:
-            return value_last_state
+            healthy_score=query_last_state(wtgs_id,current_time,'grGearboxOilTemperature','healthy_state_index')
+        return healthy_score
 
 def grGearboxBypassPumpMotorOperationTime(index, fromValue, toValue, wtgs_id,from_time_now,current_time,to_time,his):#齿轮箱过滤泵电机运行时间
     # TODO-TESTED
@@ -1591,7 +1281,7 @@ def grGearboxBypassPumpMotorOperationTime(index, fromValue, toValue, wtgs_id,fro
         return res
 
 def grGearboxBypassPumpFilterErrorTemperature(index, fromValue, toValue, wtgs_id,from_time_now,current_time,to_time,his):#齿轮箱过滤泵滤芯堵塞温度
-    # TODO-TESTED-齿轮箱过滤泵滤芯堵塞温度-强制设为1，后续加堵塞信号
+    # TODO-TESTED-齿轮箱过滤泵滤芯堵塞温度-强制设为1, 后续加堵塞信号
     return 1
     # res = descend(index, fromValue, toValue, wtgs_id,from_time_now,current_time,to_time,his)
     # if res is None:#如果返回值为空
@@ -2374,7 +2064,7 @@ def ascend(index, fromValue, toValue, wtgs_id,from_time_now,current_time,to_time
         fromValue, toValue = toValue, fromValue
     tag_golden_index = readTagIndex(index, wtgs_id)  # 查询标签点在golden中的id
     try:
-        latest_real_data = getFloatInterpoValuesFromGolden(tag_golden_index, wtgs_id, from_time_now, to_time_now,his)
+        latest_real_data = getFloatInterpoValuesFromGolden(tag_golden_index, from_time_now, to_time_now,his)
         latest_real_data=removeAbnormalDatas(latest_real_data)
         degreelist=[]
         if latest_real_data:
@@ -2399,7 +2089,7 @@ def ascend1(index, fromValue, toValue, wtgs_id,from_time_now,current_time,to_tim
         fromValue, toValue = toValue, fromValue
     tag_golden_index = readTagIndex(index, wtgs_id)  # 查询标签点在golden中的id
     try:
-        latest_real_data = getFloatInterpoValuesFromGolden(tag_golden_index, wtgs_id, from_time_now, to_time_now,his)
+        latest_real_data = getFloatInterpoValuesFromGolden(tag_golden_index, from_time_now, to_time_now,his)
         latest_real_data=removeAbnormalDatas(latest_real_data)
         degreelist=[]
         if latest_real_data:
@@ -2419,12 +2109,12 @@ def ascend1(index, fromValue, toValue, wtgs_id,from_time_now,current_time,to_tim
     finally:
         pass
 
-def descend(index, fromValue, toValue, wtgs_id,from_time_now,current_time,to_time_now,his):#线性减小型
+def descend(index, fromValue, toValue, wtgs_id,from_time_now,current_time,to_time_now,his):#线性减小型\
     if fromValue > toValue:
         fromValue, toValue = toValue, fromValue
     tag_golden_index = readTagIndex(index, wtgs_id)  # 查询标签点在golden中的id
     try:
-        latest_real_data = getFloatInterpoValuesFromGolden(tag_golden_index, wtgs_id, from_time_now, to_time_now,his)
+        latest_real_data = getFloatInterpoValuesFromGolden(tag_golden_index, from_time_now, to_time_now,his)
         latest_real_data=removeAbnormalDatas(latest_real_data)
         degreelist=[]
         if latest_real_data:
@@ -2536,10 +2226,25 @@ def getIntInterpoValuesFromGolden2(tag_EN,wtgs_id, start_time, end_time, his):#�
     else:
         return None
 
-def gbGearboxOilFanOn(tag_id,start_time, end_time,his):#查数据
+def getIntInterpoValuesFromGolden3(tag_EN,wtgs_id, start_time, end_time, his):#查整型插值数据
     data_unit = autoclass('com.rtdb.api.util.DateUtil')
     count = pd.date_range(start=start_time, end=end_time, freq='S').size
+    tag_id = readTagIndex(tag_EN, wtgs_id)
     result = his.getIntInterpoValues(tag_id, count, data_unit.stringToDate(start_time),data_unit.stringToDate(end_time))
+    if result.size() > 0:
+        values = []
+        for i in range(result.size()):
+            r = result.get(i)
+            values.append(int(r.getValue()))
+        return values[-1]
+    else:
+        return None
+
+def gbGearboxOilFanOn(tag_EN,wtgs_id,start_time, end_time,his):#查数据
+    tag_golden_index = readTagIndex(tag_EN, wtgs_id)  # 查询标签点在golden中的id
+    data_unit = autoclass('com.rtdb.api.util.DateUtil')
+    count = pd.date_range(start=start_time, end=end_time, freq='S').size
+    result = his.getIntInterpoValues(tag_golden_index, count, data_unit.stringToDate(start_time),data_unit.stringToDate(end_time))
     if result.size() > 1:
         values = []
         turn_on_times=0
@@ -2562,18 +2267,18 @@ class BP:
         self.y1_step1_ymin=argv_dict['y1_step1_ymin'] # 逆归一化参数
         self.y1_step1_gain=argv_dict['y1_step1_gain'] # 逆归一化参数
         self.y1_step1_xoffset=argv_dict['y1_step1_xoffset'] # 逆归一化参数
-        self.weight = argv_dict['weight']  # 权重字典，各层的维数不一致
-        self.bias = argv_dict['bias']  # 偏执量字典，各层的维数不一致
+        self.weight = argv_dict['weight']  # 权重字典, 各层的维数不一致
+        self.bias = argv_dict['bias']  # 偏执量字典, 各层的维数不一致
         self.input_vector=self.normalized()
         self.output=self.networks()
         self.output = self.normalizedInverse()
 
-    def networks(self): # 网络运算，获得输出
+    def networks(self): # 网络运算, 获得输出
         local_layer_out = numpy.mat(self.input_vector).T
         for layer in range(len(self.weight)-1): # 隐含层
             local_weight=numpy.mat(self.weight[str(layer)])
             local_layer_out=local_weight*local_layer_out+numpy.mat(self.bias[str(layer)]).T # wx+b mat:n*1
-            local_layer_out=numpy.mat([1/float(1+numpy.exp(-x[0])) for x in local_layer_out.tolist()]).T # sigmoid激活函数
+            local_layer_out=numpy.mat([float(numpy.exp(x[0])-numpy.exp(-x[0]))/float(numpy.exp(x[0])+numpy.exp(-x[0])) for x in local_layer_out.tolist()]).T # sigmoid激活函数
         wx=numpy.mat(self.weight[list(self.weight.keys())[-1]])*local_layer_out # 输出层
         return wx.tolist()[0][0]+self.bias[list(self.bias.keys())[-1]]
 
@@ -2669,6 +2374,10 @@ def removeAbnormalDatas(data):
         new_data=data
     return new_data
 
+def meanData(data):
+    normal_data=removeAbnormalDatas(data)
+    return sum(normal_data)/len(normal_data)
+
 def hisOrFurTime(base_time, seconds_delta, hours_delta, days_delta):
     # 时间范围
     hisOrFurTime = datetime.strptime(base_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=seconds_delta) + timedelta(hours=hours_delta)+timedelta(days=days_delta)
@@ -2710,6 +2419,23 @@ def ANNLinearDescend(fromValue,toValue,xValue):
     else:
         return (toValue-xValue)/(toValue-fromValue)
 
+def A234(fromValue,toValue,predict_value,actual_value):
+    print(predict_value,actual_value)
+    if actual_value*fromValue>toValue:
+        if abs(predict_value-actual_value)<=toValue:
+            return 1
+        elif abs(predict_value-actual_value)>actual_value*fromValue:
+            return 0
+        else:
+            return (actual_value*fromValue-abs(predict_value-actual_value))/(actual_value*fromValue-toValue)
+    else:
+        print('aa')
+        if abs(predict_value-actual_value)<=toValue:
+            return 1
+        else:
+            return 0
+
+
 if __name__=="__main__":
     server_impl = autoclass('com.rtdb.service.impl.ServerImpl')
     server = server_impl("192.168.0.37", 6327, "sa", "golden")
@@ -2717,9 +2443,9 @@ if __name__=="__main__":
     his = historian_impl(server)
     tag='grPitch1MotorOpetationTime'
     id=readTagIndex(tag.lower(),30002001)
-    res1=getFloatInterpoValuesFromGolden(id,'2017-12-19 00:00:00','2017-12-19 02:30:00',his)
+    res1=getFloatInterpoValuesFromGolden(631895, '2017-12-19 00:30:00', '2017-12-19 01:30:00',his)
     res={}
-    res[tag]=res2
+    res[tag]=res1
     res=pd.DataFrame.from_dict(res)
     res.to_excel("C:/Users/llj/Desktop/data/存储值/"+tag+".xlsx",index=False)
 
