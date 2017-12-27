@@ -184,11 +184,11 @@ class mainLoopProcess:
         historian_impl = autoclass('com.rtdb.service.impl.HistorianImpl')
         his = historian_impl(server) # 连接庚顿数据库
         conn = pymysql.connect(host='192.168.0.19', port=3306, user='llj', passwd='llj@2016', db='iot_wind',charset="utf8")
-        sqlstr = "SELECT MAX(realTime) FROM healthy_state_component WHERE wtgsId=\'" + str(wtgs_id) + "\'"
+        sqlstr = "SELECT MAX(realTime) FROM healthy_state_index WHERE wtgsId=\'" + str(wtgs_id) + "\'"
         latest_cal_time = pd.read_sql(sql=sqlstr, con=conn) # 查询机组最新的已经计算的时间
         conn.close()
         from_time = str(latest_cal_time['MAX(realTime)'].iloc[0])
-        # from_time="2017-12-26 19:00:00"
+        # from_time="2017-12-26 10:00:00"
         from_time = datetime.strptime(from_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=3600)
         currentTime = datetime.now().strftime("%Y-%m-%d %H") + ":00:00"  # 整点计算时间
         currentTime = datetime.strptime(currentTime, "%Y-%m-%d %H:%M:%S")
@@ -202,12 +202,12 @@ class mainLoopProcess:
 
 
 if __name__=="__main__":
-    # while True:
-    #     if datetime.now().strftime("%Y-%m-%d %H:%M:%S")[14:16]=='10':
-    #         mainLoopProcess()
-    #     else:
-    #         pass
-    mainLoopProcess()
+    while True:
+        if datetime.now().strftime("%Y-%m-%d %H:%M:%S")[14:16]=='10':
+            mainLoopProcess()
+        else:
+            pass
+    # mainLoopProcess()
 
 
 
