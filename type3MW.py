@@ -11,6 +11,7 @@ import pandas as pd
 import pymysql
 import calFunctionUtils
 import os
+from multiprocessing import Pool
 import numpy
 os.environ['CLASSPATH'] = "./Lib/my.golden.jar"
 from jnius import autoclass
@@ -28,9 +29,9 @@ loger.setLevel(logging.DEBUG)
 class wtgsCalProcess:
     def __init__(self,wtgs_id,currentTime,his):
         self.current_time=currentTime
-        self.from_time = datetime.strptime(self.current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-1800) # 整点时间的前后半个小时
+        self.from_time = datetime.strptime(self.current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=-10) # 整点时间的前后10S
         self.from_time=self.from_time.strftime("%Y-%m-%d %H:%M:%S")
-        self.to_time = datetime.strptime(self.current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=+1800) # 整点时间的前后半个小时
+        self.to_time = datetime.strptime(self.current_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=+10) # 整点时间的前后10S
         self.to_time=self.to_time.strftime("%Y-%m-%d %H:%M:%S")
         self.wtgs_id=wtgs_id
         self.indicator_dictory=self.indicatorSet()
@@ -60,12 +61,12 @@ class wtgsCalProcess:
                 res=getattr(calFunctionUtils,attribute['calfunc'])(attribute['funcpara'], float(attribute['healthylevel0']),float(attribute['healthylevel100']), self.wtgs_id,self.from_time,self.current_time,self.to_time,his)
                 # print(index,res)
                 indicator_cal_result[attribute['resultdbfield']]['flag'] = 1
-                indicator_cal_result[attribute['resultdbfield']]['value']= res
+                indicator_cal_result[attribute['resultdbfield']]['value']= round(res,4)
             elif attribute['dataresource']=='golden' and 'x1_step1_xoffset' in attribute.keys():#计算最底层指标，神经网络类
                 res = getattr(calFunctionUtils, attribute['calfunc'])(attribute,self.wtgs_id,self.current_time,his)
-                print(attribute['indexdsec'],res)
+                # print(attribute['indexdsec'],res)
                 indicator_cal_result[attribute['resultdbfield']]['flag'] = 1
-                indicator_cal_result[attribute['resultdbfield']]['value'] = res
+                indicator_cal_result[attribute['resultdbfield']]['value'] = round(res,4)
         for index,attribute in self.indicator_dictory.items():
             if attribute['resulttable'] == 'healthy_state_index' and attribute['dataresource']=='afterInitialCal':  # 然后计算中间层指标
                 if ',' not in attribute['funcpara']:
@@ -76,7 +77,7 @@ class wtgsCalProcess:
                 res = getattr(calFunctionUtils,attribute['calfunc'])(self.wtgs_id,self.current_time,para_value_dict)
                 # print(attribute['indexdsec'], index,res)
                 indicator_cal_result[attribute['resultdbfield']]['flag'] = 1
-                indicator_cal_result[attribute['resultdbfield']]['value'] = res
+                indicator_cal_result[attribute['resultdbfield']]['value'] = round(res,4)
         for index,attribute in self.indicator_dictory.items():
             if attribute['resulttable'] == 'healthy_state_component' and attribute['resultdbfield'] != 'turbine':  # 接着计算部件系统健康度
                 if ',' not in attribute['funcpara']:
@@ -87,7 +88,7 @@ class wtgsCalProcess:
                 res = getattr(calFunctionUtils,attribute['calfunc'])(self.wtgs_id,self.current_time,para_value_dict)
                 # print(attribute['indexdsec'], res)
                 indicator_cal_result[attribute['resultdbfield']]['flag'] = 1
-                indicator_cal_result[attribute['resultdbfield']]['value'] = res
+                indicator_cal_result[attribute['resultdbfield']]['value'] = round(res,4)
         for index, attribute in self.indicator_dictory.items():
             if attribute['resulttable'] == 'healthy_state_component' and attribute['resultdbfield'] == 'turbine':  # 最后计算整机健康度
                 if ',' not in attribute['funcpara']:
@@ -97,7 +98,7 @@ class wtgsCalProcess:
                 para_value_dict = {name: indicator_cal_result[name] for name in para_name_list}  # 参数值列表
                 res = getattr(calFunctionUtils,attribute['calfunc'])(self.wtgs_id, self.current_time, para_value_dict)
                 indicator_cal_result[attribute['resultdbfield']]['flag'] = 1
-                indicator_cal_result[attribute['resultdbfield']]['value'] = res
+                indicator_cal_result[attribute['resultdbfield']]['value'] = round(res,4)
         indicator_cal_result['grGearboxBypassPumpPressure']={'flag':1,'value':1.0,'table':'healthy_state_index'} # 标签点没有，所建结果表中有，后面确定没有该标签点，删除
         da=pd.DataFrame.from_dict(indicator_cal_result).T
         healthy_state_index_value=da[da['table']=='healthy_state_index']['value']
@@ -105,8 +106,6 @@ class wtgsCalProcess:
         return healthy_state_index_value,healthy_state_component_value
 
     def addRunMode(self):#添加运行模式
-        # run_mode_id=calFunctionUtils.readTagIndex('giwindturbineoperationmode',self.wtgs_id)
-        # run_mode_value=runHaltTime.queryDataFromGolden(run_mode_id,self.from_time,self.to_time)
         self.healthy_state_component_value['runMode'] = 14
 
     def addBaseInfo(self):#添加基本信息
@@ -170,38 +169,41 @@ class wtgsCalProcess:
 
 class mainLoopProcess:
     def __init__(self):
-        # conn = pymysql.connect(host='192.168.0.19', port=3306, user='llj', passwd='llj@2016', db='iot_wind',charset="utf8")
-        # sqlstr = "SELECT MAX(realTime) FROM healthy_state_component"
-        # latest_cal_time = pd.read_sql(sql=sqlstr, con=conn)
-        # conn.close()
-        # from_time=str(latest_cal_time['MAX(realTime)'].iloc[0]) # 已经计算的最新时间
-        from_time="2017-12-26 10:00:00"
-        from_time=datetime.strptime(from_time,"%Y-%m-%d %H:%M:%S")+timedelta(seconds=3600)
-        currentTime=datetime.now().strftime("%Y-%m-%d %H")+":00:00"#整点计算时间
-        currentTime = datetime.strptime(currentTime, "%Y-%m-%d %H:%M:%S")
-
-        while from_time<=currentTime:
-            self.currentTime = from_time.strftime("%Y-%m-%d %H:%M:%S")  # 整点计算时间
-            print(self.currentTime)
-            self.loopWtgs()
-            from_time=from_time+timedelta(seconds=3600)
-            # break
+        self.loopWtgs()
 
     def loopWtgs(self):#循环机组
+        p = Pool(8)
+        for wtgs_id in range(30002001,30002018):
+            p.apply_async(self.loop,args=(wtgs_id,))
+        p.close()
+        p.join()
+
+    def loop(self,wtgs_id):
         server_impl = autoclass('com.rtdb.service.impl.ServerImpl')
         server = server_impl("192.168.0.37", 6327, "mywind", "MyData@2018")
         historian_impl = autoclass('com.rtdb.service.impl.HistorianImpl')
-        his = historian_impl(server)
-        for wtgs_id in range(30002001,30002018):
-            print(wtgs_id)
-            wtgsCalProcess(wtgs_id,self.currentTime,his)
+        his = historian_impl(server) # 连接庚顿数据库
+        conn = pymysql.connect(host='192.168.0.19', port=3306, user='llj', passwd='llj@2016', db='iot_wind',charset="utf8")
+        sqlstr = "SELECT MAX(realTime) FROM healthy_state_component WHERE wtgsId=\'" + str(wtgs_id) + "\'"
+        latest_cal_time = pd.read_sql(sql=sqlstr, con=conn) # 查询机组最新的已经计算的时间
+        conn.close()
+        from_time = str(latest_cal_time['MAX(realTime)'].iloc[0])
+        # from_time="2017-12-26 19:00:00"
+        from_time = datetime.strptime(from_time, "%Y-%m-%d %H:%M:%S") + timedelta(seconds=3600)
+        currentTime = datetime.now().strftime("%Y-%m-%d %H") + ":00:00"  # 整点计算时间
+        currentTime = datetime.strptime(currentTime, "%Y-%m-%d %H:%M:%S")
+        while from_time <= currentTime:
+            self.currentTime = from_time.strftime("%Y-%m-%d %H:%M:%S")  # 整点计算时间
+            print(wtgs_id, self.currentTime)
+            wtgsCalProcess(wtgs_id, self.currentTime, his)
+            from_time = from_time + timedelta(seconds=3600)
         server.close()
         his.close()
 
 
 if __name__=="__main__":
     # while True:
-    #     if datetime.now().strftime("%Y-%m-%d %H:%M:%S")[14:16]=='40':
+    #     if datetime.now().strftime("%Y-%m-%d %H:%M:%S")[14:16]=='10':
     #         mainLoopProcess()
     #     else:
     #         pass
