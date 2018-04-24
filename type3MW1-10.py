@@ -3,7 +3,7 @@
 # @Time    : 2017/11/22 9:12
 # @Author  : liulijun
 # @Site    : 
-# @File    : type3MW.py
+# @File    : type3MW1-10.py
 # @Software: PyCharm
 
 import logging
@@ -173,7 +173,7 @@ class mainLoopProcess:
 
     def loopWtgs(self):#循环机组
         p = Pool(8)
-        for wtgs_id in range(30002001,30002018):
+        for wtgs_id in range(30002001,30002010):
             p.apply_async(self.loop,args=(wtgs_id,))
         p.close()
         p.join()
