@@ -7,11 +7,11 @@
 # @Software: PyCharm
 
 import logging
-import time
 from datetime import datetime
 import pymysql
 import pandas as pd
 import os
+from apscheduler.schedulers.blocking import BlockingScheduler
 os.environ['CLASSPATH'] = "./Lib/my.golden.jar"
 from jnius import autoclass
 from calFunctionUtils import readTagIndex
@@ -25,13 +25,11 @@ loger.setLevel(logging.DEBUG)
 
 class main:
     def __init__(self):
-        while True:
-            self.last_cal_run_halt_time = pd.DataFrame()
-            self.initialer()
-            self.updater()
-            finish_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            print('update finished\'s time:', finish_time)
-            time.sleep(300) # 休眠5分钟，即每十分钟计算一次运行时间和停机时间
+        self.last_cal_run_halt_time = pd.DataFrame()
+        self.initialer()
+        self.updater()
+        finish_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        print('update finished\'s time:', finish_time)
 
     def initialer(self): # 初始化，以数据库中最后一条记录为准，对机组的时间戳、运行时间和停机时间进行初始化
         conn = pymysql.connect(host='192.168.0.19', port=3306, user='llj', passwd='llj@2016', db='iot_wind',charset="utf8")
@@ -41,13 +39,12 @@ class main:
             self.last_cal_run_halt_time=pd.concat([self.last_cal_run_halt_time,latest_cal_state])
         conn.close()
 
-
     def updater(self):# 刷新
 
         to_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         print('update start\'s time:', to_time)
         server_impl = autoclass('com.rtdb.service.impl.ServerImpl')
-        server = server_impl("192.168.0.37", 6327, "sa", "golden")
+        server = server_impl("192.168.0.37", 6327, "mywind", "MyData@2018")
         historian_impl = autoclass('com.rtdb.service.impl.HistorianImpl')
         his = historian_impl(server)
         for wtgs_id in range(30002001,30002018):
@@ -81,10 +78,7 @@ class main:
         finally:
             pass
 
-
-
 def queryDataFromGolden(tag_id,start_time, end_time,his):#查数据
-
     data_unit = autoclass('com.rtdb.api.util.DateUtil')
     count = pd.date_range(start=start_time, end=end_time, freq='S').size
     result = his.getIntArchivedValues(tag_id, count, data_unit.stringToDate(start_time),data_unit.stringToDate(end_time))
@@ -168,5 +162,11 @@ def timeDelta(from_time,to_time):# 时间差
     delta=datetime.strptime(to_time,"%Y-%m-%d %H:%M:%S")-datetime.strptime(from_time,"%Y-%m-%d %H:%M:%S")
     return round(delta.days*24*60+delta.seconds/60,2)
 
-if __name__=="__main__":
-    main()
+if __name__ == '__main__':
+    scheduler = BlockingScheduler()
+    scheduler.add_job(main, 'interval', seconds=300, replace_existing=True)
+    try:
+        scheduler.start()  # 采用的是阻塞的方式，只有一个线程专职做调度的任务
+    except (KeyboardInterrupt, SystemExit):
+        scheduler.shutdown()
+        print('Exit The Job!')
